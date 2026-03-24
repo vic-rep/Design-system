@@ -18,3 +18,12 @@ export type { TooltipProps, TooltipPosition, TooltipType } from "./Tooltip";
 
 export { Modal } from "./Modal";
 export type { ModalProps } from "./Modal";
+
+export { Tabs } from "./Tabs";
+export type { TabsProps, TabItem } from "./Tabs";
+
+export { ContextMenu } from "./ContextMenu";
+export type { ContextMenuProps, ContextMenuItem } from "./ContextMenu";
+
+export { ProgressBar } from "./ProgressBar";
+export type { ProgressBarProps } from "./ProgressBar";
