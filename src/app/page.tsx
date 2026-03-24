@@ -10,6 +10,9 @@ import { Toggle } from "@/components/molecules/Toggle";
 import { Checkbox } from "@/components/molecules/Checkbox";
 import { Tooltip } from "@/components/molecules/Tooltip";
 import { Modal } from "@/components/molecules/Modal";
+import { Tabs } from "@/components/molecules/Tabs";
+import { ContextMenu } from "@/components/molecules/ContextMenu";
+import { ProgressBar } from "@/components/molecules/ProgressBar";
 
 // ─── Component doc metadata ───────────────────────────────────
 const FIGMA_FILE = "nG8PGu5CclffafrfZuMG9G";
@@ -79,6 +82,30 @@ const components: ComponentMeta[] = [
     figmaNode: "448:2624",
     docPath: ".claude/skills/docs/molecules/modal.md",
     description: "Dialog overlay with header, scrollable content, and action buttons. Responsive desktop/mobile.",
+  },
+  {
+    id: "tabs",
+    label: "Tabs",
+    level: "Molecule",
+    figmaNode: "45:9",
+    docPath: ".claude/skills/docs/molecules/tabs.md",
+    description: "Pill-style tab group with sliding active indicator. Active tab uses dark bg with white text.",
+  },
+  {
+    id: "context-menu",
+    label: "Context Menu",
+    level: "Molecule",
+    figmaNode: "45:10",
+    docPath: ".claude/skills/docs/molecules/context-menu.md",
+    description: "Dropdown list with optional icons, additional text, and dividers. 5 interactive states.",
+  },
+  {
+    id: "progress-bar",
+    label: "Progress Bar",
+    level: "Molecule",
+    figmaNode: "45:11",
+    docPath: ".claude/skills/docs/molecules/progress-bar.md",
+    description: "Step progress indicator with back button, step label, and animated fill track.",
   },
 ];
 
@@ -840,6 +867,139 @@ function ModalPreview() {
   );
 }
 
+function TabsPreview() {
+  const meta = components.find((c) => c.id === "tabs")!;
+  const [activeTab, setActiveTab] = useState("tab1");
+  return (
+    <Section {...meta}>
+      <div className="space-y-[var(--xxl)]">
+        <div>
+          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+            Default
+          </p>
+          <Tabs
+            items={[
+              { value: "tab1", label: "Overview" },
+              { value: "tab2", label: "Details" },
+              { value: "tab3", label: "Reviews" },
+            ]}
+            value={activeTab}
+            onChange={setActiveTab}
+          />
+          <p className="mt-[var(--m)] text-[14px] text-[var(--primary-600)]">
+            Active: <strong>{activeTab}</strong>
+          </p>
+        </div>
+        <div>
+          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+            With Disabled Tab
+          </p>
+          <Tabs
+            items={[
+              { value: "a", label: "Active" },
+              { value: "b", label: "Normal" },
+              { value: "c", label: "Disabled", disabled: true },
+            ]}
+            defaultValue="a"
+          />
+        </div>
+        <div>
+          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+            Many Tabs
+          </p>
+          <Tabs
+            items={[
+              { value: "1", label: "Step 1" },
+              { value: "2", label: "Step 2" },
+              { value: "3", label: "Step 3" },
+              { value: "4", label: "Step 4" },
+              { value: "5", label: "Step 5" },
+            ]}
+            defaultValue="3"
+          />
+        </div>
+      </div>
+    </Section>
+  );
+}
+
+function ContextMenuPreview() {
+  const meta = components.find((c) => c.id === "context-menu")!;
+  const [selected, setSelected] = useState<string | null>(null);
+  return (
+    <Section {...meta}>
+      <div className="space-y-[var(--xxl)]">
+        <div>
+          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+            Default (always visible for preview)
+          </p>
+          <div className="inline-block">
+            <ContextMenu
+              open={true}
+              onClose={() => {}}
+              onSelect={setSelected}
+              items={[
+                { id: "edit", label: "Edit", leftIcon: "fa-solid fa-pen" },
+                { id: "duplicate", label: "Duplicate", leftIcon: "fa-solid fa-copy", additionalText: "Ctrl+D" },
+                { id: "share", label: "Share", leftIcon: "fa-solid fa-share-nodes", rightIcon: "fa-solid fa-chevron-right", dividerAfter: true },
+                { id: "archive", label: "Archive", leftIcon: "fa-solid fa-box-archive" },
+                { id: "disabled", label: "Unavailable", leftIcon: "fa-solid fa-lock", disabled: true, dividerAfter: true },
+                { id: "delete", label: "Delete", leftIcon: "fa-solid fa-trash", destructive: true },
+              ]}
+            />
+          </div>
+          {selected && (
+            <p className="mt-[var(--m)] text-[14px] text-[var(--primary-600)]">
+              Selected: <strong>{selected}</strong>
+            </p>
+          )}
+        </div>
+      </div>
+    </Section>
+  );
+}
+
+function ProgressBarPreview() {
+  const meta = components.find((c) => c.id === "progress-bar")!;
+  const [step, setStep] = useState(2);
+  return (
+    <Section {...meta}>
+      <div className="space-y-[var(--xxl)]">
+        <div>
+          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+            Interactive
+          </p>
+          <ProgressBar
+            currentStep={step}
+            totalSteps={5}
+            stepLabel="Vehicle Details"
+            onBack={() => setStep((s) => Math.max(1, s - 1))}
+          />
+          <div className="flex gap-[var(--s)] mt-[var(--m)]">
+            <Button variant="secondary" size="s" onClick={() => setStep((s) => Math.max(1, s - 1))}>
+              Prev
+            </Button>
+            <Button variant="secondary" size="s" onClick={() => setStep((s) => Math.min(5, s + 1))}>
+              Next
+            </Button>
+          </div>
+        </div>
+        <div>
+          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+            Steps
+          </p>
+          <div className="space-y-[var(--m)]">
+            <ProgressBar currentStep={1} totalSteps={4} stepLabel="Step 1" showBack={false} />
+            <ProgressBar currentStep={2} totalSteps={4} stepLabel="Step 2" />
+            <ProgressBar currentStep={3} totalSteps={4} stepLabel="Step 3" />
+            <ProgressBar currentStep={4} totalSteps={4} stepLabel="Complete" />
+          </div>
+        </div>
+      </div>
+    </Section>
+  );
+}
+
 // ─── Main page ────────────────────────────────────────────────
 
 export default function Home() {
@@ -1006,6 +1166,9 @@ export default function Home() {
           {visibleIds.has("checkbox") && <CheckboxPreview />}
           {visibleIds.has("tooltip") && <TooltipPreview />}
           {visibleIds.has("modal") && <ModalPreview />}
+          {visibleIds.has("tabs") && <TabsPreview />}
+          {visibleIds.has("context-menu") && <ContextMenuPreview />}
+          {visibleIds.has("progress-bar") && <ProgressBarPreview />}
         </main>
       </div>
     </div>
