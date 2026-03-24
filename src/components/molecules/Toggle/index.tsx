@@ -63,7 +63,7 @@ export function Toggle({
   };
 
   return (
-    <div className={`inline-flex items-center gap-[var(--space-s)] ${className}`}>
+    <div className={`inline-flex items-center gap-[var(--s)] ${className}`}>
       <button
         type="button"
         id={id}

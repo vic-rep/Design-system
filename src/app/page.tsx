@@ -132,12 +132,12 @@ function DocPreview({
         style={{ boxShadow: "var(--elevation-level4)" }}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between px-[var(--space-xxl)] py-[var(--space-l)] border-b border-[var(--primary-200)]">
+        <div className="flex items-center justify-between px-[var(--xxl)] py-[var(--l)] border-b border-[var(--primary-200)]">
           <div>
             <h3 className="text-[20px] font-semibold text-[var(--primary-900)]">
               Component Documentation
             </h3>
-            <p className="text-[12px] text-[var(--primary-500)] mt-[var(--space-xxs)]">
+            <p className="text-[12px] text-[var(--primary-500)] mt-[var(--xxs)]">
               {docPath}
             </p>
           </div>
@@ -149,9 +149,9 @@ function DocPreview({
             <i className="fa-solid fa-xmark text-[var(--primary-600)]" aria-hidden="true" />
           </button>
         </div>
-        <div className="flex-1 overflow-y-auto px-[var(--space-xxl)] py-[var(--space-l)]">
+        <div className="flex-1 overflow-y-auto px-[var(--xxl)] py-[var(--l)]">
           {loading ? (
-            <div className="flex items-center gap-[var(--space-s)] text-[var(--primary-500)]">
+            <div className="flex items-center gap-[var(--s)] text-[var(--primary-500)]">
               <i className="fa-solid fa-spinner fa-spin" aria-hidden="true" />
               Loading...
             </div>
@@ -190,30 +190,30 @@ function Section({
   const [showDoc, setShowDoc] = useState(false);
 
   return (
-    <section id={id} className="mb-[var(--space-7xl)] scroll-mt-[80px]">
-      <div className="mb-[var(--space-l)] flex items-start justify-between">
+    <section id={id} className="mb-[var(--7xl)] scroll-mt-[80px]">
+      <div className="mb-[var(--l)] flex items-start justify-between">
         <div>
-          <div className="flex items-center gap-[var(--space-s)]">
+          <div className="flex items-center gap-[var(--s)]">
             <h2 className="text-[24px] font-semibold text-[var(--primary-900)]">{title ?? label}</h2>
             {level && (
-              <span className="px-[var(--space-s)] py-[var(--space-xxs)] text-[12px] font-medium rounded-[var(--radius-full)] bg-[var(--accent-100)] text-[var(--accent-800)]">
+              <span className="px-[var(--s)] py-[var(--xxs)] text-[12px] font-medium rounded-[var(--radius-full)] bg-[var(--accent-100)] text-[var(--accent-800)]">
                 {level}
               </span>
             )}
           </div>
           {description && (
-            <p className="mt-[var(--space-xs)] text-[14px] text-[var(--primary-600)] max-w-[600px]">
+            <p className="mt-[var(--xs)] text-[14px] text-[var(--primary-600)] max-w-[600px]">
               {description}
             </p>
           )}
         </div>
-        <div className="flex items-center gap-[var(--space-s)] shrink-0">
+        <div className="flex items-center gap-[var(--s)] shrink-0">
           {figmaNode && (
             <a
               href={`https://www.figma.com/design/${FIGMA_FILE}?node-id=${figmaNode}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-[var(--space-xs)] text-[12px] text-[var(--primary-500)] hover:text-[var(--accent-600)] transition-colors duration-150"
+              className="inline-flex items-center gap-[var(--xs)] text-[12px] text-[var(--primary-500)] hover:text-[var(--accent-600)] transition-colors duration-150"
             >
               <i className="fa-brands fa-figma" aria-hidden="true" />
               Figma
@@ -223,7 +223,7 @@ function Section({
           {docPath && (
             <button
               onClick={() => setShowDoc(true)}
-              className="inline-flex items-center gap-[var(--space-xs)] text-[12px] text-[var(--primary-500)] hover:text-[var(--accent-600)] transition-colors duration-150"
+              className="inline-flex items-center gap-[var(--xs)] text-[12px] text-[var(--primary-500)] hover:text-[var(--accent-600)] transition-colors duration-150"
             >
               <i className="fa-solid fa-file-lines" aria-hidden="true" />
               Docs
@@ -231,7 +231,7 @@ function Section({
           )}
         </div>
       </div>
-      <div className="rounded-[var(--radius-lg)] border border-[var(--primary-200)] bg-[var(--surface-adjacent)] p-[var(--space-xxl)]">
+      <div className="rounded-[var(--radius-lg)] border border-[var(--primary-200)] bg-[var(--surface-adjacent)] p-[var(--xxl)]">
         {children}
       </div>
       {docPath && (
@@ -251,11 +251,11 @@ function FoundationSection({
   children: React.ReactNode;
 }) {
   return (
-    <section id={id} className="mb-[var(--space-7xl)] scroll-mt-[80px]">
-      <h2 className="text-[24px] font-semibold text-[var(--primary-900)] mb-[var(--space-l)]">
+    <section id={id} className="mb-[var(--7xl)] scroll-mt-[80px]">
+      <h2 className="text-[24px] font-semibold text-[var(--primary-900)] mb-[var(--l)]">
         {title}
       </h2>
-      <div className="rounded-[var(--radius-lg)] border border-[var(--primary-200)] bg-[var(--surface-adjacent)] p-[var(--space-xxl)]">
+      <div className="rounded-[var(--radius-lg)] border border-[var(--primary-200)] bg-[var(--surface-adjacent)] p-[var(--xxl)]">
         {children}
       </div>
     </section>
@@ -267,12 +267,18 @@ function FoundationSection({
 function ColorsPreview() {
   const colorGroups = [
     {
-      name: "Accent (Orange)",
+      name: "Brand",
+      colors: [
+        { label: "Brand", var: "--brand" },
+      ],
+    },
+    {
+      name: "Accent Color (Orange)",
       colors: [
         { label: "900", var: "--accent-900" },
         { label: "800", var: "--accent-800" },
         { label: "700", var: "--accent-700" },
-        { label: "600", var: "--accent-600" },
+        { label: "600/Primary", var: "--accent-600" },
         { label: "500", var: "--accent-500" },
         { label: "400", var: "--accent-400" },
         { label: "300", var: "--accent-300" },
@@ -281,9 +287,9 @@ function ColorsPreview() {
       ],
     },
     {
-      name: "Primary (Neutral)",
+      name: "Primary Color (Neutral)",
       colors: [
-        { label: "900", var: "--primary-900" },
+        { label: "900/Primary", var: "--primary-900" },
         { label: "800", var: "--primary-800" },
         { label: "700", var: "--primary-700" },
         { label: "600", var: "--primary-600" },
@@ -303,25 +309,58 @@ function ColorsPreview() {
       ],
     },
     {
-      name: "Semantic",
+      name: "Constants",
       colors: [
-        { label: "Success", var: "--success-700" },
-        { label: "Warning", var: "--warning-500" },
-        { label: "Destructive", var: "--destructive-550" },
+        { label: "White", var: "--constant-white" },
+        { label: "Black", var: "--constant-black" },
+      ],
+    },
+    {
+      name: "Success (Green)",
+      colors: [
+        { label: "800", var: "--success-800" },
+        { label: "700/Primary", var: "--success-700" },
+        { label: "600", var: "--success-600" },
+        { label: "400", var: "--success-400" },
+        { label: "200", var: "--success-200" },
+        { label: "100/Primary", var: "--success-100" },
+      ],
+    },
+    {
+      name: "Warning",
+      colors: [
+        { label: "600", var: "--warning-600" },
+        { label: "500/Primary", var: "--warning-500" },
+        { label: "400", var: "--warning-400" },
+        { label: "300", var: "--warning-300" },
+        { label: "200", var: "--warning-200" },
+        { label: "100", var: "--warning-100" },
+      ],
+    },
+    {
+      name: "Destructive (Red)",
+      colors: [
+        { label: "600", var: "--destructive-600" },
+        { label: "550/Primary", var: "--destructive-550" },
+        { label: "500", var: "--destructive-500" },
+        { label: "400", var: "--destructive-400" },
+        { label: "300", var: "--destructive-300" },
+        { label: "200", var: "--destructive-200" },
+        { label: "100", var: "--destructive-100" },
       ],
     },
   ];
 
   return (
-    <div className="space-y-[var(--space-xxl)]">
+    <div className="space-y-[var(--xxl)]">
       {colorGroups.map((group) => (
         <div key={group.name}>
-          <p className="mb-[var(--space-s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
             {group.name}
           </p>
-          <div className="flex flex-wrap gap-[var(--space-s)]">
+          <div className="flex flex-wrap gap-[var(--s)]">
             {group.colors.map((color) => (
-              <div key={color.var} className="flex flex-col items-center gap-[var(--space-xs)]">
+              <div key={color.var} className="flex flex-col items-center gap-[var(--xs)]">
                 <div
                   className="w-[48px] h-[48px] rounded-[var(--radius-lg)] border border-[var(--primary-200)]"
                   style={{ backgroundColor: `var(${color.var})` }}
@@ -366,15 +405,15 @@ function TypographyPreview() {
   ];
 
   return (
-    <div className="space-y-[var(--space-xxl)]">
+    <div className="space-y-[var(--xxl)]">
       {/* Desktop scale */}
       <div>
-        <p className="text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)] mb-[var(--space-m)]">
+        <p className="text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)] mb-[var(--m)]">
           Desktop (≥768px)
         </p>
-        <div className="space-y-[var(--space-m)]">
+        <div className="space-y-[var(--m)]">
           {desktopStyles.map((s) => (
-            <div key={`d-${s.name}`} className="flex flex-col gap-[var(--space-xxs)]">
+            <div key={`d-${s.name}`} className="flex flex-col gap-[var(--xxs)]">
               <span
                 className={`text-[${s.size}] ${s.weight} leading-[${s.lineHeight}] text-[var(--primary-900)]`}
                 style={{ fontSize: s.size, fontWeight: s.weight === "font-semibold" ? 600 : s.weight === "font-medium" ? 500 : 400, lineHeight: s.lineHeight }}
@@ -391,12 +430,12 @@ function TypographyPreview() {
 
       {/* Mobile scale */}
       <div>
-        <p className="text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)] mb-[var(--space-m)]">
+        <p className="text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)] mb-[var(--m)]">
           Mobile (&lt;768px)
         </p>
-        <div className="space-y-[var(--space-m)]">
+        <div className="space-y-[var(--m)]">
           {mobileStyles.map((s) => (
-            <div key={`m-${s.name}`} className="flex flex-col gap-[var(--space-xxs)]">
+            <div key={`m-${s.name}`} className="flex flex-col gap-[var(--xxs)]">
               <span
                 className="text-[var(--primary-900)]"
                 style={{ fontSize: s.size, fontWeight: s.weight === "font-semibold" ? 600 : s.weight === "font-medium" ? 500 : 400, lineHeight: s.lineHeight }}
@@ -416,24 +455,24 @@ function TypographyPreview() {
 
 function SpacingPreview() {
   const tokens = [
-    { name: "XXS", value: "2px", var: "--space-xxs" },
-    { name: "XS", value: "4px", var: "--space-xs" },
-    { name: "S", value: "8px", var: "--space-s" },
-    { name: "M", value: "12px", var: "--space-m" },
-    { name: "L", value: "16px", var: "--space-l" },
-    { name: "XL", value: "20px", var: "--space-xl" },
-    { name: "XXL", value: "24px", var: "--space-xxl" },
-    { name: "3XL", value: "28px", var: "--space-3xl" },
-    { name: "4XL", value: "32px", var: "--space-4xl" },
+    { name: "XXS", value: "2px", var: "--xxs" },
+    { name: "XS", value: "4px", var: "--xs" },
+    { name: "S", value: "8px", var: "--s" },
+    { name: "M", value: "12px", var: "--m" },
+    { name: "L", value: "16px", var: "--l" },
+    { name: "XL", value: "20px", var: "--xl" },
+    { name: "XXL", value: "24px", var: "--xxl" },
+    { name: "3XL", value: "28px", var: "--3xl" },
+    { name: "4XL", value: "32px", var: "--4xl" },
   ];
 
   return (
-    <div className="space-y-[var(--space-s)]">
-      <p className="text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)] mb-[var(--space-s)]">
+    <div className="space-y-[var(--s)]">
+      <p className="text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)] mb-[var(--s)]">
         2px Base Grid — T-Shirt Sizing
       </p>
       {tokens.map((t) => (
-        <div key={t.name} className="flex items-center gap-[var(--space-l)]">
+        <div key={t.name} className="flex items-center gap-[var(--l)]">
           <span className="text-[12px] text-[var(--primary-500)] w-[40px]">{t.name}</span>
           <div
             className="h-[12px] rounded-[var(--radius-sm)] bg-[var(--accent-200)]"
@@ -456,7 +495,7 @@ function ElevationPreview() {
   ];
 
   return (
-    <div className="flex flex-wrap gap-[var(--space-xxl)]">
+    <div className="flex flex-wrap gap-[var(--xxl)]">
       {levels.map((l) => (
         <div
           key={l.name}
@@ -464,7 +503,7 @@ function ElevationPreview() {
           style={{ boxShadow: `var(${l.var})` }}
         >
           <span className="text-[14px] font-medium text-[var(--primary-900)]">{l.name}</span>
-          <span className="text-[11px] text-[var(--primary-500)] text-center mt-[var(--space-xxs)]">
+          <span className="text-[11px] text-[var(--primary-500)] text-center mt-[var(--xxs)]">
             {l.context}
           </span>
         </div>
@@ -479,12 +518,12 @@ function ButtonPreview() {
   const meta = components.find((c) => c.id === "button")!;
   return (
     <Section {...meta}>
-      <div className="space-y-[var(--space-xxl)]">
+      <div className="space-y-[var(--xxl)]">
         <div>
-          <p className="mb-[var(--space-s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
             Types
           </p>
-          <div className="flex flex-wrap items-center gap-[var(--space-m)]">
+          <div className="flex flex-wrap items-center gap-[var(--m)]">
             <Button variant="primary" leadingIcon="fa-house" trailingIcon="fa-chevron-right">Primary</Button>
             <Button variant="secondary" leadingIcon="fa-house" trailingIcon="fa-chevron-right">Secondary</Button>
             <Button variant="link" leadingIcon="fa-house" trailingIcon="fa-chevron-right">Link</Button>
@@ -492,10 +531,10 @@ function ButtonPreview() {
           </div>
         </div>
         <div>
-          <p className="mb-[var(--space-s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
             Sizes
           </p>
-          <div className="flex flex-wrap items-end gap-[var(--space-m)]">
+          <div className="flex flex-wrap items-end gap-[var(--m)]">
             <Button size="s">Small</Button>
             <Button size="m">Medium</Button>
             <Button size="l">Large</Button>
@@ -503,20 +542,20 @@ function ButtonPreview() {
           </div>
         </div>
         <div>
-          <p className="mb-[var(--space-s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
             States
           </p>
-          <div className="flex flex-wrap items-center gap-[var(--space-m)]">
+          <div className="flex flex-wrap items-center gap-[var(--m)]">
             <Button>Default</Button>
             <Button disabled>Disabled</Button>
             <Button loading>Loading</Button>
           </div>
         </div>
         <div>
-          <p className="mb-[var(--space-s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
             Secondary Variants
           </p>
-          <div className="flex flex-wrap items-end gap-[var(--space-m)]">
+          <div className="flex flex-wrap items-end gap-[var(--m)]">
             <Button variant="secondary" size="s">Small</Button>
             <Button variant="secondary" size="m">Medium</Button>
             <Button variant="secondary" size="l">Large</Button>
@@ -524,10 +563,10 @@ function ButtonPreview() {
           </div>
         </div>
         <div>
-          <p className="mb-[var(--space-s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
             Icon Buttons
           </p>
-          <div className="flex flex-wrap items-end gap-[var(--space-m)]">
+          <div className="flex flex-wrap items-end gap-[var(--m)]">
             <Button variant="icon" size="s" leadingIcon="fa-house" />
             <Button variant="icon" size="m" leadingIcon="fa-house" />
             <Button variant="icon" size="l" leadingIcon="fa-house" />
@@ -536,7 +575,7 @@ function ButtonPreview() {
           </div>
         </div>
         <div>
-          <p className="mb-[var(--space-s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
             Full Width
           </p>
           <Button fullWidth leadingIcon="fa-house" trailingIcon="fa-chevron-right">Full Width Button</Button>
@@ -551,7 +590,7 @@ function InputPreview() {
   const [value, setValue] = useState("");
   return (
     <Section {...meta}>
-      <div className="max-w-[400px] space-y-[var(--space-l)]">
+      <div className="max-w-[400px] space-y-[var(--l)]">
         <Input
           label="Default"
           placeholder="Enter text..."
@@ -571,10 +610,10 @@ function InputPreview() {
         />
         <Input label="Disabled" placeholder="Cannot edit" disabled />
         <div>
-          <p className="mb-[var(--space-s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
             Sizes
           </p>
-          <div className="space-y-[var(--space-s)]">
+          <div className="space-y-[var(--s)]">
             <Input placeholder="Small input" inputSize="sm" />
             <Input placeholder="Medium input (default)" inputSize="md" />
             <Input placeholder="Large input" inputSize="lg" />
@@ -589,7 +628,7 @@ function AlertPreview() {
   const meta = components.find((c) => c.id === "alert")!;
   return (
     <Section {...meta}>
-      <div className="space-y-[var(--space-m)]">
+      <div className="space-y-[var(--m)]">
         <Alert
           variant="warning"
           title="Policy expires in 30 days"
@@ -625,12 +664,12 @@ function TogglePreview() {
   const [checked2, setChecked2] = useState(true);
   return (
     <Section {...meta}>
-      <div className="space-y-[var(--space-l)]">
+      <div className="space-y-[var(--l)]">
         <Toggle checked={checked1} onChange={setChecked1} label="Email notifications" />
         <Toggle checked={checked2} onChange={setChecked2} label="SMS alerts" />
         <Toggle checked={false} onChange={() => {}} disabled label="Disabled toggle" />
         <div>
-          <p className="mb-[var(--space-s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
             Small size
           </p>
           <Toggle checked={checked1} onChange={setChecked1} size="sm" label="Compact toggle" />
@@ -647,7 +686,7 @@ function CheckboxPreview() {
   const [c3, setC3] = useState(false);
   return (
     <Section {...meta}>
-      <div className="space-y-[var(--space-m)]">
+      <div className="space-y-[var(--m)]">
         <Checkbox checked={c1} onChange={setC1} label="I agree to the terms and conditions" />
         <Checkbox checked={c2} onChange={setC2} label="Subscribe to newsletter" />
         <Checkbox checked={c3} onChange={setC3} label="Remember my preferences" />
@@ -662,7 +701,7 @@ function TooltipPreview() {
   const meta = components.find((c) => c.id === "tooltip")!;
   return (
     <Section {...meta}>
-      <div className="flex gap-[var(--space-xxl)] items-center justify-center py-[var(--space-4xl)]">
+      <div className="flex gap-[var(--xxl)] items-center justify-center py-[var(--4xl)]">
         <Tooltip content="Top tooltip" position="top">
           <Button variant="secondary" size="s">Top</Button>
         </Tooltip>
@@ -730,17 +769,17 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-[var(--surface)]">
       {/* Navbar */}
-      <nav className="sticky top-0 z-40 h-[64px] border-b border-[var(--primary-200)] bg-[var(--surface-adjacent)] flex items-center px-[var(--space-xxl)]">
-        <div className="flex items-center gap-[var(--space-m)] flex-1">
+      <nav className="sticky top-0 z-40 h-[64px] border-b border-[var(--primary-200)] bg-[var(--surface-adjacent)] flex items-center px-[var(--xxl)]">
+        <div className="flex items-center gap-[var(--m)] flex-1">
           <span className="text-[20px] font-semibold text-[var(--accent-600)]">Trusti</span>
           <span className="text-[14px] text-[var(--primary-400)]">Design System</span>
         </div>
-        <div className="flex items-center gap-[var(--space-l)]">
+        <div className="flex items-center gap-[var(--l)]">
           <a
             href={`https://www.figma.com/design/${FIGMA_FILE}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[14px] text-[var(--primary-500)] hover:text-[var(--accent-600)] transition-colors duration-150 flex items-center gap-[var(--space-xs)]"
+            className="text-[14px] text-[var(--primary-500)] hover:text-[var(--accent-600)] transition-colors duration-150 flex items-center gap-[var(--xs)]"
           >
             <i className="fa-brands fa-figma" aria-hidden="true" />
             Figma File
@@ -761,10 +800,10 @@ export default function Home() {
       <div className="flex">
         {/* Sidebar */}
         <aside className="fixed left-0 top-[64px] z-30 w-[240px] h-[calc(100vh-64px)] border-r border-[var(--primary-200)] bg-[var(--surface-adjacent)] flex flex-col">
-          <div className="p-[var(--space-l)]">
+          <div className="p-[var(--l)]">
             <div className="relative">
               <i
-                className="fa-solid fa-magnifying-glass absolute left-[var(--space-m)] top-1/2 -translate-y-1/2 text-[var(--primary-400)] text-[12px]"
+                className="fa-solid fa-magnifying-glass absolute left-[var(--m)] top-1/2 -translate-y-1/2 text-[var(--primary-400)] text-[12px]"
                 aria-hidden="true"
               />
               <input
@@ -772,14 +811,14 @@ export default function Home() {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search..."
-                className="w-full h-[32px] pl-[var(--space-4xl)] pr-[var(--space-s)] text-[14px] rounded-[var(--radius-lg)] border border-[var(--primary-200)] bg-[var(--surface)] text-[var(--primary-900)] placeholder:text-[var(--primary-400)] focus-visible:outline-none focus-visible:border-[var(--accent-600)]"
+                className="w-full h-[32px] pl-[var(--4xl)] pr-[var(--s)] text-[14px] rounded-[var(--radius-lg)] border border-[var(--primary-200)] bg-[var(--surface)] text-[var(--primary-900)] placeholder:text-[var(--primary-400)] focus-visible:outline-none focus-visible:border-[var(--accent-600)]"
               />
             </div>
           </div>
-          <nav className="flex-1 overflow-y-auto px-[var(--space-s)]">
+          <nav className="flex-1 overflow-y-auto px-[var(--s)]">
             {filteredSections.map((section) => (
-              <div key={section.title} className="mb-[var(--space-l)]">
-                <p className="px-[var(--space-s)] mb-[var(--space-xs)] text-[11px] font-medium uppercase tracking-wider text-[var(--primary-400)]">
+              <div key={section.title} className="mb-[var(--l)]">
+                <p className="px-[var(--s)] mb-[var(--xs)] text-[11px] font-medium uppercase tracking-wider text-[var(--primary-400)]">
                   {section.title}
                 </p>
                 {section.items.map((item) => (
@@ -787,7 +826,7 @@ export default function Home() {
                     key={item.id}
                     onClick={() => handleNavigate(item.id)}
                     className={[
-                      "w-full text-left px-[var(--space-m)] py-[var(--space-xs)] text-[14px] rounded-[var(--radius-md)] transition-colors duration-150 block",
+                      "w-full text-left px-[var(--m)] py-[var(--xs)] text-[14px] rounded-[var(--radius-md)] transition-colors duration-150 block",
                       activeId === item.id
                         ? "bg-[var(--accent-100)] text-[var(--accent-800)] font-medium"
                         : "text-[var(--primary-600)] hover:bg-[var(--primary-100)] hover:text-[var(--primary-900)]",
@@ -799,18 +838,18 @@ export default function Home() {
               </div>
             ))}
           </nav>
-          <div className="p-[var(--space-l)] border-t border-[var(--primary-200)]">
+          <div className="p-[var(--l)] border-t border-[var(--primary-200)]">
             <p className="text-[11px] text-[var(--primary-400)]">v1.0.0 — Trusti 2026</p>
           </div>
         </aside>
 
         {/* Main content */}
-        <main className="ml-[240px] flex-1 px-[var(--space-5xl)] py-[var(--space-4xl)] max-w-[900px]">
-          <div className="mb-[var(--space-5xl)]">
+        <main className="ml-[240px] flex-1 px-[var(--5xl)] py-[var(--4xl)] max-w-[900px]">
+          <div className="mb-[var(--5xl)]">
             <h1 className="text-[48px] font-semibold text-[var(--primary-900)] leading-[1.2]">
               Trusti Design System
             </h1>
-            <p className="mt-[var(--space-m)] text-[18px] text-[var(--primary-600)] leading-[1.4] max-w-[600px]">
+            <p className="mt-[var(--m)] text-[18px] text-[var(--primary-600)] leading-[1.4] max-w-[600px]">
               Component library for the Trusti insurance comparison platform.
               Built with atomic design methodology, Source Sans 3, and the Trusti brand identity.
             </p>
