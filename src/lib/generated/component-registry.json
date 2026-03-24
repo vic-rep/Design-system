@@ -6,576 +6,270 @@
     "apiBase": "https://api.figma.com/v1",
     "apiRoute": "/api/figma"
   },
-  "navigation": [],
-  "components": [
-    {
-      "name": "Button",
-      "category": "atoms",
-      "figmaNode": "1:2",
-      "variants": [
-        "primary",
-        "secondary",
-        "ghost",
-        "danger",
-        "outline"
-      ],
-      "sizes": [
-        "sm",
-        "md",
-        "lg"
-      ],
-      "states": [
-        "default",
-        "hover",
-        "active",
-        "disabled",
-        "loading"
-      ],
-      "props": [
-        {
-          "name": "variant",
-          "type": "string",
-          "description": "default: \"primary\""
-        },
-        {
-          "name": "size",
-          "type": "string",
-          "description": "default: \"md\""
-        },
-        {
-          "name": "disabled",
-          "type": "boolean",
-          "description": ""
-        },
-        {
-          "name": "loading",
-          "type": "boolean",
-          "description": ""
-        },
-        {
-          "name": "icon",
-          "type": "ReactNode",
-          "description": "optional leading icon"
-        },
-        {
-          "name": "children",
-          "type": "ReactNode",
-          "description": ""
-        }
-      ],
-      "behavior": "On click triggers `onClick` handler. Loading state shows spinner and disables interaction. Focus ring on keyboard navigation."
-    },
-    {
-      "name": "Input",
-      "category": "atoms",
-      "figmaNode": "1:2",
-      "variants": [
-        "default",
-        "filled",
-        "outline"
-      ],
-      "sizes": [
-        "sm",
-        "md",
-        "lg"
-      ],
-      "states": [
-        "default",
-        "focus",
-        "error",
-        "disabled"
-      ],
-      "props": [
-        {
-          "name": "label",
-          "type": "string",
-          "description": "optional"
-        },
-        {
-          "name": "placeholder",
-          "type": "string",
-          "description": ""
-        },
-        {
-          "name": "error",
-          "type": "string",
-          "description": "optional error message"
-        },
-        {
-          "name": "helperText",
-          "type": "string",
-          "description": "optional"
-        },
-        {
-          "name": "type",
-          "type": "string",
-          "description": "default: \"text\""
-        },
-        {
-          "name": "disabled",
-          "type": "boolean",
-          "description": ""
-        }
-      ],
-      "behavior": "Shows label above, error message below in red, helper text in muted color. Focus ring on interaction."
-    },
-    {
-      "name": "Badge",
-      "category": "atoms",
-      "figmaNode": "1:2",
-      "variants": [
-        "default",
-        "primary",
-        "success",
-        "warning",
-        "error",
-        "info"
-      ],
-      "sizes": [
-        "sm",
-        "md"
-      ],
-      "states": [],
-      "props": [
-        {
-          "name": "variant",
-          "type": "string",
-          "description": "default: \"default\""
-        },
-        {
-          "name": "size",
-          "type": "string",
-          "description": "default: \"sm\""
-        },
-        {
-          "name": "children",
-          "type": "ReactNode",
-          "description": ""
-        }
-      ],
-      "behavior": "Inline display, no interaction."
-    },
-    {
-      "name": "Toggle",
-      "category": "atoms",
-      "figmaNode": "1:2",
-      "variants": [],
-      "sizes": [
-        "sm",
-        "md"
-      ],
-      "states": [
-        "on",
-        "off",
-        "disabled"
-      ],
-      "props": [
-        {
-          "name": "checked",
-          "type": "boolean",
-          "description": ""
-        },
-        {
-          "name": "onChange",
-          "type": "function",
-          "description": ""
-        },
-        {
-          "name": "disabled",
-          "type": "boolean",
-          "description": ""
-        },
-        {
-          "name": "size",
-          "type": "string",
-          "description": "default: \"md\""
-        },
-        {
-          "name": "label",
-          "type": "string",
-          "description": "optional"
-        }
-      ],
-      "behavior": "Click toggles state. Smooth transition animation on thumb. Keyboard accessible with Space key."
-    },
-    {
-      "name": "Typography",
-      "category": "atoms",
-      "figmaNode": "1:23",
-      "variants": [
-        "h1",
-        "h2",
-        "h3",
-        "h4",
-        "body",
-        "caption",
-        "overline",
-        "code"
-      ],
-      "sizes": [],
-      "states": [],
-      "props": [
-        {
-          "name": "variant",
-          "type": "string",
-          "description": "default: \"body\""
-        },
-        {
-          "name": "as",
-          "type": "string",
-          "description": "optional HTML element override"
-        },
-        {
-          "name": "muted",
-          "type": "boolean",
-          "description": ""
-        },
-        {
-          "name": "children",
-          "type": "ReactNode",
-          "description": ""
-        }
-      ],
-      "behavior": "Renders appropriate HTML element based on variant. `as` prop allows element override."
-    },
-    {
-      "name": "Icon",
-      "category": "atoms",
-      "figmaNode": "1:2",
-      "variants": [],
-      "sizes": [
-        "sm",
-        "md",
-        "lg",
-        "xl"
-      ],
-      "states": [],
-      "props": [
-        {
-          "name": "name",
-          "type": "string",
-          "description": "icon identifier"
-        },
-        {
-          "name": "size",
-          "type": "string",
-          "description": "default: \"md\""
-        },
-        {
-          "name": "className",
-          "type": "string",
-          "description": "optional"
-        }
-      ],
-      "behavior": "Renders SVG icon. Uses currentColor for fill."
-    },
-    {
-      "name": "SearchBar",
-      "category": "molecules",
-      "figmaNode": "1:2",
-      "variants": [],
-      "sizes": [],
-      "states": [],
-      "props": [
-        {
-          "name": "placeholder",
-          "type": "string",
-          "description": "default: \"Search components...\""
-        },
-        {
-          "name": "value",
-          "type": "string",
-          "description": ""
-        },
-        {
-          "name": "onChange",
-          "type": "function",
-          "description": ""
-        }
-      ],
-      "behavior": "Input with search icon. Filters component list in real-time. Clear button appears when value is non-empty."
-    },
-    {
-      "name": "FormField",
-      "category": "molecules",
-      "figmaNode": "1:2",
-      "variants": [],
-      "sizes": [],
-      "states": [],
-      "props": [
-        {
-          "name": "label",
-          "type": "string",
-          "description": ""
-        },
-        {
-          "name": "required",
-          "type": "boolean",
-          "description": ""
-        },
-        {
-          "name": "error",
-          "type": "string",
-          "description": "optional"
-        },
-        {
-          "name": "helperText",
-          "type": "string",
-          "description": "optional"
-        },
-        {
-          "name": "children",
-          "type": "ReactNode",
-          "description": "input element"
-        }
-      ],
-      "behavior": "Wraps an input with label, required indicator, error and helper text."
-    },
-    {
-      "name": "Card",
-      "category": "molecules",
-      "figmaNode": "1:2",
-      "variants": [
-        "default",
-        "outlined",
-        "elevated"
-      ],
-      "sizes": [],
-      "states": [],
-      "props": [
-        {
-          "name": "variant",
-          "type": "string",
-          "description": "default: \"default\""
-        },
-        {
-          "name": "padding",
-          "type": "string",
-          "description": "default: \"md\""
-        },
-        {
-          "name": "children",
-          "type": "ReactNode",
-          "description": ""
-        },
-        {
-          "name": "header",
-          "type": "ReactNode",
-          "description": "optional"
-        },
-        {
-          "name": "footer",
-          "type": "ReactNode",
-          "description": "optional"
-        }
-      ],
-      "behavior": "Container with optional header/footer. Subtle border, no strong shadow to maintain minimalist style."
-    },
-    {
-      "name": "Tooltip",
-      "category": "molecules",
-      "figmaNode": "1:2",
-      "variants": [],
-      "sizes": [],
-      "states": [],
-      "props": [
-        {
-          "name": "content",
-          "type": "string",
-          "description": ""
-        },
-        {
-          "name": "position",
-          "type": "\"top\" | \"bottom\" | \"left\" | \"right\"",
-          "description": "default: \"top\""
-        },
-        {
-          "name": "children",
-          "type": "ReactNode",
-          "description": "trigger element"
-        }
-      ],
-      "behavior": "Shows on hover after 200ms delay. Hides on mouse leave. Positioned relative to trigger."
-    },
-    {
-      "name": "Navbar",
-      "category": "organisms",
-      "figmaNode": "1:2",
-      "variants": [],
-      "sizes": [],
-      "states": [],
-      "props": [
-        {
-          "name": "title",
-          "type": "string",
-          "description": ""
-        },
-        {
-          "name": "onThemeToggle",
-          "type": "function",
-          "description": ""
-        },
-        {
-          "name": "isDark",
-          "type": "boolean",
-          "description": ""
-        }
-      ],
-      "behavior": "Sticky top bar with title, theme toggle, and optional actions. Same background as surface (no contrast)."
-    },
-    {
-      "name": "Sidebar",
-      "category": "organisms",
-      "figmaNode": "1:2",
-      "variants": [],
-      "sizes": [],
-      "states": [],
-      "props": [
-        {
-          "name": "sections",
-          "type": "Array of { title: string, items: Array of { id, label, href } }",
-          "description": ""
-        },
-        {
-          "name": "activeId",
-          "type": "string",
-          "description": ""
-        },
-        {
-          "name": "onNavigate",
-          "type": "function",
-          "description": ""
-        }
-      ],
-      "behavior": "Fixed left sidebar with atomic design category sections. Anchor links for navigation. Same background as content (no contrast). Active item highlighted with primary color left border."
-    },
-    {
-      "name": "DataTable",
-      "category": "organisms",
-      "figmaNode": "1:2",
-      "variants": [],
-      "sizes": [],
-      "states": [],
-      "props": [
-        {
-          "name": "columns",
-          "type": "Array of { key, label, width? }",
-          "description": ""
-        },
-        {
-          "name": "rows",
-          "type": "Array of Record<string, any>",
-          "description": ""
-        },
-        {
-          "name": "sortable",
-          "type": "boolean",
-          "description": ""
-        },
-        {
-          "name": "onSort",
-          "type": "function",
-          "description": ""
-        }
-      ],
-      "behavior": "Sortable columns with click. Alternating row tint. Responsive horizontal scroll."
-    },
-    {
-      "name": "Modal",
-      "category": "organisms",
-      "figmaNode": "1:2",
-      "variants": [],
-      "sizes": [
-        "sm",
-        "md",
-        "lg"
-      ],
-      "states": [],
-      "props": [
-        {
-          "name": "isOpen",
-          "type": "boolean",
-          "description": ""
-        },
-        {
-          "name": "onClose",
-          "type": "function",
-          "description": ""
-        },
-        {
-          "name": "title",
-          "type": "string",
-          "description": ""
-        },
-        {
-          "name": "size",
-          "type": "string",
-          "description": "default: \"md\""
-        },
-        {
-          "name": "children",
-          "type": "ReactNode",
-          "description": ""
-        },
-        {
-          "name": "footer",
-          "type": "ReactNode",
-          "description": "optional"
-        }
-      ],
-      "behavior": "Centered overlay. Backdrop click closes. Escape key closes. Focus trap inside. Animated enter/exit."
-    },
-    {
-      "name": "DashboardLayout",
-      "category": "templates",
-      "figmaNode": "1:2",
-      "variants": [],
-      "sizes": [],
-      "states": [],
-      "props": [
-        {
-          "name": "sidebar",
-          "type": "ReactNode",
-          "description": ""
-        },
-        {
-          "name": "navbar",
-          "type": "ReactNode",
-          "description": ""
-        },
-        {
-          "name": "children",
-          "type": "ReactNode",
-          "description": ""
-        }
-      ],
-      "behavior": "Full-page layout with sidebar, navbar and main content area. Responsive: sidebar collapses on mobile."
-    },
-    {
-      "name": "AuthLayout",
-      "category": "templates",
-      "figmaNode": "1:2",
-      "variants": [],
-      "sizes": [],
-      "states": [],
-      "props": [
-        {
-          "name": "children",
-          "type": "ReactNode",
-          "description": ""
-        },
-        {
-          "name": "title",
-          "type": "string",
-          "description": ""
-        },
-        {
-          "name": "subtitle",
-          "type": "string",
-          "description": ""
-        }
-      ],
-      "behavior": "Centered card on a minimal background. Used for login/register flows."
-    }
-  ]
+  "inventory": {
+    "foundations": [
+      {
+        "name": "colors",
+        "displayName": "Colors",
+        "level": "foundations",
+        "type": "Type",
+        "figmaNode": "1:42",
+        "docPath": ".claude/skills/docs/foundations/colors.md"
+      },
+      {
+        "name": "elevation",
+        "displayName": "Elevation",
+        "level": "foundations",
+        "type": "Type",
+        "figmaNode": "60:298",
+        "docPath": ".claude/skills/docs/foundations/elevation.md"
+      },
+      {
+        "name": "grids",
+        "displayName": "Grids",
+        "level": "foundations",
+        "type": "Type",
+        "figmaNode": "1:29",
+        "docPath": ".claude/skills/docs/foundations/grids.md"
+      },
+      {
+        "name": "icons",
+        "displayName": "Icons",
+        "level": "foundations",
+        "type": "Type",
+        "figmaNode": "1:46",
+        "docPath": ".claude/skills/docs/foundations/icons.md"
+      },
+      {
+        "name": "spacing",
+        "displayName": "Spacing",
+        "level": "foundations",
+        "type": "Type",
+        "figmaNode": "1:50",
+        "docPath": ".claude/skills/docs/foundations/spacing.md"
+      },
+      {
+        "name": "typography",
+        "displayName": "Typography",
+        "level": "foundations",
+        "type": "Type",
+        "figmaNode": "1:34",
+        "docPath": ".claude/skills/docs/foundations/typography.md"
+      }
+    ],
+    "molecules": [
+      {
+        "name": "alert",
+        "displayName": "Alert",
+        "level": "molecules",
+        "type": "Type",
+        "figmaNode": "45:13",
+        "docPath": ".claude/skills/docs/molecules/alert.md"
+      },
+      {
+        "name": "button",
+        "displayName": "Button",
+        "level": "molecules",
+        "type": "Type",
+        "figmaNode": "45:5",
+        "docPath": ".claude/skills/docs/molecules/button.md"
+      },
+      {
+        "name": "checkbox",
+        "displayName": "Checkbox",
+        "level": "molecules",
+        "type": "Type",
+        "figmaNode": "45:6",
+        "docPath": ".claude/skills/docs/molecules/checkbox.md"
+      },
+      {
+        "name": "context-menu",
+        "displayName": "Context Menu",
+        "level": "molecules",
+        "type": "Type",
+        "figmaNode": "45:10",
+        "docPath": ".claude/skills/docs/molecules/context-menu.md"
+      },
+      {
+        "name": "input",
+        "displayName": "Input",
+        "level": "molecules",
+        "type": "Type",
+        "figmaNode": "45:8",
+        "docPath": ".claude/skills/docs/molecules/input.md"
+      },
+      {
+        "name": "logo",
+        "displayName": "Logo",
+        "level": "molecules",
+        "type": "Type",
+        "figmaNode": "2165:2",
+        "docPath": ".claude/skills/docs/molecules/logo.md"
+      },
+      {
+        "name": "pagination",
+        "displayName": "Pagination",
+        "level": "molecules",
+        "type": "Type",
+        "figmaNode": "70:40",
+        "docPath": ".claude/skills/docs/molecules/pagination.md"
+      },
+      {
+        "name": "pill",
+        "displayName": "Pill",
+        "level": "molecules",
+        "type": "Type",
+        "figmaNode": "74:11",
+        "docPath": ".claude/skills/docs/molecules/pill.md"
+      },
+      {
+        "name": "progress-bar",
+        "displayName": "Progress Bar",
+        "level": "molecules",
+        "type": "Type",
+        "figmaNode": "45:11",
+        "docPath": ".claude/skills/docs/molecules/progress-bar.md"
+      },
+      {
+        "name": "radio",
+        "displayName": "Radio",
+        "level": "molecules",
+        "type": "Type",
+        "figmaNode": "102:1630",
+        "docPath": ".claude/skills/docs/molecules/radio.md"
+      },
+      {
+        "name": "slider",
+        "displayName": "Slider",
+        "level": "molecules",
+        "type": "Type",
+        "figmaNode": "493:5220",
+        "docPath": ".claude/skills/docs/molecules/slider.md"
+      },
+      {
+        "name": "tabs",
+        "displayName": "Tabs",
+        "level": "molecules",
+        "type": "Type",
+        "figmaNode": "45:9",
+        "docPath": ".claude/skills/docs/molecules/tabs.md"
+      },
+      {
+        "name": "tag",
+        "displayName": "Tag",
+        "level": "molecules",
+        "type": "Type",
+        "figmaNode": "3101:360",
+        "docPath": ".claude/skills/docs/molecules/tag.md"
+      },
+      {
+        "name": "toast",
+        "displayName": "Toast",
+        "level": "molecules",
+        "type": "Type",
+        "figmaNode": "2434:9541",
+        "docPath": ".claude/skills/docs/molecules/toast.md"
+      },
+      {
+        "name": "toggle",
+        "displayName": "Toggle",
+        "level": "molecules",
+        "type": "Type",
+        "figmaNode": "74:39",
+        "docPath": ".claude/skills/docs/molecules/toggle.md"
+      },
+      {
+        "name": "tooltip",
+        "displayName": "Tooltip",
+        "level": "molecules",
+        "type": "Type",
+        "figmaNode": "97:1419",
+        "docPath": ".claude/skills/docs/molecules/tooltip.md"
+      }
+    ],
+    "organisms": [
+      {
+        "name": "accordion",
+        "displayName": "Accordion",
+        "level": "organisms",
+        "type": "Type",
+        "figmaNode": "624:17",
+        "docPath": ".claude/skills/docs/organisms/accordion.md"
+      },
+      {
+        "name": "drawer",
+        "displayName": "Drawer",
+        "level": "organisms",
+        "type": "Type",
+        "figmaNode": "448:5219",
+        "docPath": ".claude/skills/docs/organisms/drawer.md"
+      },
+      {
+        "name": "modal",
+        "displayName": "Modal",
+        "level": "organisms",
+        "type": "Type",
+        "figmaNode": "448:2624",
+        "docPath": ".claude/skills/docs/organisms/modal.md"
+      },
+      {
+        "name": "offers-list",
+        "displayName": "Offers List",
+        "level": "organisms",
+        "type": "Type",
+        "figmaNode": "147:1690",
+        "docPath": ".claude/skills/docs/organisms/offers-list.md"
+      }
+    ],
+    "templates": [
+      {
+        "name": "carousel",
+        "displayName": "Carousel",
+        "level": "templates",
+        "type": "Type",
+        "figmaNode": "3206:390",
+        "docPath": ".claude/skills/docs/templates/carousel.md"
+      },
+      {
+        "name": "cart",
+        "displayName": "Cart",
+        "level": "templates",
+        "type": "Type",
+        "figmaNode": "2313:29",
+        "docPath": ".claude/skills/docs/templates/cart.md"
+      },
+      {
+        "name": "faq",
+        "displayName": "Faq",
+        "level": "templates",
+        "type": "Type",
+        "figmaNode": "3046:9774",
+        "docPath": ".claude/skills/docs/templates/faq.md"
+      },
+      {
+        "name": "footer",
+        "displayName": "Footer",
+        "level": "templates",
+        "type": "Type",
+        "figmaNode": "2025:563",
+        "docPath": ".claude/skills/docs/templates/footer.md"
+      },
+      {
+        "name": "navigation",
+        "displayName": "Navigation",
+        "level": "templates",
+        "type": "Type",
+        "figmaNode": "448:5218",
+        "docPath": ".claude/skills/docs/templates/navigation.md"
+      },
+      {
+        "name": "vehicle-details-card",
+        "displayName": "Vehicle Details Card",
+        "level": "templates",
+        "type": "Type",
+        "figmaNode": "2275:74",
+        "docPath": ".claude/skills/docs/templates/vehicle-details-card.md"
+      }
+    ]
+  }
 }
