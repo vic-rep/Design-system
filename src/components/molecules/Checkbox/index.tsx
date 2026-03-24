@@ -40,7 +40,7 @@ export function Checkbox({
   };
 
   return (
-    <div className={`inline-flex items-start gap-[var(--space-s)] ${className}`}>
+    <div className={`inline-flex items-start gap-[var(--s)] ${className}`}>
       <div className="relative flex items-center justify-center mt-[2px]">
         <input
           type="checkbox"

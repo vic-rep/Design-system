@@ -21,10 +21,10 @@ export interface TooltipProps {
 }
 
 const positionStyles: Record<TooltipPosition, string> = {
-  top: "bottom-full left-1/2 -translate-x-1/2 mb-[var(--space-s)]",
-  bottom: "top-full left-1/2 -translate-x-1/2 mt-[var(--space-s)]",
-  left: "right-full top-1/2 -translate-y-1/2 mr-[var(--space-s)]",
-  right: "left-full top-1/2 -translate-y-1/2 ml-[var(--space-s)]",
+  top: "bottom-full left-1/2 -translate-x-1/2 mb-[var(--s)]",
+  bottom: "top-full left-1/2 -translate-x-1/2 mt-[var(--s)]",
+  left: "right-full top-1/2 -translate-y-1/2 mr-[var(--s)]",
+  right: "left-full top-1/2 -translate-y-1/2 ml-[var(--s)]",
 };
 
 const arrowStyles: Record<TooltipPosition, string> = {
@@ -68,7 +68,7 @@ export function Tooltip({
           role="tooltip"
           className={[
             "absolute z-50 pointer-events-none",
-            "px-[var(--space-s)] py-[var(--space-xs)]",
+            "px-[var(--s)] py-[var(--xs)]",
             "bg-[var(--primary-900)] text-[var(--constant-white)]",
             "text-[12px] leading-[1.2] font-normal",
             "rounded-[var(--radius-md)] whitespace-nowrap",

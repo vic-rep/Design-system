@@ -99,7 +99,7 @@ export function Alert({
         aria-controls={hasExpandableContent ? contentId : undefined}
         onClick={hasExpandableContent ? handleToggle : undefined}
         className={[
-          "flex items-center gap-[var(--space-m)] w-full px-[var(--space-l)] py-[var(--space-m)]",
+          "flex items-center gap-[var(--m)] w-full px-[var(--l)] py-[var(--m)]",
           "text-left text-[var(--primary-900)] font-medium text-[16px]",
           hasExpandableContent ? "cursor-pointer hover:brightness-95 transition-[filter] duration-150" : "cursor-default",
         ].join(" ")}
@@ -131,14 +131,14 @@ export function Alert({
             opacity: isExpanded ? 1 : 0,
           }}
         >
-          <div className="px-[var(--space-l)] pb-[var(--space-l)] flex flex-col gap-[var(--space-m)]">
+          <div className="px-[var(--l)] pb-[var(--l)] flex flex-col gap-[var(--m)]">
             {description && (
               <p className="text-[14px] text-[var(--primary-700)] leading-[1.4]">
                 {description}
               </p>
             )}
             {(primaryAction || secondaryAction) && (
-              <div className="flex items-center gap-[var(--space-l)]">
+              <div className="flex items-center gap-[var(--l)]">
                 {primaryAction && (
                   <button
                     type="button"

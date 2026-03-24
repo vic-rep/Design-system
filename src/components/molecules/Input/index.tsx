@@ -24,15 +24,15 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
 
 const sizeStyles: Record<InputSize, { input: string; text: string }> = {
   sm: {
-    input: "h-[32px] px-[var(--space-s)] text-[14px]",
+    input: "h-[32px] px-[var(--s)] text-[14px]",
     text: "text-[12px]",
   },
   md: {
-    input: "h-[40px] px-[var(--space-m)] text-[16px]",
+    input: "h-[40px] px-[var(--m)] text-[16px]",
     text: "text-[14px]",
   },
   lg: {
-    input: "h-[48px] px-[var(--space-l)] text-[16px]",
+    input: "h-[48px] px-[var(--l)] text-[16px]",
     text: "text-[14px]",
   },
 };
@@ -61,7 +61,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     const hasError = Boolean(error);
 
     return (
-      <div className={`flex flex-col gap-[var(--space-xs)] ${className}`}>
+      <div className={`flex flex-col gap-[var(--xs)] ${className}`}>
         {label && (
           <label
             htmlFor={id}
@@ -73,7 +73,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         <div className="relative">
           {leftIcon && (
             <i
-              className={`fa-solid ${leftIcon} absolute left-[var(--space-m)] top-1/2 -translate-y-1/2 text-[var(--primary-400)]`}
+              className={`fa-solid ${leftIcon} absolute left-[var(--m)] top-1/2 -translate-y-1/2 text-[var(--primary-400)]`}
               aria-hidden="true"
             />
           )}
@@ -90,8 +90,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               "transition-[border-color] duration-150 ease-in-out",
               "focus-visible:outline-none focus-visible:border-[var(--accent-600)] focus-visible:ring-2 focus-visible:ring-[var(--accent-600)]/20",
               sizeStyles[inputSize].input,
-              leftIcon ? "pl-[var(--space-5xl)]" : "",
-              rightIcon ? "pr-[var(--space-5xl)]" : "",
+              leftIcon ? "pl-[var(--5xl)]" : "",
+              rightIcon ? "pr-[var(--5xl)]" : "",
               hasError
                 ? "border-[var(--destructive-550)] focus-visible:border-[var(--destructive-550)] focus-visible:ring-[var(--destructive-550)]/20"
                 : "border-[var(--primary-200)]",
@@ -103,7 +103,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           />
           {rightIcon && (
             <i
-              className={`fa-solid ${rightIcon} absolute right-[var(--space-m)] top-1/2 -translate-y-1/2 text-[var(--primary-400)]`}
+              className={`fa-solid ${rightIcon} absolute right-[var(--m)] top-1/2 -translate-y-1/2 text-[var(--primary-400)]`}
               aria-hidden="true"
             />
           )}

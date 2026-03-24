@@ -56,16 +56,16 @@ const typeStyles: Record<ButtonType, string> = {
 
 const sizeStyles: Record<ButtonType, Record<ButtonSize, string>> = {
   primary: {
-    s: "px-[var(--space-s,8px)] py-[var(--space-xs,4px)] text-[14px]",
-    m: "p-[var(--space-s,8px)] text-[14px]",
-    l: "px-[var(--space-l,16px)] py-[var(--space-s,8px)] text-[14px]",
-    xl: "px-[var(--space-xl,20px)] py-[var(--space-m,12px)] text-[14px]",
+    s: "px-[var(--s,8px)] py-[var(--xs,4px)] text-[14px]",
+    m: "p-[var(--s,8px)] text-[14px]",
+    l: "px-[var(--l,16px)] py-[var(--s,8px)] text-[14px]",
+    xl: "px-[var(--xl,20px)] py-[var(--m,12px)] text-[14px]",
   },
   secondary: {
-    s: "px-[var(--space-s,8px)] py-[var(--space-xs,4px)] text-[14px]",
-    m: "p-[var(--space-s,8px)] text-[14px]",
-    l: "px-[var(--space-l,16px)] py-[var(--space-s,8px)] text-[14px]",
-    xl: "px-[var(--space-xl,20px)] py-[var(--space-m,12px)] text-[14px]",
+    s: "px-[var(--s,8px)] py-[var(--xs,4px)] text-[14px]",
+    m: "p-[var(--s,8px)] text-[14px]",
+    l: "px-[var(--l,16px)] py-[var(--s,8px)] text-[14px]",
+    xl: "px-[var(--xl,20px)] py-[var(--m,12px)] text-[14px]",
   },
   link: {
     s: "text-[14px]",
