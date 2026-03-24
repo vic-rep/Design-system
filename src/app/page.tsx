@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { useTheme } from "@/lib/theme";
 
 import { Button } from "@/components/molecules/Button";
@@ -13,6 +13,21 @@ import { Modal } from "@/components/molecules/Modal";
 import { Tabs } from "@/components/molecules/Tabs";
 import { ContextMenu } from "@/components/molecules/ContextMenu";
 import { ProgressBar } from "@/components/molecules/ProgressBar";
+import { Pagination } from "@/components/molecules/Pagination";
+import { Pill } from "@/components/molecules/Pill";
+import { RadioGroup } from "@/components/molecules/Radio";
+import { Slider } from "@/components/molecules/Slider";
+import { Tag } from "@/components/molecules/Tag";
+import { Toast } from "@/components/molecules/Toast";
+import { Accordion } from "@/components/organisms/Accordion";
+import { Drawer } from "@/components/organisms/Drawer";
+import { OffersList } from "@/components/organisms/OffersList";
+import { Carousel } from "@/components/templates/Carousel";
+import { Cart } from "@/components/templates/Cart";
+import { FAQ } from "@/components/templates/FAQ";
+import { Footer } from "@/components/templates/Footer";
+import { Navigation } from "@/components/templates/Navigation";
+import { VehicleDetailsCard } from "@/components/templates/VehicleDetailsCard";
 
 // ─── Component doc metadata ───────────────────────────────────
 const FIGMA_FILE = "nG8PGu5CclffafrfZuMG9G";
@@ -107,6 +122,126 @@ const components: ComponentMeta[] = [
     docPath: ".claude/skills/docs/molecules/progress-bar.md",
     description: "Step progress indicator with back button, step label, and animated fill track.",
   },
+  {
+    id: "pagination",
+    label: "Pagination",
+    level: "Molecule",
+    figmaNode: "70:40",
+    docPath: ".claude/skills/docs/molecules/pagination.md",
+    description: "Page navigation with numbered pages, ellipsis gaps, and prev/next arrows.",
+  },
+  {
+    id: "pill",
+    label: "Pill",
+    level: "Molecule",
+    figmaNode: "74:11",
+    docPath: ".claude/skills/docs/molecules/pill.md",
+    description: "Compact label for filtering, categories, or status indication with 5 semantic variants.",
+  },
+  {
+    id: "radio",
+    label: "Radio",
+    level: "Molecule",
+    figmaNode: "102:1630",
+    docPath: ".claude/skills/docs/molecules/radio.md",
+    description: "Single selection from a group of mutually exclusive options.",
+  },
+  {
+    id: "slider",
+    label: "Slider",
+    level: "Molecule",
+    figmaNode: "493:5220",
+    docPath: ".claude/skills/docs/molecules/slider.md",
+    description: "Range input with draggable thumb for numeric value selection.",
+  },
+  {
+    id: "tag",
+    label: "Tag",
+    level: "Molecule",
+    figmaNode: "3101:360",
+    docPath: ".claude/skills/docs/molecules/tag.md",
+    description: "Compact label with optional remove action for applied filters and selections.",
+  },
+  {
+    id: "toast",
+    label: "Toast",
+    level: "Molecule",
+    figmaNode: "2434:9541",
+    docPath: ".claude/skills/docs/molecules/toast.md",
+    description: "Temporary notification that appears and auto-dismisses with 4 semantic variants.",
+  },
+  {
+    id: "accordion",
+    label: "Accordion",
+    level: "Organism",
+    figmaNode: "624:17",
+    docPath: ".claude/skills/docs/organisms/accordion.md",
+    description: "Collapsible content sections with animated expand/collapse and chevron indicator.",
+  },
+  {
+    id: "drawer",
+    label: "Drawer",
+    level: "Organism",
+    figmaNode: "448:5219",
+    docPath: ".claude/skills/docs/organisms/drawer.md",
+    description: "Slide-in panel from screen edge for secondary content or navigation.",
+  },
+  {
+    id: "offers-list",
+    label: "Offers List",
+    level: "Organism",
+    figmaNode: "147:1690",
+    docPath: ".claude/skills/docs/organisms/offers-list.md",
+    description: "Insurance offer cards with company info, features, pricing, and selection action.",
+  },
+  {
+    id: "carousel",
+    label: "Carousel",
+    level: "Template",
+    figmaNode: "3206:390",
+    docPath: ".claude/skills/docs/templates/carousel.md",
+    description: "Sliding content carousel with navigation arrows, dot indicators, and auto-play.",
+  },
+  {
+    id: "cart",
+    label: "Cart",
+    level: "Template",
+    figmaNode: "2313:29",
+    docPath: ".claude/skills/docs/templates/cart.md",
+    description: "Order summary with line items, totals, and checkout action.",
+  },
+  {
+    id: "faq",
+    label: "FAQ",
+    level: "Template",
+    figmaNode: "3046:9774",
+    docPath: ".claude/skills/docs/templates/faq.md",
+    description: "FAQ section wrapping Accordion with centered layout and title.",
+  },
+  {
+    id: "footer",
+    label: "Footer",
+    level: "Template",
+    figmaNode: "2025:563",
+    docPath: ".claude/skills/docs/templates/footer.md",
+    description: "Page footer with logo, link columns, legal text, and social links.",
+  },
+  {
+    id: "navigation",
+    label: "Navigation",
+    level: "Template",
+    figmaNode: "448:5218",
+    docPath: ".claude/skills/docs/templates/navigation.md",
+    description: "Sticky top navigation bar with logo, links, and responsive burger menu.",
+  },
+  {
+    id: "vehicle-details-card",
+    label: "Vehicle Details Card",
+    level: "Template",
+    figmaNode: "2275:74",
+    docPath: ".claude/skills/docs/templates/vehicle-details-card.md",
+    description: "Card displaying vehicle information with optional talon number and edit action.",
+  },
 ];
 
 const navSections = [
@@ -121,7 +256,15 @@ const navSections = [
   },
   {
     title: "Molecules",
-    items: components.map((c) => ({ id: c.id, label: c.label })),
+    items: components.filter((c) => c.level === "Molecule").map((c) => ({ id: c.id, label: c.label })),
+  },
+  {
+    title: "Organisms",
+    items: components.filter((c) => c.level === "Organism").map((c) => ({ id: c.id, label: c.label })),
+  },
+  {
+    title: "Templates",
+    items: components.filter((c) => c.level === "Template").map((c) => ({ id: c.id, label: c.label })),
   },
 ];
 
@@ -1000,6 +1143,475 @@ function ProgressBarPreview() {
   );
 }
 
+function PaginationPreview() {
+  const meta = components.find((c) => c.id === "pagination")!;
+  const [page, setPage] = useState(1);
+  return (
+    <Section {...meta}>
+      <div className="space-y-[var(--xxl)]">
+        <div>
+          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+            Interactive ({page}/20)
+          </p>
+          <Pagination currentPage={page} totalPages={20} onPageChange={setPage} />
+        </div>
+        <div>
+          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+            Few Pages
+          </p>
+          <Pagination currentPage={2} totalPages={5} onPageChange={() => {}} />
+        </div>
+      </div>
+    </Section>
+  );
+}
+
+function PillPreview() {
+  const meta = components.find((c) => c.id === "pill")!;
+  const [selected, setSelected] = useState("accent");
+  return (
+    <Section {...meta}>
+      <div className="space-y-[var(--xxl)]">
+        <div>
+          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+            Variants
+          </p>
+          <div className="flex flex-wrap gap-[var(--s)]">
+            <Pill variant="default">Default</Pill>
+            <Pill variant="accent">Accent</Pill>
+            <Pill variant="success">Success</Pill>
+            <Pill variant="warning">Warning</Pill>
+            <Pill variant="destructive">Destructive</Pill>
+          </div>
+        </div>
+        <div>
+          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+            Interactive (click to select)
+          </p>
+          <div className="flex flex-wrap gap-[var(--s)]">
+            {["default", "accent", "success", "warning", "destructive"].map((v) => (
+              <Pill
+                key={v}
+                variant={v as any}
+                selected={selected === v}
+                onClick={() => setSelected(v)}
+              >
+                {v.charAt(0).toUpperCase() + v.slice(1)}
+              </Pill>
+            ))}
+          </div>
+        </div>
+      </div>
+    </Section>
+  );
+}
+
+function RadioPreview() {
+  const meta = components.find((c) => c.id === "radio")!;
+  const [value, setValue] = useState("monthly");
+  return (
+    <Section {...meta}>
+      <div className="max-w-[400px]">
+        <RadioGroup
+          name="payment"
+          legend="Payment frequency"
+          value={value}
+          onChange={setValue}
+          options={[
+            { value: "monthly", label: "Monthly" },
+            { value: "quarterly", label: "Quarterly" },
+            { value: "annually", label: "Annually" },
+            { value: "disabled", label: "Custom (unavailable)", disabled: true },
+          ]}
+        />
+      </div>
+    </Section>
+  );
+}
+
+function SliderPreview() {
+  const meta = components.find((c) => c.id === "slider")!;
+  const [amount, setAmount] = useState(5000);
+  const [term, setTerm] = useState(12);
+  return (
+    <Section {...meta}>
+      <div className="max-w-[400px] space-y-[var(--xxl)]">
+        <Slider
+          label="Coverage amount"
+          min={1000}
+          max={50000}
+          step={500}
+          value={amount}
+          onChange={setAmount}
+          formatValue={(v) => `${v.toLocaleString()} лв.`}
+        />
+        <Slider
+          label="Loan term"
+          min={6}
+          max={60}
+          step={6}
+          value={term}
+          onChange={setTerm}
+          formatValue={(v) => `${v} months`}
+        />
+        <Slider
+          label="Disabled"
+          min={0}
+          max={100}
+          value={50}
+          onChange={() => {}}
+          disabled
+        />
+      </div>
+    </Section>
+  );
+}
+
+function TagPreview() {
+  const meta = components.find((c) => c.id === "tag")!;
+  const [tags, setTags] = useState(["MTPL", "Casco", "Travel", "Home"]);
+  return (
+    <Section {...meta}>
+      <div className="space-y-[var(--xxl)]">
+        <div>
+          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+            Removable Tags
+          </p>
+          <div className="flex flex-wrap gap-[var(--s)]">
+            {tags.map((t) => (
+              <Tag key={t} onRemove={() => setTags((prev) => prev.filter((x) => x !== t))}>
+                {t}
+              </Tag>
+            ))}
+            {tags.length === 0 && (
+              <button
+                type="button"
+                onClick={() => setTags(["MTPL", "Casco", "Travel", "Home"])}
+                className="text-[12px] text-[var(--accent-600)] cursor-pointer"
+              >
+                Reset tags
+              </button>
+            )}
+          </div>
+        </div>
+        <div>
+          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+            Accent Variant
+          </p>
+          <div className="flex flex-wrap gap-[var(--s)]">
+            <Tag variant="accent">Selected filter</Tag>
+            <Tag variant="accent" onRemove={() => {}}>Removable</Tag>
+          </div>
+        </div>
+      </div>
+    </Section>
+  );
+}
+
+function ToastPreview() {
+  const meta = components.find((c) => c.id === "toast")!;
+  const [toasts, setToasts] = useState<Array<{ id: number; variant: "info" | "success" | "warning" | "destructive"; message: string }>>([]);
+  const nextId = useRef(0);
+
+  const addToast = (variant: "info" | "success" | "warning" | "destructive", message: string) => {
+    const id = nextId.current++;
+    setToasts((prev) => [...prev, { id, variant, message }]);
+  };
+
+  return (
+    <Section {...meta}>
+      <div className="space-y-[var(--m)]">
+        <div className="flex flex-wrap gap-[var(--s)]">
+          <Button variant="secondary" size="s" onClick={() => addToast("info", "Settings saved successfully")}>
+            Info Toast
+          </Button>
+          <Button variant="secondary" size="s" onClick={() => addToast("success", "Payment processed")}>
+            Success Toast
+          </Button>
+          <Button variant="secondary" size="s" onClick={() => addToast("warning", "Session expires in 5 minutes")}>
+            Warning Toast
+          </Button>
+          <Button variant="secondary" size="s" onClick={() => addToast("destructive", "Failed to save changes")}>
+            Error Toast
+          </Button>
+        </div>
+        <div className="space-y-[var(--s)]">
+          {toasts.map((t) => (
+            <Toast
+              key={t.id}
+              variant={t.variant}
+              message={t.message}
+              duration={5000}
+              onDismiss={() => setToasts((prev) => prev.filter((x) => x.id !== t.id))}
+            />
+          ))}
+        </div>
+      </div>
+    </Section>
+  );
+}
+
+function AccordionPreview() {
+  const meta = components.find((c) => c.id === "accordion")!;
+  return (
+    <Section {...meta}>
+      <div className="space-y-[var(--xxl)]">
+        <div>
+          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+            Single Open (Default)
+          </p>
+          <Accordion
+            items={[
+              { id: "1", title: "What is MTPL insurance?", content: "Motor Third Party Liability insurance covers damages to third parties caused by your vehicle. It is mandatory in Bulgaria." },
+              { id: "2", title: "How do I file a claim?", content: "You can file a claim through our app or by contacting our support team. You'll need your policy number and details of the incident." },
+              { id: "3", title: "Can I cancel my policy?", content: "Yes, you can cancel within 14 days for a full refund. After that, a prorated refund applies." },
+              { id: "4", title: "Disabled item", content: "This should not be accessible.", disabled: true },
+            ]}
+            defaultOpenIds={["1"]}
+          />
+        </div>
+        <div>
+          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+            Multiple Open
+          </p>
+          <Accordion
+            allowMultiple
+            items={[
+              { id: "a", title: "Coverage details", content: "Your policy covers liability up to 10,000 лв. with optional add-ons for comprehensive coverage." },
+              { id: "b", title: "Payment options", content: "We accept credit cards, bank transfer, and monthly instalments for annual policies." },
+            ]}
+          />
+        </div>
+      </div>
+    </Section>
+  );
+}
+
+function DrawerPreview() {
+  const meta = components.find((c) => c.id === "drawer")!;
+  const [openRight, setOpenRight] = useState(false);
+  const [openLeft, setOpenLeft] = useState(false);
+  const [openBottom, setOpenBottom] = useState(false);
+  return (
+    <Section {...meta}>
+      <div className="flex flex-wrap gap-[var(--s)]">
+        <Button variant="secondary" size="s" onClick={() => setOpenRight(true)}>
+          Right Drawer
+        </Button>
+        <Button variant="secondary" size="s" onClick={() => setOpenLeft(true)}>
+          Left Drawer
+        </Button>
+        <Button variant="secondary" size="s" onClick={() => setOpenBottom(true)}>
+          Bottom Drawer
+        </Button>
+      </div>
+      <Drawer open={openRight} onClose={() => setOpenRight(false)} position="right" title="Filters">
+        <div className="space-y-[var(--m)]">
+          <p className="text-[14px] text-[var(--primary-600)]">Filter content goes here. Press Escape or click the backdrop to close.</p>
+          <Button variant="primary" size="m" onClick={() => setOpenRight(false)}>Apply Filters</Button>
+        </div>
+      </Drawer>
+      <Drawer open={openLeft} onClose={() => setOpenLeft(false)} position="left" title="Navigation">
+        <p className="text-[14px] text-[var(--primary-600)]">Navigation panel content.</p>
+      </Drawer>
+      <Drawer open={openBottom} onClose={() => setOpenBottom(false)} position="bottom" title="Actions">
+        <p className="text-[14px] text-[var(--primary-600)]">Bottom sheet content for mobile actions.</p>
+      </Drawer>
+    </Section>
+  );
+}
+
+function OffersListPreview() {
+  const meta = components.find((c) => c.id === "offers-list")!;
+  const [loading, setLoading] = useState(false);
+
+  const sampleOffers = [
+    {
+      id: "1",
+      companyName: "Euroins",
+      price: 245.50,
+      recommended: true,
+      features: [
+        { label: "Third party liability", included: true },
+        { label: "Roadside assistance", included: true },
+        { label: "Glass coverage", included: true },
+        { label: "Theft protection", included: false },
+      ],
+    },
+    {
+      id: "2",
+      companyName: "Lev Ins",
+      price: 289.00,
+      features: [
+        { label: "Third party liability", included: true },
+        { label: "Roadside assistance", included: true },
+        { label: "Glass coverage", included: false },
+        { label: "Theft protection", included: false },
+      ],
+    },
+    {
+      id: "3",
+      companyName: "DZI",
+      price: 312.75,
+      features: [
+        { label: "Third party liability", included: true },
+        { label: "Roadside assistance", included: true },
+        { label: "Glass coverage", included: true },
+        { label: "Theft protection", included: true },
+      ],
+    },
+  ];
+
+  return (
+    <Section {...meta}>
+      <div className="space-y-[var(--xxl)]">
+        <div className="flex gap-[var(--s)] mb-[var(--m)]">
+          <Button
+            variant="secondary"
+            size="s"
+            onClick={() => {
+              setLoading(true);
+              setTimeout(() => setLoading(false), 2000);
+            }}
+          >
+            Simulate Loading
+          </Button>
+        </div>
+        <OffersList
+          offers={sampleOffers}
+          loading={loading}
+          onSelect={(id) => alert(`Selected offer: ${id}`)}
+        />
+      </div>
+    </Section>
+  );
+}
+
+function CarouselPreview() {
+  const meta = components.find((c) => c.id === "carousel")!;
+  const slides = [
+    { id: "1", content: <div className="h-[200px] bg-[var(--accent-100)] flex items-center justify-center rounded-[var(--s)]"><span className="text-[24px] font-semibold text-[var(--accent-800)]">Slide 1 — Promotions</span></div> },
+    { id: "2", content: <div className="h-[200px] bg-[var(--success-100)] flex items-center justify-center rounded-[var(--s)]"><span className="text-[24px] font-semibold text-[var(--success-800)]">Slide 2 — Partners</span></div> },
+    { id: "3", content: <div className="h-[200px] bg-[var(--warning-100)] flex items-center justify-center rounded-[var(--s)]"><span className="text-[24px] font-semibold text-[var(--warning-600)]">Slide 3 — Testimonials</span></div> },
+  ];
+  return (
+    <Section {...meta}>
+      <Carousel slides={slides} autoPlay autoPlayInterval={4000} />
+    </Section>
+  );
+}
+
+function CartPreview() {
+  const meta = components.find((c) => c.id === "cart")!;
+  const [items, setItems] = useState([
+    { id: "1", label: "MTPL Insurance", description: "Euroins — Annual policy", price: 245.50 },
+    { id: "2", label: "Roadside Assistance", description: "24/7 coverage add-on", price: 35.00 },
+    { id: "3", label: "Glass Coverage", description: "Windshield protection", price: 18.50 },
+  ]);
+  return (
+    <Section {...meta}>
+      <div className="max-w-[400px]">
+        <Cart
+          items={items}
+          onRemove={(id) => setItems((prev) => prev.filter((i) => i.id !== id))}
+          onCheckout={() => alert("Proceeding to checkout!")}
+        />
+      </div>
+    </Section>
+  );
+}
+
+function FAQPreview() {
+  const meta = components.find((c) => c.id === "faq")!;
+  return (
+    <Section {...meta}>
+      <FAQ
+        items={[
+          { question: "What documents do I need?", answer: "You'll need your ID card, vehicle registration certificate, and current insurance policy (if renewing)." },
+          { question: "How long does it take?", answer: "Most policies are activated within 24 hours of payment. Some providers offer instant activation." },
+          { question: "Can I compare prices?", answer: "Yes! Trusti compares offers from 10+ insurance providers to find you the best deal." },
+        ]}
+      />
+    </Section>
+  );
+}
+
+function FooterPreview() {
+  const meta = components.find((c) => c.id === "footer")!;
+  return (
+    <Section {...meta}>
+      <div className="-m-[var(--xxl)] rounded-[var(--s)] overflow-hidden">
+        <Footer
+          columns={[
+            { title: "Products", links: [{ label: "MTPL", href: "#" }, { label: "Casco", href: "#" }, { label: "Travel", href: "#" }] },
+            { title: "Company", links: [{ label: "About", href: "#" }, { label: "Careers", href: "#" }, { label: "Contact", href: "#" }] },
+            { title: "Legal", links: [{ label: "Terms", href: "#" }, { label: "Privacy", href: "#" }, { label: "Cookies", href: "#" }] },
+          ]}
+          socialLinks={[
+            { icon: "fa-brands fa-facebook", href: "#", label: "Facebook" },
+            { icon: "fa-brands fa-instagram", href: "#", label: "Instagram" },
+            { icon: "fa-brands fa-linkedin", href: "#", label: "LinkedIn" },
+          ]}
+          legalText="© 2026 Trusti. All rights reserved."
+        />
+      </div>
+    </Section>
+  );
+}
+
+function NavigationPreview() {
+  const meta = components.find((c) => c.id === "navigation")!;
+  return (
+    <Section {...meta}>
+      <div className="-m-[var(--xxl)] rounded-[var(--s)] overflow-hidden">
+        <div className="relative" style={{ position: "relative" }}>
+          <Navigation
+            links={[
+              { label: "Insurance", href: "#", active: true },
+              { label: "Compare", href: "#" },
+              { label: "Claims", href: "#" },
+              { label: "Help", href: "#" },
+            ]}
+            actions={
+              <Button variant="primary" size="s">Get a Quote</Button>
+            }
+          />
+        </div>
+      </div>
+    </Section>
+  );
+}
+
+function VehicleDetailsCardPreview() {
+  const meta = components.find((c) => c.id === "vehicle-details-card")!;
+  return (
+    <Section {...meta}>
+      <div className="max-w-[500px] space-y-[var(--m)]">
+        <VehicleDetailsCard
+          vehicle={{
+            make: "Toyota",
+            model: "Corolla",
+            year: 2021,
+            plate: "CB 1234 AB",
+            talonNumber: "TL-12345678",
+            verified: true,
+          }}
+          onEdit={() => alert("Edit vehicle")}
+        />
+        <VehicleDetailsCard
+          vehicle={{
+            make: "BMW",
+            model: "320d",
+            year: 2019,
+            plate: "PB 5678 CD",
+          }}
+          onEdit={() => alert("Edit vehicle")}
+        />
+      </div>
+    </Section>
+  );
+}
+
 // ─── Main page ────────────────────────────────────────────────
 
 export default function Home() {
@@ -1169,6 +1781,25 @@ export default function Home() {
           {visibleIds.has("tabs") && <TabsPreview />}
           {visibleIds.has("context-menu") && <ContextMenuPreview />}
           {visibleIds.has("progress-bar") && <ProgressBarPreview />}
+          {visibleIds.has("pagination") && <PaginationPreview />}
+          {visibleIds.has("pill") && <PillPreview />}
+          {visibleIds.has("radio") && <RadioPreview />}
+          {visibleIds.has("slider") && <SliderPreview />}
+          {visibleIds.has("tag") && <TagPreview />}
+          {visibleIds.has("toast") && <ToastPreview />}
+
+          {/* Organisms */}
+          {visibleIds.has("accordion") && <AccordionPreview />}
+          {visibleIds.has("drawer") && <DrawerPreview />}
+          {visibleIds.has("offers-list") && <OffersListPreview />}
+
+          {/* Templates */}
+          {visibleIds.has("carousel") && <CarouselPreview />}
+          {visibleIds.has("cart") && <CartPreview />}
+          {visibleIds.has("faq") && <FAQPreview />}
+          {visibleIds.has("footer") && <FooterPreview />}
+          {visibleIds.has("navigation") && <NavigationPreview />}
+          {visibleIds.has("vehicle-details-card") && <VehicleDetailsCardPreview />}
         </main>
       </div>
     </div>
