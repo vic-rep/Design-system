@@ -9,6 +9,7 @@ import { Alert } from "@/components/molecules/Alert";
 import { Toggle } from "@/components/molecules/Toggle";
 import { Checkbox } from "@/components/molecules/Checkbox";
 import { Tooltip } from "@/components/molecules/Tooltip";
+import { Modal } from "@/components/molecules/Modal";
 
 // ─── Component doc metadata ───────────────────────────────────
 const FIGMA_FILE = "nG8PGu5CclffafrfZuMG9G";
@@ -37,7 +38,7 @@ const components: ComponentMeta[] = [
     level: "Molecule",
     figmaNode: "45:8",
     docPath: ".claude/skills/docs/molecules/input.md",
-    description: "Text input field with label, helper text, error state, and icon support.",
+    description: "Input fields with 6 types: Text, Textarea, Dropdown, Plate, Phone, Datepicker. Each with 6 states.",
   },
   {
     id: "alert",
@@ -70,6 +71,14 @@ const components: ComponentMeta[] = [
     figmaNode: "97:1419",
     docPath: ".claude/skills/docs/molecules/tooltip.md",
     description: "Contextual help text shown on hover/focus with configurable position.",
+  },
+  {
+    id: "modal",
+    label: "Modal",
+    level: "Molecule",
+    figmaNode: "448:2624",
+    docPath: ".claude/skills/docs/molecules/modal.md",
+    description: "Dialog overlay with header, scrollable content, and action buttons. Responsive desktop/mobile.",
   },
 ];
 
@@ -590,24 +599,83 @@ function InputPreview() {
   const [value, setValue] = useState("");
   return (
     <Section {...meta}>
-      <div className="max-w-[400px] space-y-[var(--l)]">
-        <Input
-          label="Default"
-          placeholder="Placeholder"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-        />
-        <Input
-          label="Filled"
-          placeholder="Placeholder"
-          defaultValue="Fill text"
-        />
-        <Input
-          label="Error state"
-          defaultValue="Fill text"
-          error="This field is required"
-        />
-        <Input label="Disabled" placeholder="Placeholder" disabled />
+      <div className="space-y-[var(--xxl)]">
+        {/* Text */}
+        <div>
+          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+            Text Input
+          </p>
+          <div className="max-w-[400px] space-y-[var(--m)]">
+            <Input label="Default" placeholder="Placeholder" value={value} onChange={(e) => setValue((e as React.ChangeEvent<HTMLInputElement>).target.value)} />
+            <Input label="Filled" placeholder="Placeholder" defaultValue="Fill text" />
+            <Input label="Error" defaultValue="Fill text" error="This field is required" />
+            <Input label="Disabled" placeholder="Placeholder" disabled />
+          </div>
+        </div>
+
+        {/* Textarea */}
+        <div>
+          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+            Text Area
+          </p>
+          <div className="max-w-[400px] space-y-[var(--m)]">
+            <Input inputType="textarea" label="Default" placeholder="Placeholder" />
+            <Input inputType="textarea" label="Error" defaultValue="Fill text" error="Field is invalid" />
+          </div>
+        </div>
+
+        {/* Dropdown */}
+        <div>
+          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+            Dropdown
+          </p>
+          <div className="max-w-[400px] space-y-[var(--m)]">
+            <Input
+              inputType="dropdown"
+              label="Default"
+              placeholder="Placeholder"
+              options={[
+                { value: "opt1", label: "Option 1" },
+                { value: "opt2", label: "Option 2" },
+                { value: "opt3", label: "Option 3" },
+              ]}
+            />
+            <Input inputType="dropdown" label="Disabled" placeholder="Placeholder" options={[]} disabled />
+          </div>
+        </div>
+
+        {/* Plate */}
+        <div>
+          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+            License Plate
+          </p>
+          <div className="max-w-[400px] space-y-[var(--m)]">
+            <Input inputType="plate" placeholder="EA1234CB" />
+            <Input inputType="plate" defaultValue="EA124" error="Invalid plate number" />
+          </div>
+        </div>
+
+        {/* Phone */}
+        <div>
+          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+            Phone
+          </p>
+          <div className="max-w-[400px] space-y-[var(--m)]">
+            <Input inputType="phone" placeholder="089xxxxxxxxxx" />
+            <Input inputType="phone" defaultValue="089" error="Invalid phone number" />
+          </div>
+        </div>
+
+        {/* Datepicker */}
+        <div>
+          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+            Date Picker
+          </p>
+          <div className="max-w-[400px] space-y-[var(--m)]">
+            <Input inputType="datepicker" label="Default" placeholder="Select date" />
+            <Input inputType="datepicker" label="Disabled" disabled />
+          </div>
+        </div>
       </div>
     </Section>
   );
@@ -730,6 +798,44 @@ function TooltipPreview() {
           </div>
         </div>
       </div>
+    </Section>
+  );
+}
+
+function ModalPreview() {
+  const meta = components.find((c) => c.id === "modal")!;
+  const [open, setOpen] = useState(false);
+  return (
+    <Section {...meta}>
+      <Button variant="primary" size="m" onClick={() => setOpen(true)}>
+        Open Modal
+      </Button>
+      <Modal
+        open={open}
+        onClose={() => setOpen(false)}
+        title="Title goes here"
+        primaryAction={{ label: "Confirm", onClick: () => setOpen(false) }}
+        secondaryAction={{ label: "Cancel", onClick: () => setOpen(false) }}
+      >
+        <p className="mb-[var(--l)]">
+          Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
+          doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore
+          veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+        </p>
+        <p className="mb-[var(--l)]">
+          Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur,
+          adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et
+          dolore magnam aliquam quaerat voluptatem.
+        </p>
+        <p className="mb-[var(--l)]">
+          Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil
+          molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
+        </p>
+        <p>
+          Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus
+          maiores alias consequatur aut perferendis doloribus asperiores repellat.
+        </p>
+      </Modal>
     </Section>
   );
 }
@@ -899,6 +1005,7 @@ export default function Home() {
           {visibleIds.has("toggle") && <TogglePreview />}
           {visibleIds.has("checkbox") && <CheckboxPreview />}
           {visibleIds.has("tooltip") && <TooltipPreview />}
+          {visibleIds.has("modal") && <ModalPreview />}
         </main>
       </div>
     </div>
