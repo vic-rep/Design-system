@@ -593,32 +593,21 @@ function InputPreview() {
       <div className="max-w-[400px] space-y-[var(--l)]">
         <Input
           label="Default"
-          placeholder="Enter text..."
+          placeholder="Placeholder"
           value={value}
           onChange={(e) => setValue(e.target.value)}
         />
         <Input
-          label="With helper"
-          placeholder="Email"
-          helperText="We'll never share your email."
-          leftIcon="fa-envelope"
+          label="Filled"
+          placeholder="Placeholder"
+          defaultValue="Fill text"
         />
         <Input
           label="Error state"
-          placeholder="Username"
+          defaultValue="Fill text"
           error="This field is required"
         />
-        <Input label="Disabled" placeholder="Cannot edit" disabled />
-        <div>
-          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
-            Sizes
-          </p>
-          <div className="space-y-[var(--s)]">
-            <Input placeholder="Small input" inputSize="sm" />
-            <Input placeholder="Medium input (default)" inputSize="md" />
-            <Input placeholder="Large input" inputSize="lg" />
-          </div>
-        </div>
+        <Input label="Disabled" placeholder="Placeholder" disabled />
       </div>
     </Section>
   );
@@ -701,19 +690,45 @@ function TooltipPreview() {
   const meta = components.find((c) => c.id === "tooltip")!;
   return (
     <Section {...meta}>
-      <div className="flex gap-[var(--xxl)] items-center justify-center py-[var(--4xl)]">
-        <Tooltip content="Top tooltip" position="top">
-          <Button variant="secondary" size="s">Top</Button>
-        </Tooltip>
-        <Tooltip content="Bottom tooltip" position="bottom">
-          <Button variant="secondary" size="s">Bottom</Button>
-        </Tooltip>
-        <Tooltip content="Left tooltip" position="left">
-          <Button variant="secondary" size="s">Left</Button>
-        </Tooltip>
-        <Tooltip content="Right tooltip" position="right">
-          <Button variant="secondary" size="s">Right</Button>
-        </Tooltip>
+      <div className="space-y-[var(--xxl)]">
+        <div>
+          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+            Info (Default)
+          </p>
+          <div className="flex gap-[var(--xxl)] items-center justify-center py-[var(--4xl)]">
+            <Tooltip content="Tooltips and toggletips look visually similar, and both have an interactive trigger." position="top">
+              <Button variant="secondary" size="s">Top</Button>
+            </Tooltip>
+            <Tooltip content="Tooltips and toggletips look visually similar, and both have an interactive trigger." position="bottom">
+              <Button variant="secondary" size="s">Bottom</Button>
+            </Tooltip>
+            <Tooltip content="Tooltips and toggletips look visually similar, and both have an interactive trigger." position="left">
+              <Button variant="secondary" size="s">Left</Button>
+            </Tooltip>
+            <Tooltip content="Tooltips and toggletips look visually similar, and both have an interactive trigger." position="right">
+              <Button variant="secondary" size="s">Right</Button>
+            </Tooltip>
+          </div>
+        </div>
+        <div>
+          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+            Error
+          </p>
+          <div className="flex gap-[var(--xxl)] items-center justify-center py-[var(--4xl)]">
+            <Tooltip content="This field is required" type="error" position="top">
+              <Button variant="secondary" size="s">Top</Button>
+            </Tooltip>
+            <Tooltip content="This field is required" type="error" position="bottom">
+              <Button variant="secondary" size="s">Bottom</Button>
+            </Tooltip>
+            <Tooltip content="This field is required" type="error" position="left">
+              <Button variant="secondary" size="s">Left</Button>
+            </Tooltip>
+            <Tooltip content="This field is required" type="error" position="right">
+              <Button variant="secondary" size="s">Right</Button>
+            </Tooltip>
+          </div>
+        </div>
       </div>
     </Section>
   );
