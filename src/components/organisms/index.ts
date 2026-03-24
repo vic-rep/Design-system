@@ -9,3 +9,12 @@ export type { DataTableProps, DataTableColumn, SortDirection } from "./DataTable
 
 export { Modal } from "./Modal";
 export type { ModalProps, ModalSize } from "./Modal";
+
+export { Accordion } from "./Accordion";
+export type { AccordionProps, AccordionItem } from "./Accordion";
+
+export { Drawer } from "./Drawer";
+export type { DrawerProps, DrawerPosition } from "./Drawer";
+
+export { OffersList } from "./OffersList";
+export type { OffersListProps, Offer, OfferFeature } from "./OffersList";
