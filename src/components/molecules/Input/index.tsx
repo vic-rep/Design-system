@@ -1,51 +1,34 @@
 "use client";
 
 import React, { forwardRef, useId } from "react";
+import { Tooltip } from "@/components/molecules/Tooltip";
 
 /**
  * Input — Molecule
- * Figma: Page 45:8 → Section 158:247
- * Doc: .claude/skills/docs/molecules/input.md
+ * Figma: Page 45:8 → Node 156:1333
  *
- * Sizes: sm (32px), md (40px), lg (48px)
- * States: default, focused, error, disabled
+ * States: default, focus, filled, typing, error, disabled
+ * Field: 41px height, --m (12px) padding, --s (8px) border-radius
+ * Label: 10px caption, --xs (4px) horizontal padding
+ * Error: red bg (--destructive-100), red border (--destructive-300),
+ *        error tooltip positioned top-right
+ * Focus: border --primary-400 (#999)
+ * Disabled: opacity 20%
  */
 
-export type InputSize = "sm" | "md" | "lg";
-
-export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size"> {
+export interface InputProps
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size"> {
   label?: string;
-  helperText?: string;
   error?: string;
-  inputSize?: InputSize;
-  leftIcon?: string;
-  rightIcon?: string;
+  showLabel?: boolean;
 }
-
-const sizeStyles: Record<InputSize, { input: string; text: string }> = {
-  sm: {
-    input: "h-[32px] px-[var(--s)] text-[14px]",
-    text: "text-[12px]",
-  },
-  md: {
-    input: "h-[40px] px-[var(--m)] text-[16px]",
-    text: "text-[14px]",
-  },
-  lg: {
-    input: "h-[48px] px-[var(--l)] text-[16px]",
-    text: "text-[14px]",
-  },
-};
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   (
     {
       label,
-      helperText,
       error,
-      inputSize = "md",
-      leftIcon,
-      rightIcon,
+      showLabel = true,
       disabled,
       id: externalId,
       className = "",
@@ -56,68 +39,62 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     const generatedId = useId();
     const id = externalId ?? generatedId;
     const errorId = error ? `${id}-error` : undefined;
-    const helperId = helperText && !error ? `${id}-helper` : undefined;
-    const describedBy = errorId ?? helperId;
     const hasError = Boolean(error);
 
     return (
-      <div className={`flex flex-col gap-[var(--xs)] ${className}`}>
-        {label && (
-          <label
-            htmlFor={id}
-            className={`font-medium ${sizeStyles[inputSize].text} text-[var(--primary-900)]`}
-          >
-            {label}
-          </label>
+      <div className={`relative flex flex-col gap-[var(--xs)] items-start ${className}`}>
+        {/* Label row */}
+        {showLabel && label && (
+          <div className="flex items-center justify-center px-[var(--xs)] w-full">
+            <label
+              htmlFor={id}
+              className="flex-1 font-normal text-[10px] leading-[1.3] text-[var(--primary-900)]"
+            >
+              {label}
+            </label>
+          </div>
         )}
-        <div className="relative">
-          {leftIcon && (
-            <i
-              className={`fa-solid ${leftIcon} absolute left-[var(--m)] top-1/2 -translate-y-1/2 text-[var(--primary-400)]`}
-              aria-hidden="true"
-            />
-          )}
+
+        {/* Field */}
+        <div className="relative w-full">
           <input
             ref={ref}
             id={id}
             disabled={disabled}
             aria-invalid={hasError || undefined}
-            aria-describedby={describedBy}
+            aria-describedby={errorId}
             className={[
-              "w-full rounded-[var(--radius-lg)] border bg-[var(--surface-adjacent)]",
-              "font-[var(--font-sans)] text-[var(--primary-900)]",
+              "w-full h-[41px] p-[var(--m)] rounded-[var(--s)]",
+              "font-normal text-[16px] leading-[1.2] text-[var(--primary-900)]",
               "placeholder:text-[var(--primary-400)]",
-              "transition-[border-color] duration-150 ease-in-out",
-              "focus-visible:outline-none focus-visible:border-[var(--accent-600)] focus-visible:ring-2 focus-visible:ring-[var(--accent-600)]/20",
-              sizeStyles[inputSize].input,
-              leftIcon ? "pl-[var(--5xl)]" : "",
-              rightIcon ? "pr-[var(--5xl)]" : "",
+              "border transition-[border-color] duration-150 ease-in-out",
+              "focus-visible:outline-none",
               hasError
-                ? "border-[var(--destructive-550)] focus-visible:border-[var(--destructive-550)] focus-visible:ring-[var(--destructive-550)]/20"
-                : "border-[var(--primary-200)]",
-              disabled ? "opacity-50 cursor-not-allowed" : "",
+                ? "bg-[var(--destructive-100)] border-[var(--destructive-300)]"
+                : "bg-[var(--surface-adjacent)] border-[var(--primary-300)] focus-visible:border-[var(--primary-400)]",
+              disabled ? "opacity-20 cursor-not-allowed" : "",
             ]
               .filter(Boolean)
               .join(" ")}
             {...props}
           />
-          {rightIcon && (
-            <i
-              className={`fa-solid ${rightIcon} absolute right-[var(--m)] top-1/2 -translate-y-1/2 text-[var(--primary-400)]`}
-              aria-hidden="true"
-            />
+
+          {/* Error tooltip — positioned top-right of the input */}
+          {hasError && error && (
+            <div className="absolute right-0 bottom-full mb-[2px] z-10">
+              <Tooltip content={error} type="error" position="bottom">
+                <button
+                  type="button"
+                  tabIndex={-1}
+                  aria-label={`Error: ${error}`}
+                  className="flex items-center justify-center w-[20px] h-[20px] rounded-full bg-[var(--destructive-100)] border border-[var(--destructive-300)] text-[var(--destructive-600)] text-[10px] font-medium cursor-default"
+                >
+                  !
+                </button>
+              </Tooltip>
+            </div>
           )}
         </div>
-        {error && (
-          <span id={errorId} className={`${sizeStyles[inputSize].text} text-[var(--destructive-550)]`} role="alert">
-            {error}
-          </span>
-        )}
-        {helperText && !error && (
-          <span id={helperId} className={`${sizeStyles[inputSize].text} text-[var(--primary-500)]`}>
-            {helperText}
-          </span>
-        )}
       </div>
     );
   }
