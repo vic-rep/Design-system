@@ -337,51 +337,77 @@ function ColorsPreview() {
 }
 
 function TypographyPreview() {
+  const desktopStyles = [
+    { name: "H1", spec: "48/56 SemiBold", size: "48px", weight: "font-semibold", lineHeight: "1.2" },
+    { name: "H2", spec: "40/52 SemiBold", size: "40px", weight: "font-semibold", lineHeight: "1.2" },
+    { name: "H3", spec: "36/42 SemiBold", size: "36px", weight: "font-semibold", lineHeight: "1.2" },
+    { name: "H4", spec: "32/34 SemiBold", size: "32px", weight: "font-semibold", lineHeight: "1.2" },
+    { name: "H5", spec: "24/28 Medium", size: "24px", weight: "font-medium", lineHeight: "1.2" },
+    { name: "H6", spec: "20/24 Medium", size: "20px", weight: "font-medium", lineHeight: "1.2" },
+    { name: "Text Large", spec: "18/26 Regular", size: "18px", weight: "font-normal", lineHeight: "1.2" },
+    { name: "Text Default", spec: "16/26 Regular", size: "16px", weight: "font-normal", lineHeight: "1.2" },
+    { name: "Text Default M", spec: "16/26 Medium", size: "16px", weight: "font-medium", lineHeight: "1.2" },
+    { name: "Text Small", spec: "14/24 Regular", size: "14px", weight: "font-normal", lineHeight: "1.2" },
+    { name: "Caption", spec: "12/24 Regular", size: "12px", weight: "font-normal", lineHeight: "1.2" },
+  ];
+
+  const mobileStyles = [
+    { name: "H1", spec: "32/40 SemiBold", size: "32px", weight: "font-semibold", lineHeight: "1.2" },
+    { name: "H2", spec: "28/36 SemiBold", size: "28px", weight: "font-semibold", lineHeight: "1.2" },
+    { name: "H3", spec: "24/32 SemiBold", size: "24px", weight: "font-semibold", lineHeight: "1.2" },
+    { name: "H4", spec: "20/34 SemiBold", size: "20px", weight: "font-semibold", lineHeight: "1.2" },
+    { name: "H5", spec: "18/24 Medium", size: "18px", weight: "font-medium", lineHeight: "1.2" },
+    { name: "H6", spec: "16/22 Medium", size: "16px", weight: "font-semibold", lineHeight: "1.2" },
+    { name: "Text Large", spec: "16/24 Regular", size: "16px", weight: "font-normal", lineHeight: "1.2" },
+    { name: "Text Default", spec: "14/21 Regular", size: "14px", weight: "font-normal", lineHeight: "1.2" },
+    { name: "Text Default M", spec: "14/21 Medium", size: "14px", weight: "font-medium", lineHeight: "1.2" },
+    { name: "Text Small", spec: "12/19.5 Regular", size: "12px", weight: "font-normal", lineHeight: "1.3" },
+    { name: "Caption", spec: "10/18 Regular", size: "10px", weight: "font-normal", lineHeight: "1.3" },
+  ];
+
   return (
-    <div className="space-y-[var(--space-l)]">
-      <p className="text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)] mb-[var(--space-s)]">
-        Source Sans 3 — Desktop Scale (≥768px)
-      </p>
-      <div className="space-y-[var(--space-m)]">
-        <div className="flex items-baseline gap-[var(--space-l)]">
-          <span className="text-[12px] text-[var(--primary-400)] w-[60px] shrink-0">H1 / 48px</span>
-          <span className="text-[48px] font-semibold leading-[1.2]">Heading 1</span>
+    <div className="space-y-[var(--space-xxl)]">
+      {/* Desktop scale */}
+      <div>
+        <p className="text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)] mb-[var(--space-m)]">
+          Desktop (≥768px)
+        </p>
+        <div className="space-y-[var(--space-m)]">
+          {desktopStyles.map((s) => (
+            <div key={`d-${s.name}`} className="flex flex-col gap-[var(--space-xxs)]">
+              <span
+                className={`text-[${s.size}] ${s.weight} leading-[${s.lineHeight}] text-[var(--primary-900)]`}
+                style={{ fontSize: s.size, fontWeight: s.weight === "font-semibold" ? 600 : s.weight === "font-medium" ? 500 : 400, lineHeight: s.lineHeight }}
+              >
+                {s.name}
+              </span>
+              <span className="text-[12px] text-[var(--primary-400)]">
+                {s.name} &mdash; {s.spec} Source Sans 3
+              </span>
+            </div>
+          ))}
         </div>
-        <div className="flex items-baseline gap-[var(--space-l)]">
-          <span className="text-[12px] text-[var(--primary-400)] w-[60px] shrink-0">H2 / 40px</span>
-          <span className="text-[40px] font-semibold leading-[1.2]">Heading 2</span>
-        </div>
-        <div className="flex items-baseline gap-[var(--space-l)]">
-          <span className="text-[12px] text-[var(--primary-400)] w-[60px] shrink-0">H3 / 36px</span>
-          <span className="text-[36px] font-semibold leading-[1.2]">Heading 3</span>
-        </div>
-        <div className="flex items-baseline gap-[var(--space-l)]">
-          <span className="text-[12px] text-[var(--primary-400)] w-[60px] shrink-0">H4 / 32px</span>
-          <span className="text-[32px] font-semibold leading-[1.2]">Heading 4</span>
-        </div>
-        <div className="flex items-baseline gap-[var(--space-l)]">
-          <span className="text-[12px] text-[var(--primary-400)] w-[60px] shrink-0">H5 / 24px</span>
-          <span className="text-[24px] font-medium leading-[1.2]">Heading 5</span>
-        </div>
-        <div className="flex items-baseline gap-[var(--space-l)]">
-          <span className="text-[12px] text-[var(--primary-400)] w-[60px] shrink-0">H6 / 20px</span>
-          <span className="text-[20px] font-medium leading-[1.2]">Heading 6</span>
-        </div>
-        <div className="flex items-baseline gap-[var(--space-l)]">
-          <span className="text-[12px] text-[var(--primary-400)] w-[60px] shrink-0">Lg / 18px</span>
-          <span className="text-[18px] font-normal leading-[1.2]">Text Large — lead paragraphs</span>
-        </div>
-        <div className="flex items-baseline gap-[var(--space-l)]">
-          <span className="text-[12px] text-[var(--primary-400)] w-[60px] shrink-0">Def / 16px</span>
-          <span className="text-[16px] font-normal leading-[1.2]">Text Default — standard body</span>
-        </div>
-        <div className="flex items-baseline gap-[var(--space-l)]">
-          <span className="text-[12px] text-[var(--primary-400)] w-[60px] shrink-0">Sm / 14px</span>
-          <span className="text-[14px] font-normal leading-[1.2]">Text Small — secondary info</span>
-        </div>
-        <div className="flex items-baseline gap-[var(--space-l)]">
-          <span className="text-[12px] text-[var(--primary-400)] w-[60px] shrink-0">Cap / 12px</span>
-          <span className="text-[12px] font-normal leading-[1.2]">Caption — timestamps, captions</span>
+      </div>
+
+      {/* Mobile scale */}
+      <div>
+        <p className="text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)] mb-[var(--space-m)]">
+          Mobile (&lt;768px)
+        </p>
+        <div className="space-y-[var(--space-m)]">
+          {mobileStyles.map((s) => (
+            <div key={`m-${s.name}`} className="flex flex-col gap-[var(--space-xxs)]">
+              <span
+                className="text-[var(--primary-900)]"
+                style={{ fontSize: s.size, fontWeight: s.weight === "font-semibold" ? 600 : s.weight === "font-medium" ? 500 : 400, lineHeight: s.lineHeight }}
+              >
+                {s.name}
+              </span>
+              <span className="text-[12px] text-[var(--primary-400)]">
+                {s.name} &mdash; {s.spec} Source Sans 3
+              </span>
+            </div>
+          ))}
         </div>
       </div>
     </div>
