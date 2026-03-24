@@ -27,9 +27,9 @@ const components: ComponentMeta[] = [
     id: "button",
     label: "Button",
     level: "Molecule",
-    figmaNode: "45:5",
+    figmaNode: "108:2107",
     docPath: ".claude/skills/docs/molecules/button.md",
-    description: "Primary interactive control for triggering actions, submitting forms, and navigating flows.",
+    description: "Primary interactive control with Primary, Secondary, Link, and Icon types across 4 sizes.",
   },
   {
     id: "input",
@@ -456,23 +456,24 @@ function ButtonPreview() {
       <div className="space-y-[var(--space-xxl)]">
         <div>
           <p className="mb-[var(--space-s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
-            Variants
+            Types
           </p>
-          <div className="flex flex-wrap gap-[var(--space-m)]">
-            <Button variant="primary">Primary</Button>
-            <Button variant="secondary">Secondary</Button>
-            <Button variant="ghost">Ghost</Button>
-            <Button variant="destructive">Destructive</Button>
+          <div className="flex flex-wrap items-center gap-[var(--space-m)]">
+            <Button variant="primary" leadingIcon="fa-house" trailingIcon="fa-chevron-right">Primary</Button>
+            <Button variant="secondary" leadingIcon="fa-house" trailingIcon="fa-chevron-right">Secondary</Button>
+            <Button variant="link" leadingIcon="fa-house" trailingIcon="fa-chevron-right">Link</Button>
+            <Button variant="icon" leadingIcon="fa-house" />
           </div>
         </div>
         <div>
           <p className="mb-[var(--space-s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
             Sizes
           </p>
-          <div className="flex flex-wrap items-center gap-[var(--space-m)]">
-            <Button size="sm">Small</Button>
-            <Button size="md">Medium</Button>
-            <Button size="lg">Large</Button>
+          <div className="flex flex-wrap items-end gap-[var(--space-m)]">
+            <Button size="s">Small</Button>
+            <Button size="m">Medium</Button>
+            <Button size="l">Large</Button>
+            <Button size="xl" leadingIcon="fa-house" trailingIcon="fa-chevron-right">XL</Button>
           </div>
         </div>
         <div>
@@ -487,9 +488,32 @@ function ButtonPreview() {
         </div>
         <div>
           <p className="mb-[var(--space-s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+            Secondary Variants
+          </p>
+          <div className="flex flex-wrap items-end gap-[var(--space-m)]">
+            <Button variant="secondary" size="s">Small</Button>
+            <Button variant="secondary" size="m">Medium</Button>
+            <Button variant="secondary" size="l">Large</Button>
+            <Button variant="secondary" size="xl" leadingIcon="fa-house" trailingIcon="fa-chevron-right">XL</Button>
+          </div>
+        </div>
+        <div>
+          <p className="mb-[var(--space-s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+            Icon Buttons
+          </p>
+          <div className="flex flex-wrap items-end gap-[var(--space-m)]">
+            <Button variant="icon" size="s" leadingIcon="fa-house" />
+            <Button variant="icon" size="m" leadingIcon="fa-house" />
+            <Button variant="icon" size="l" leadingIcon="fa-house" />
+            <Button variant="icon" size="xl" leadingIcon="fa-house" />
+            <Button variant="icon" size="l" leadingIcon="fa-house" disabled />
+          </div>
+        </div>
+        <div>
+          <p className="mb-[var(--space-s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
             Full Width
           </p>
-          <Button fullWidth>Full Width Button</Button>
+          <Button fullWidth leadingIcon="fa-house" trailingIcon="fa-chevron-right">Full Width Button</Button>
         </div>
       </div>
     </Section>
@@ -614,16 +638,16 @@ function TooltipPreview() {
     <Section {...meta}>
       <div className="flex gap-[var(--space-xxl)] items-center justify-center py-[var(--space-4xl)]">
         <Tooltip content="Top tooltip" position="top">
-          <Button variant="secondary" size="sm">Top</Button>
+          <Button variant="secondary" size="s">Top</Button>
         </Tooltip>
         <Tooltip content="Bottom tooltip" position="bottom">
-          <Button variant="secondary" size="sm">Bottom</Button>
+          <Button variant="secondary" size="s">Bottom</Button>
         </Tooltip>
         <Tooltip content="Left tooltip" position="left">
-          <Button variant="secondary" size="sm">Left</Button>
+          <Button variant="secondary" size="s">Left</Button>
         </Tooltip>
         <Tooltip content="Right tooltip" position="right">
-          <Button variant="secondary" size="sm">Right</Button>
+          <Button variant="secondary" size="s">Right</Button>
         </Tooltip>
       </div>
     </Section>
