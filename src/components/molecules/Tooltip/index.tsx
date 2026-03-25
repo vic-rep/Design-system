@@ -134,7 +134,7 @@ export function Tooltip({
     "absolute z-50 pointer-events-none",
     "p-[var(--s)] rounded-[var(--xs)]",
     "text-[12px] leading-[1.3] font-normal",
-    "max-w-[320px] min-w-[120px]",
+    "max-w-[320px] min-w-[200px]",
     "animate-[fadeIn_150ms_ease-in-out]",
     isError
       ? "bg-[var(--primary-100)] border border-[var(--destructive-200)] text-[var(--destructive-600)]"

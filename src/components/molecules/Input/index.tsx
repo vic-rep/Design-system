@@ -75,7 +75,7 @@ function ErrorBadge({ error }: { error: string }) {
     <div className="absolute right-0 bottom-full mb-[2px] z-10">
       <div
         role="tooltip"
-        className="relative p-[var(--s)] rounded-[var(--xs)] text-[12px] leading-[1.3] font-normal max-w-[320px] min-w-[120px] bg-[var(--primary-100)] border border-[var(--destructive-200)] text-[var(--destructive-600)]"
+        className="relative p-[var(--s)] rounded-[var(--xs)] text-[12px] leading-[1.3] font-normal max-w-[320px] min-w-[200px] bg-[var(--primary-100)] border border-[var(--destructive-200)] text-[var(--destructive-600)]"
       >
         {error}
         {/* Arrow pointing down toward the input */}
@@ -406,24 +406,16 @@ PhoneInput.displayName = "PhoneInput";
 
 const DatepickerInput = forwardRef<HTMLInputElement, FieldProps>(
   ({ id, hasError, disabled, errorId, ...props }, ref) => (
-    <div className="relative">
-      <input
-        ref={ref}
-        id={id}
-        type="date"
-        disabled={disabled}
-        aria-invalid={hasError || undefined}
-        aria-describedby={errorId}
-        className={`h-[41px] pr-[var(--xxl)] ${fieldClasses(hasError, disabled)}`}
-        {...props}
-      />
-      <div className="pointer-events-none absolute right-[var(--m)] top-1/2 -translate-y-1/2">
-        <i
-          className="fa-regular fa-calendar text-[16px] text-[var(--primary-900)]"
-          aria-hidden="true"
-        />
-      </div>
-    </div>
+    <input
+      ref={ref}
+      id={id}
+      type="date"
+      disabled={disabled}
+      aria-invalid={hasError || undefined}
+      aria-describedby={errorId}
+      className={`h-[41px] ${fieldClasses(hasError, disabled)}`}
+      {...props}
+    />
   )
 );
 DatepickerInput.displayName = "DatepickerInput";

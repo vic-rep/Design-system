@@ -2,18 +2,32 @@
 
 import React from "react";
 
+/**
+ * Pill — Molecule (compact label / filter chip)
+ * Figma: Page 74:11 → Node 409:3053
+ * Doc: .claude/skills/docs/molecules/pill.md
+ *
+ * Sizes: XS, S, M, L
+ * Variants: default, accent, success, warning, destructive
+ * Icons: optional leading + trailing (Font Awesome class)
+ */
+
 export type PillVariant = "default" | "accent" | "success" | "warning" | "destructive";
+export type PillSize = "xs" | "s" | "m" | "l";
 
 export interface PillProps {
   children: React.ReactNode;
   variant?: PillVariant;
+  size?: PillSize;
   selected?: boolean;
   onClick?: () => void;
+  leftIcon?: string;
+  rightIcon?: string;
   className?: string;
 }
 
 const variantStyles: Record<PillVariant, string> = {
-  default: "bg-[var(--primary-100)] text-[var(--primary-900)]",
+  default: "bg-[var(--surface-adjacent)] text-[var(--primary-900)]",
   accent: "bg-[var(--accent-100)] text-[var(--accent-800)]",
   success: "bg-[var(--success-100)] text-[var(--success-800)]",
   warning: "bg-[var(--warning-100)] text-[var(--warning-600)]",
@@ -28,11 +42,35 @@ const selectedBorders: Record<PillVariant, string> = {
   destructive: "ring-1 ring-[var(--destructive-550)]",
 };
 
+const sizePadding: Record<PillSize, string> = {
+  xs: "px-[var(--s)] py-[var(--xs)]",
+  s: "px-[var(--m)] py-[var(--xs)]",
+  m: "px-[var(--l)] py-[var(--s)]",
+  l: "px-[var(--l)] py-[var(--s)]",
+};
+
+const sizeText: Record<PillSize, string> = {
+  xs: "text-[12px] leading-[1.3] font-normal",
+  s: "text-[14px] leading-[1.2] font-normal",
+  m: "text-[14px] leading-[1.2] font-medium",
+  l: "text-[16px] leading-[1.2] font-normal",
+};
+
+const sizeIcon: Record<PillSize, string> = {
+  xs: "text-[12px] w-[12px] h-[12px]",
+  s: "text-[12px] w-[12px] h-[12px]",
+  m: "text-[12px] w-[12px] h-[12px]",
+  l: "text-[16px] w-[16px] h-[16px]",
+};
+
 export function Pill({
   children,
   variant = "default",
+  size = "xs",
   selected = false,
   onClick,
+  leftIcon,
+  rightIcon,
   className = "",
 }: PillProps) {
   const isInteractive = !!onClick;
@@ -40,10 +78,12 @@ export function Pill({
 
   return (
     <Tag
-      {...(isInteractive ? { type: "button", role: "button", onClick, tabIndex: 0 } : {})}
+      {...(isInteractive ? { type: "button" as const, role: "button" as const, onClick, tabIndex: 0 } : {})}
       className={[
-        "inline-flex items-center px-[var(--m)] py-[var(--xs)] rounded-[var(--4xl)]",
-        "text-[12px] font-medium leading-[1.2] transition-all duration-150",
+        "inline-flex items-center justify-center gap-[var(--s)] rounded-[var(--xxl)]",
+        "transition-all duration-150",
+        sizePadding[size],
+        sizeText[size],
         variantStyles[variant],
         selected ? selectedBorders[variant] : "",
         isInteractive ? "cursor-pointer hover:opacity-80" : "",
@@ -51,8 +91,21 @@ export function Pill({
       ]
         .filter(Boolean)
         .join(" ")}
+      style={{ fontFeatureSettings: "'cv12' 1, 'cv13' 1, 'cv14' 1, 'cv15' 1, 'cv16' 1" }}
     >
-      {children}
+      {leftIcon && (
+        <i
+          className={`fa-regular ${leftIcon} ${sizeIcon[size]} shrink-0`}
+          aria-hidden="true"
+        />
+      )}
+      <span>{children}</span>
+      {rightIcon && (
+        <i
+          className={`fa-regular ${rightIcon} ${sizeIcon[size]} shrink-0`}
+          aria-hidden="true"
+        />
+      )}
     </Tag>
   );
 }
