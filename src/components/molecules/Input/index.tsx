@@ -1,6 +1,7 @@
 "use client";
 
 import React, { forwardRef, useId, useState, useRef, useEffect } from "react";
+import { Icon } from "@/components/atoms/Icon";
 
 /**
  * Input — Molecule
@@ -51,20 +52,15 @@ function fieldClasses(hasError: boolean, disabled?: boolean) {
     .join(" ");
 }
 
-/* ── Chevron SVG (dropdown/phone) ─────────────────────────── */
+/* ── Chevron icon (dropdown/phone) ────────────────────────── */
 
 function ChevronDown({ className }: { className?: string }) {
   return (
-    <svg
-      width="6"
-      height="4"
-      viewBox="0 0 6 4"
-      fill="none"
-      className={className}
-      aria-hidden="true"
-    >
-      <path d="M3 4L0.401924 0.25L5.59808 0.25L3 4Z" fill="var(--primary-900)" />
-    </svg>
+    <Icon
+      name="fa-chevron-down"
+      size="xs"
+      className={`text-[var(--primary-900)] ${className ?? ""}`}
+    />
   );
 }
 
@@ -75,8 +71,9 @@ function ErrorBadge({ error }: { error: string }) {
     <div className="absolute right-0 bottom-full mb-[2px] z-10">
       <div
         role="tooltip"
-        className="relative p-[var(--s)] rounded-[var(--xs)] text-[12px] leading-[1.3] font-normal max-w-[320px] min-w-[200px] bg-[var(--primary-100)] border border-[var(--destructive-200)] text-[var(--destructive-600)]"
+        className="relative flex items-start gap-[var(--xs)] p-[var(--s)] rounded-[var(--xs)] text-[12px] leading-[1.3] font-normal max-w-[320px] min-w-[200px] bg-[var(--primary-100)] border border-[var(--destructive-200)] text-[var(--destructive-600)]"
       >
+        <Icon name="fa-circle-exclamation" size="xs" className="text-[var(--destructive-600)] shrink-0 mt-[1px]" />
         {error}
         {/* Arrow pointing down toward the input */}
         <span

@@ -1,6 +1,8 @@
 "use client";
 
 import React from "react";
+import { Typography } from "@/components/atoms/Typography";
+import { Icon } from "@/components/atoms/Icon";
 
 export interface VehicleDetails {
   make: string;
@@ -33,15 +35,15 @@ export function VehicleDetailsCard({
       {/* Header */}
       <div className="flex items-start justify-between mb-[var(--l)]">
         <div>
-          <h4 className="text-[18px] font-semibold text-[var(--primary-900)] leading-[1.2]">
+          <Typography variant="textLg" as="h4" bold className="text-[var(--primary-900)] leading-[1.2]">
             {vehicle.make} {vehicle.model}
-          </h4>
-          <span className="text-[14px] text-[var(--primary-500)]">{vehicle.year}</span>
+          </Typography>
+          <Typography variant="textM" as="span" className="text-[var(--primary-500)]">{vehicle.year}</Typography>
         </div>
         <div className="flex items-center gap-[var(--s)]">
           {vehicle.verified && (
             <span className="inline-flex items-center gap-[var(--xxs)] px-[var(--s)] py-[var(--xxs)] rounded-[var(--xs)] bg-[var(--success-100)] text-[var(--success-700)] text-[12px] font-medium">
-              <i className="fa-solid fa-check text-[10px]" aria-hidden="true" />
+              <Icon name="fa-check" size="xs" weight="solid" />
               Verified
             </span>
           )}
@@ -61,14 +63,14 @@ export function VehicleDetailsCard({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-[var(--m)]">
         {vehicle.plate && (
           <div>
-            <p className="text-[12px] text-[var(--primary-500)] mb-[var(--xxs)]">License Plate</p>
-            <p className="text-[14px] font-medium text-[var(--primary-900)]">{vehicle.plate}</p>
+            <Typography variant="textSm" as="p" className="text-[var(--primary-500)] mb-[var(--xxs)]">License Plate</Typography>
+            <Typography variant="textM" as="p" bold className="text-[var(--primary-900)]">{vehicle.plate}</Typography>
           </div>
         )}
         {vehicle.talonNumber && (
           <div>
-            <p className="text-[12px] text-[var(--primary-500)] mb-[var(--xxs)]">Talon Number</p>
-            <p className="text-[14px] font-medium text-[var(--primary-900)]">{vehicle.talonNumber}</p>
+            <Typography variant="textSm" as="p" className="text-[var(--primary-500)] mb-[var(--xxs)]">Talon Number</Typography>
+            <Typography variant="textM" as="p" bold className="text-[var(--primary-900)]">{vehicle.talonNumber}</Typography>
           </div>
         )}
       </div>

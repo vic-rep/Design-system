@@ -11,7 +11,7 @@ export { Toggle } from "./Toggle";
 export type { ToggleProps, ToggleSize } from "./Toggle";
 
 export { Typography } from "./Typography";
-export type { TypographyProps, TypographyVariant } from "./Typography";
+export type { TypographyProps, TypographyVariant, TypographyColor } from "./Typography";
 
 export { Icon } from "./Icon";
-export type { IconProps, IconName, IconSize } from "./Icon";
+export type { IconProps, IconSize, IconWeight } from "./Icon";

@@ -1,7 +1,8 @@
 "use client";
 
 import React, { forwardRef } from "react";
-
+import { Icon } from "@/components/atoms/Icon";
+import type { IconSize } from "@/components/atoms/Icon";
 /**
  * Button — Molecule
  * Figma: nG8PGu5CclffafrfZuMG9G node 108:2107
@@ -81,18 +82,25 @@ const sizeStyles: Record<ButtonType, Record<ButtonSize, string>> = {
   },
 };
 
-const iconSizes: Record<ButtonSize, string> = {
-  s: "text-[12px] w-[12px] h-[12px]",
-  m: "text-[12px] w-[12px] h-[12px]",
-  l: "text-[12px] w-[12px] h-[12px]",
-  xl: "text-[16px] w-[16px] h-[16px]",
+const iconSizeMap: Record<ButtonSize, IconSize> = {
+  s: "xs",
+  m: "xs",
+  l: "xs",
+  xl: "md",
 };
 
-const iconOnlySizes: Record<ButtonSize, string> = {
-  s: "text-[12px]",
-  m: "text-[12px]",
-  l: "text-[16px]",
-  xl: "text-[20px]",
+const iconExtraClasses: Record<ButtonSize, string> = {
+  s: "w-[12px] h-[12px]",
+  m: "w-[12px] h-[12px]",
+  l: "w-[12px] h-[12px]",
+  xl: "w-[16px] h-[16px]",
+};
+
+const iconOnlySizeMap: Record<ButtonSize, IconSize> = {
+  s: "xs",
+  m: "xs",
+  l: "md",
+  xl: "lg",
 };
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -140,33 +148,35 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
       >
         {loading ? (
-          <i
-            className="fa-solid fa-spinner fa-spin"
-            aria-hidden="true"
+          <Icon
+            name="fa-spinner"
+            className="fa-spin"
             style={{ fontSize: "inherit" }}
           />
         ) : isIcon ? (
-          <i
-            className={`fa-solid ${leadingIcon || "fa-house"} ${iconOnlySizes[size]}`}
-            aria-hidden="true"
+          <Icon
+            name={leadingIcon || "fa-house"}
+            size={iconOnlySizeMap[size]}
           />
         ) : (
           <span className="flex items-center gap-[12px]">
             {leadingIcon && (
-              <i
-                className={`fa-solid ${leadingIcon} ${iconSizes[size]} ${
+              <Icon
+                name={leadingIcon}
+                size={iconSizeMap[size]}
+                className={`${iconExtraClasses[size]} ${
                   isLink ? "text-[var(--accent-600,#f76803)]" : ""
                 }`}
-                aria-hidden="true"
               />
             )}
             <span className="leading-[1.2] whitespace-nowrap">{children}</span>
             {trailingIcon && (
-              <i
-                className={`fa-solid ${trailingIcon} ${iconSizes[size]} ${
+              <Icon
+                name={trailingIcon}
+                size={iconSizeMap[size]}
+                className={`${iconExtraClasses[size]} ${
                   isLink ? "text-[var(--accent-600,#f76803)]" : ""
                 }`}
-                aria-hidden="true"
               />
             )}
           </span>

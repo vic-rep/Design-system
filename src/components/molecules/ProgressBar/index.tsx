@@ -1,6 +1,8 @@
 "use client";
 
 import React from "react";
+import { Icon } from "@/components/atoms/Icon";
+import { Typography } from "@/components/atoms/Typography";
 
 /**
  * ProgressBar — Molecule (stepper / progress indicator)
@@ -53,27 +55,28 @@ export function ProgressBar({
               className="flex items-center gap-[var(--s)] py-[8px] rounded-[24px] cursor-pointer shrink-0"
             >
               <span className="flex items-center justify-center w-[24px] h-[24px] rounded-full">
-                <i
-                  className="fa-regular fa-chevron-left text-[16px] text-[var(--primary-900)]"
-                  aria-hidden="true"
-                />
+                <Icon name="fa-chevron-left" size="md" weight="regular" />
               </span>
-              <span
-                className="text-[16px] font-normal text-[var(--primary-900)] leading-[1.2] whitespace-nowrap"
+              <Typography
+                variant="text"
+                as="span"
+                className="whitespace-nowrap"
                 style={{ fontFeatureSettings: "'cv12' 1, 'cv13' 1, 'cv14' 1, 'cv15' 1, 'cv16' 1" }}
               >
                 {backLabel}
-              </span>
+              </Typography>
             </button>
           )}
           {/* Step label */}
           {stepLabel && (
-            <span
-              className="text-[16px] font-normal text-[var(--primary-900)] leading-[1.2] whitespace-nowrap"
+            <Typography
+              variant="text"
+              as="span"
+              className="whitespace-nowrap"
               style={{ fontFeatureSettings: "'cv12' 1, 'cv13' 1, 'cv14' 1, 'cv15' 1, 'cv16' 1" }}
             >
               {stepLabel}
-            </span>
+            </Typography>
           )}
         </div>
 
@@ -102,19 +105,18 @@ export function ProgressBar({
         >
           {showBack && (
             <span className="flex items-center justify-center w-[28px] h-[28px] rounded-full">
-              <i
-                className="fa-regular fa-chevron-left text-[20px] text-[var(--primary-900)]"
-                aria-hidden="true"
-              />
+              <Icon name="fa-chevron-left" size="lg" weight="regular" />
             </span>
           )}
           {stepLabel && (
-            <span
-              className="text-[14px] font-normal text-[var(--primary-900)] leading-[1.2] whitespace-nowrap"
+            <Typography
+              variant="textSm"
+              as="span"
+              className="whitespace-nowrap"
               style={{ fontFeatureSettings: "'cv12' 1, 'cv13' 1, 'cv14' 1, 'cv15' 1, 'cv16' 1" }}
             >
               {stepLabel}
-            </span>
+            </Typography>
           )}
         </button>
 

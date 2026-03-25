@@ -1,6 +1,8 @@
 "use client";
 
 import React from "react";
+import { Icon } from "@/components/atoms/Icon";
+import { Typography } from "@/components/atoms/Typography";
 
 /**
  * RadioThumb — Molecule (thumbnail radio selection card)
@@ -94,29 +96,35 @@ export function RadioThumbGroup({
                   {opt.logo}
                 </div>
               ) : (
-                <i
-                  className={`fa-regular ${opt.icon || "fa-house"} text-[24px] text-[var(--primary-900)]`}
-                  aria-hidden="true"
+                <Icon
+                  name={opt.icon || "fa-house"}
+                  weight="regular"
+                  size="xl"
+                  className="text-[var(--primary-900)]"
                 />
               )}
 
               {/* Label */}
-              <span
-                className="text-[10px] leading-[1.3] font-normal text-[var(--primary-900)] text-center w-full"
+              <Typography
+                variant="caption"
+                as="span"
+                className="!text-[10px] !leading-[1.3] text-center w-full"
                 style={{ fontFeatureSettings: "'cv12' 1, 'cv13' 1, 'cv14' 1, 'cv15' 1, 'cv16' 1" }}
               >
                 {opt.label}
-              </span>
+              </Typography>
             </div>
 
             {/* Disclaimer */}
             {opt.disclaimer && (
-              <span
-                className="text-[10px] leading-[1.3] font-normal text-[var(--primary-900)] whitespace-nowrap"
+              <Typography
+                variant="caption"
+                as="span"
+                className="!text-[10px] !leading-[1.3] whitespace-nowrap"
                 style={{ fontFeatureSettings: "'cv12' 1, 'cv13' 1, 'cv14' 1, 'cv15' 1, 'cv16' 1" }}
               >
                 {opt.disclaimer}
-              </span>
+              </Typography>
             )}
           </label>
         );

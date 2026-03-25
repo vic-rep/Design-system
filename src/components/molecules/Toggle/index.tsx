@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useId } from "react";
+import { Typography } from "@/components/atoms/Typography";
 
 /**
  * Toggle — Molecule (binary on/off switch)
@@ -93,15 +94,17 @@ export function Toggle({
         />
       </button>
       {label && (
-        <label
-          htmlFor={id}
+        <Typography
+          variant="textSm"
+          as="label"
           className={[
-            "text-[14px] text-[var(--primary-900)] select-none",
+            "text-[var(--primary-900)] select-none",
             disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer",
           ].join(" ")}
+          {...{ htmlFor: id } as any}
         >
           {label}
-        </label>
+        </Typography>
       )}
     </div>
   );

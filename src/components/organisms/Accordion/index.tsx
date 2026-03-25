@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
+import { Typography } from "@/components/atoms/Typography";
+import { Icon } from "@/components/atoms/Icon";
 
 /**
  * Accordion — Organism
@@ -73,14 +75,14 @@ function AccordionPanel({
           item.disabled ? "opacity-50 cursor-not-allowed" : "",
         ].join(" ")}
       >
-        <span
-          className="flex-1 text-[18px] font-medium leading-[1.2] text-[var(--primary-900)]"
-        >
+        <Typography variant="textLg" as="span" className="flex-1 !font-medium">
           {item.title}
-        </span>
-        <i
-          className={`fa-regular ${isOpen ? "fa-chevron-up" : "fa-chevron-down"} text-[12px] text-[var(--primary-900)] shrink-0`}
-          aria-hidden="true"
+        </Typography>
+        <Icon
+          name={isOpen ? "fa-chevron-up" : "fa-chevron-down"}
+          size="xs"
+          weight="regular"
+          className="shrink-0"
         />
       </button>
 
@@ -93,12 +95,9 @@ function AccordionPanel({
         className="overflow-hidden transition-[max-height] duration-200 ease-in-out"
         style={{ maxHeight }}
       >
-        <div
-          className="px-[var(--l)] pt-[var(--l)] text-[14px] text-[var(--primary-900)] leading-[1.2] font-normal"
-          style={{ fontFeatureSettings: "'cv12' 1, 'cv13' 1, 'cv14' 1, 'cv15' 1, 'cv16' 1" }}
-        >
+        <Typography variant="textSm" as="div" className="px-[var(--l)] pt-[var(--l)]">
           {item.content}
-        </div>
+        </Typography>
       </div>
 
     </div>

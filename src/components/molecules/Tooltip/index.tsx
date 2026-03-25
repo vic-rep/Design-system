@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useCallback } from "react";
+import { Typography } from "@/components/atoms/Typography";
 
 /**
  * Tooltip — Molecule (contextual help on hover/focus)
@@ -153,7 +154,9 @@ export function Tooltip({
       {children}
       {visible && (
         <div role="tooltip" className={bodyClasses}>
-          {content}
+          <Typography variant="textSm" as="span" color="inherit">
+            {content}
+          </Typography>
           {/* Border arrow (error only) */}
           {isError && (
             <span

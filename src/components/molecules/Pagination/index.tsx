@@ -1,6 +1,8 @@
 "use client";
 
 import React from "react";
+import { Icon } from "@/components/atoms/Icon";
+import { Typography } from "@/components/atoms/Typography";
 
 export interface PaginationProps {
   currentPage: number;
@@ -45,16 +47,16 @@ export function Pagination({
         aria-label="Previous page"
         className="w-[36px] h-[36px] flex items-center justify-center rounded-[var(--s)] text-[var(--primary-600)] hover:bg-[var(--primary-100)] transition-colors duration-150 disabled:opacity-30 disabled:cursor-not-allowed"
       >
-        <i className="fa-solid fa-chevron-left text-[12px]" aria-hidden="true" />
+        <Icon name="fa-chevron-left" size="xs" />
       </button>
 
       {pages.map((page, i) =>
         page === "ellipsis" ? (
           <span
             key={`e-${i}`}
-            className="w-[36px] h-[36px] flex items-center justify-center text-[14px] text-[var(--primary-400)]"
+            className="w-[36px] h-[36px] flex items-center justify-center text-[var(--primary-400)]"
           >
-            ...
+            <Typography variant="text" as="span" color="inherit">...</Typography>
           </span>
         ) : (
           <button
@@ -69,7 +71,7 @@ export function Pagination({
                 : "text-[var(--primary-600)] hover:bg-[var(--primary-100)]",
             ].join(" ")}
           >
-            {page}
+            <Typography variant="text" as="span" color="inherit">{page}</Typography>
           </button>
         )
       )}
@@ -82,7 +84,7 @@ export function Pagination({
         aria-label="Next page"
         className="w-[36px] h-[36px] flex items-center justify-center rounded-[var(--s)] text-[var(--primary-600)] hover:bg-[var(--primary-100)] transition-colors duration-150 disabled:opacity-30 disabled:cursor-not-allowed"
       >
-        <i className="fa-solid fa-chevron-right text-[12px]" aria-hidden="true" />
+        <Icon name="fa-chevron-right" size="xs" />
       </button>
     </nav>
   );

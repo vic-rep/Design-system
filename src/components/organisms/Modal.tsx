@@ -2,6 +2,8 @@
 
 import React, { useEffect, useCallback, useRef } from "react";
 import { createPortal } from "react-dom";
+import { Typography } from "@/components/atoms/Typography";
+import { Icon } from "@/components/atoms/Icon";
 
 export type ModalSize = "sm" | "md" | "lg";
 
@@ -65,27 +67,14 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, size = "md
         {/* Header */}
         {title && (
           <div className="flex items-center justify-between border-b border-border px-6 py-4">
-            <h2 className="text-lg font-semibold text-on-surface">{title}</h2>
+            <Typography variant="h6" as="h2" color="inherit" className="text-on-surface">{title}</Typography>
             <button
               type="button"
               onClick={onClose}
               aria-label="Close"
               className="inline-flex items-center justify-center rounded-md p-1 text-on-surface-muted transition-colors hover:bg-surface-alt hover:text-on-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <line x1="18" y1="6" x2="6" y2="18" />
-                <line x1="6" y1="6" x2="18" y2="18" />
-              </svg>
+              <Icon name="fa-xmark" size="lg" label="Close" />
             </button>
           </div>
         )}

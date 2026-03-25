@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useCallback, useRef } from "react";
+import { Icon } from "@/components/atoms/Icon";
 
 export interface CarouselSlide {
   id: string;
@@ -79,7 +80,7 @@ export function Carousel({
             className="absolute left-[var(--m)] top-1/2 -translate-y-1/2 w-[36px] h-[36px] flex items-center justify-center rounded-full bg-[var(--surface-adjacent)]/90 hover:bg-[var(--surface-adjacent)] transition-all duration-150 cursor-pointer"
             style={{ boxShadow: "var(--elevation-level2)" }}
           >
-            <i className="fa-solid fa-chevron-left text-[12px] text-[var(--primary-900)]" aria-hidden="true" />
+            <Icon name="fa-chevron-left" size="xs" weight="solid" className="text-[var(--primary-900)]" />
           </button>
           <button
             type="button"
@@ -88,7 +89,7 @@ export function Carousel({
             className="absolute right-[var(--m)] top-1/2 -translate-y-1/2 w-[36px] h-[36px] flex items-center justify-center rounded-full bg-[var(--surface-adjacent)]/90 hover:bg-[var(--surface-adjacent)] transition-all duration-150 cursor-pointer"
             style={{ boxShadow: "var(--elevation-level2)" }}
           >
-            <i className="fa-solid fa-chevron-right text-[12px] text-[var(--primary-900)]" aria-hidden="true" />
+            <Icon name="fa-chevron-right" size="xs" weight="solid" className="text-[var(--primary-900)]" />
           </button>
         </>
       )}

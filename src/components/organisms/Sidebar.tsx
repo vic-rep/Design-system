@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { Typography } from "@/components/atoms/Typography";
 
 export interface SidebarItem {
   id: string;
@@ -25,32 +26,38 @@ export const Sidebar: React.FC<SidebarProps> = ({ sections, activeId, onNavigate
       <nav>
         {sections.map((section) => (
           <div key={section.title} className="mb-6">
-            <h3 className="mb-2 px-6 text-[11px] font-semibold uppercase tracking-widest text-on-surface-muted">
+            <Typography variant="caption" as="h3" color="muted" bold className="mb-2 px-6 uppercase tracking-widest">
               {section.title}
-            </h3>
+            </Typography>
 
             <ul className="space-y-0.5">
               {section.items.map((item) => {
                 const isActive = item.id === activeId;
                 return (
                   <li key={item.id}>
-                    <a
-                      href={item.href}
-                      onClick={(e) => {
-                        if (onNavigate) {
-                          e.preventDefault();
-                          onNavigate(item.id, item.href);
-                        }
-                      }}
+                    <Typography
+                      variant="textSm"
+                      as="a"
+                      color={isActive ? "accent" : "muted"}
+                      bold={isActive}
                       className={[
-                        "block px-6 py-1.5 text-sm transition-colors",
+                        "block px-6 py-1.5 transition-colors",
                         isActive
-                          ? "border-l-2 border-primary font-medium text-primary"
-                          : "border-l-2 border-transparent text-on-surface-muted hover:text-on-surface",
+                          ? "border-l-2 border-primary"
+                          : "border-l-2 border-transparent hover:text-on-surface",
                       ].join(" ")}
+                      {...{
+                        href: item.href,
+                        onClick: (e: React.MouseEvent) => {
+                          if (onNavigate) {
+                            e.preventDefault();
+                            onNavigate(item.id, item.href);
+                          }
+                        },
+                      }}
                     >
                       {item.label}
-                    </a>
+                    </Typography>
                   </li>
                 );
               })}

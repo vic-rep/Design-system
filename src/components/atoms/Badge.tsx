@@ -2,7 +2,14 @@
 
 import React from "react";
 
-export type BadgeVariant = "default" | "primary" | "success" | "warning" | "error" | "info";
+/**
+ * Badge — Atom
+ * Small status indicator using design system CSS variables.
+ *
+ * Variants map to DS color tokens.
+ */
+
+export type BadgeVariant = "default" | "accent" | "success" | "warning" | "error" | "info";
 export type BadgeSize = "sm" | "md";
 
 export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
@@ -11,17 +18,17 @@ export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
 }
 
 const variantStyles: Record<BadgeVariant, string> = {
-  default: "bg-surface-alt text-on-surface",
-  primary: "bg-primary text-on-primary",
-  success: "bg-success text-white",
-  warning: "bg-warning text-black",
-  error: "bg-error text-white",
-  info: "bg-info text-white",
+  default: "bg-[var(--primary-200)] text-[var(--primary-900)]",
+  accent: "bg-[var(--accent-100)] text-[var(--accent-800)]",
+  success: "bg-[var(--success-100)] text-[var(--success-700)]",
+  warning: "bg-[var(--warning-100)] text-[var(--warning-600)]",
+  error: "bg-[var(--destructive-100)] text-[var(--destructive-600)]",
+  info: "bg-[var(--accent-100)] text-[var(--accent-700)]",
 };
 
 const sizeStyles: Record<BadgeSize, string> = {
-  sm: "px-1.5 py-0.5 text-[10px]",
-  md: "px-2 py-0.5 text-xs",
+  sm: "px-[var(--xs)] py-[1px] text-[10px]",
+  md: "px-[var(--s)] py-[var(--xxs)] text-[12px]",
 };
 
 export const Badge: React.FC<BadgeProps> = ({
@@ -33,7 +40,8 @@ export const Badge: React.FC<BadgeProps> = ({
 }) => (
   <span
     className={[
-      "inline-flex items-center font-medium rounded-sm whitespace-nowrap",
+      "inline-flex items-center font-medium rounded-[var(--xs)]",
+      "font-['Source_Sans_3',sans-serif] leading-[1.2] whitespace-nowrap",
       variantStyles[variant],
       sizeStyles[size],
       className,
@@ -43,3 +51,5 @@ export const Badge: React.FC<BadgeProps> = ({
     {children}
   </span>
 );
+
+Badge.displayName = "Badge";

@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useId } from "react";
+import { Typography } from "@/components/atoms/Typography";
+import { Icon } from "@/components/atoms/Icon";
 
 /**
  * Checkbox — Molecule (binary selection with label)
@@ -76,25 +78,24 @@ export function Checkbox({
             ].join(" ")}
           >
             {checked && (
-              <i
-                className="fa-solid fa-check text-white text-[12px]"
-                aria-hidden="true"
-              />
+              <Icon name="fa-check" size="xs" className="text-white" />
             )}
           </div>
         </div>
         {label && (
-          <label
+          <Typography
+            variant="textSm"
+            as="label"
             htmlFor={id}
             className={[
-              "text-[14px] text-[var(--primary-900)] select-none leading-[1.2]",
+              "text-[var(--primary-900)] select-none leading-[1.2]",
               "font-normal",
               disabled ? "cursor-not-allowed" : "cursor-pointer",
             ].join(" ")}
             style={{ fontFeatureSettings: "'cv12' 1, 'cv13' 1, 'cv14' 1, 'cv15' 1, 'cv16' 1" }}
           >
             {label}
-          </label>
+          </Typography>
         )}
       </div>
 
@@ -104,16 +105,19 @@ export function Checkbox({
           id={messageId}
           className="flex items-center gap-[6px] mt-[2px]"
         >
-          <i
-            className={`fa-solid fa-circle-exclamation text-[14px] ${
+          <Icon
+            name="fa-circle-exclamation"
+            size="sm"
+            className={
               error
                 ? "text-[var(--destructive-550)]"
                 : "text-[var(--warning-500)]"
-            }`}
-            aria-hidden="true"
+            }
           />
-          <span
-            className={`text-[14px] leading-[1.2] font-normal ${
+          <Typography
+            variant="textSm"
+            as="span"
+            className={`leading-[1.2] font-normal ${
               error
                 ? "text-[var(--destructive-550)]"
                 : "text-[var(--warning-500)]"
@@ -121,7 +125,7 @@ export function Checkbox({
             style={{ fontFeatureSettings: "'cv12' 1, 'cv13' 1, 'cv14' 1, 'cv15' 1, 'cv16' 1" }}
           >
             {message}
-          </span>
+          </Typography>
         </div>
       )}
     </div>

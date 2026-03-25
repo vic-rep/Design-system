@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { Typography } from "@/components/atoms/Typography";
+import { Icon } from "@/components/atoms/Icon";
 
 export type ToastVariant = "info" | "success" | "warning" | "destructive";
 
@@ -26,10 +28,10 @@ const variantStyles: Record<ToastVariant, string> = {
 };
 
 const iconMap: Record<ToastVariant, string> = {
-  info: "fa-solid fa-circle-info",
-  success: "fa-solid fa-circle-check",
-  warning: "fa-solid fa-triangle-exclamation",
-  destructive: "fa-solid fa-circle-exclamation",
+  info: "fa-circle-info",
+  success: "fa-circle-check",
+  warning: "fa-triangle-exclamation",
+  destructive: "fa-circle-exclamation",
 };
 
 export function Toast({
@@ -72,8 +74,8 @@ export function Toast({
       ].join(" ")}
       style={{ boxShadow: "var(--elevation-level3)" }}
     >
-      <i className={`${iconMap[variant]} text-[16px] shrink-0`} aria-hidden="true" />
-      <span className="flex-1 text-[14px] leading-[1.3]">{message}</span>
+      <Icon name={iconMap[variant]} size="md" className="shrink-0" />
+      <Typography variant="textSm" as="span" color="inherit" className="flex-1 leading-[1.3]">{message}</Typography>
       {action && (
         <button
           type="button"
@@ -89,7 +91,7 @@ export function Toast({
         aria-label="Dismiss"
         className="flex items-center justify-center w-[20px] h-[20px] shrink-0 opacity-70 hover:opacity-100 transition-opacity cursor-pointer"
       >
-        <i className="fa-solid fa-xmark text-[12px]" aria-hidden="true" />
+        <Icon name="fa-xmark" size="xs" />
       </button>
     </div>
   );
