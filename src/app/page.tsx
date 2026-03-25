@@ -1520,32 +1520,33 @@ function OffersListPreview() {
     {
       id: "mtpl-1",
       type: "mtpl" as const,
-      companyName: "Euroins",
+      companyName: "Lev Ins",
       recommended: true,
-      installmentPrice: { amount: 122.75, currency: "лв.", euroEquivalent: 62.77 },
-      totalPrice: { amount: 245.50, currency: "лв.", euroEquivalent: 125.54 },
+      installmentPrice: { amount: 78.25, euroEquivalent: 40.12 },
+      totalPrice: { amount: 313.00, euroEquivalent: 160.51 },
     },
     {
       id: "mtpl-2",
       type: "mtpl" as const,
-      companyName: "Lev Ins",
-      installmentPrice: { amount: 144.50, currency: "лв.", euroEquivalent: 73.89 },
-      totalPrice: { amount: 289.00, currency: "лв.", euroEquivalent: 147.78 },
+      companyName: "Euroins",
+      installmentPrice: { amount: 95.50, euroEquivalent: 48.84 },
+      totalPrice: { amount: 289.00, euroEquivalent: 147.78 },
     },
     {
       id: "casco-1",
       type: "casco" as const,
       companyName: "DZI",
       recommended: true,
-      installmentPrice: { amount: 156.38, currency: "лв.", euroEquivalent: 79.96 },
-      totalPrice: { amount: 312.75, currency: "лв.", euroEquivalent: 159.92 },
+      installmentPrice: { amount: 156.38, euroEquivalent: 79.96 },
+      totalPrice: { amount: 312.75, euroEquivalent: 159.92 },
     },
     {
       id: "travel-1",
       type: "travel" as const,
       companyName: "Allianz",
-      installmentPrice: { amount: 45.00, currency: "лв.", euroEquivalent: 23.01 },
-      totalPrice: { amount: 45.00, currency: "лв.", euroEquivalent: 23.01 },
+      showInstallments: false,
+      installmentPrice: { amount: 45.00 },
+      totalPrice: { amount: 45.00, euroEquivalent: 23.01 },
     },
   ];
 
@@ -1556,13 +1557,13 @@ function OffersListPreview() {
   ];
 
   const fineOffers = [
-    { id: "fine-1", type: "fines" as const, title: "Фиш", date: "12.03.2025", price: { amount: 50.00, currency: "лв.", euroEquivalent: 25.56 }, status: "Невръчена" },
-    { id: "fine-2", type: "fines" as const, title: "Фиш", date: "28.01.2025", price: { amount: 100.00, currency: "лв.", euroEquivalent: 51.13 }, status: "Платена" },
+    { id: "fine-1", type: "fines" as const, title: "Фиш", date: "12.11.2025", price: { amount: 313.00, currency: "€", euroEquivalent: 160.51 }, status: "Невръчена", statusIcon: "fa-xmark-to-slot" },
+    { id: "fine-2", type: "fines" as const, title: "Фиш", date: "28.01.2025", price: { amount: 100.00, currency: "€", euroEquivalent: 51.13 }, status: "Платена", statusIcon: "fa-check" },
   ];
 
   const leasingOffers = [
-    { id: "lease-1", type: "carLeasing" as const, companyName: "UniCredit Leasing", installmentPrice: { amount: 450.00, currency: "лв.", euroEquivalent: 230.08 }, selected: !!leasingSelections["lease-1"] },
-    { id: "lease-2", type: "carLeasing" as const, companyName: "DSK Leasing", installmentPrice: { amount: 520.00, currency: "лв.", euroEquivalent: 265.87 }, selected: !!leasingSelections["lease-2"] },
+    { id: "lease-1", type: "carLeasing" as const, companyName: "SmileCredit", installmentPrice: { amount: 78.25, euroEquivalent: 40.12 }, selected: !!leasingSelections["lease-1"] },
+    { id: "lease-2", type: "carLeasing" as const, companyName: "DSK Leasing", installmentPrice: { amount: 520.00, euroEquivalent: 265.87 }, selected: !!leasingSelections["lease-2"] },
   ];
 
   const tabs = [
