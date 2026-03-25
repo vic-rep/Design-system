@@ -1482,12 +1482,12 @@ function DrawerPreview() {
       </div>
       <Drawer open={openInfo} onClose={() => setOpenInfo(false)} type="info" title="Details">
         <div className="space-y-[var(--m)]">
-          <p className="text-[14px] text-[var(--primary-900)] leading-[1.2]">
+          <Typography variant="textM" as="p">
             This is an informative drawer. On mobile it slides from the right at 300px width. On desktop it is 480px wide.
-          </p>
-          <p className="text-[14px] text-[var(--primary-900)] leading-[1.2]">
+          </Typography>
+          <Typography variant="textM" as="p">
             Press Escape or click the overlay to close.
-          </p>
+          </Typography>
         </div>
       </Drawer>
       <Drawer
@@ -1503,9 +1503,9 @@ function DrawerPreview() {
         }
       >
         <div className="space-y-[var(--m)]">
-          <p className="text-[14px] text-[var(--primary-900)] leading-[1.2]">
+          <Typography variant="textM" as="p">
             This is an actionable drawer. On mobile it slides from the bottom with a notch. On desktop it slides from the right.
-          </p>
+          </Typography>
         </div>
       </Drawer>
     </Section>
