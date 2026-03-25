@@ -1,0 +1,164 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600&display=swap');
+
+/* ============================================================
+   TRUSTI DESIGN SYSTEM — Foundation Tokens
+   Import this file in your app to get all CSS custom properties.
+   ============================================================ */
+
+:root {
+  /* --- Font --- */
+  --font-sans: 'Source Sans 3', system-ui, sans-serif;
+
+  /* --- Accent (Orange) --- */
+  --accent-900: #602901;
+  --accent-800: #923E02;
+  --accent-700: #C55302;
+  --accent-600: #F76803;
+  --accent-500: #FC7D21;
+  --accent-400: #FD9A54;
+  --accent-300: #FEB886;
+  --accent-200: #FED5B8;
+  --accent-100: #FFF3EB;
+
+  /* --- Primary (Neutral) --- */
+  --primary-900: #191919;
+  --primary-800: #333333;
+  --primary-700: #4d4d4d;
+  --primary-600: #666666;
+  --primary-500: #808080;
+  --primary-400: #999999;
+  --primary-300: #cccccc;
+  --primary-200: #e6e6e6;
+  --primary-100: #f0f0f0;
+
+  /* --- Surface --- */
+  --surface: #F3F2F0;
+  --surface-adjacent: #FFFFFF;
+  --surface-adjacent-2: #E1E5EB;
+
+  /* --- Brand --- */
+  --brand: #FFA500;
+
+  /* --- Constants --- */
+  --constant-white: #FFFFFF;
+  --constant-black: #191919;
+  --primary: #191919;
+  --surface-adjescent-2: var(--surface-adjacent-2);
+
+  /* --- Success (Green) --- */
+  --success-800: #006632;
+  --success-700: #009147;
+  --success-600: #4DB27E;
+  --success-400: #80C8A3;
+  --success-200: #B3DEC8;
+  --success-100: #E6F4ED;
+
+  /* --- Warning (Amber) --- */
+  --warning-600: #B86700;
+  --warning-500: #E98300;
+  --warning-400: #FF9D1F;
+  --warning-300: #FFB352;
+  --warning-200: #FFC985;
+  --warning-100: #FFE0B8;
+
+  /* --- Destructive (Red) --- */
+  --destructive-600: #CC001B;
+  --destructive-550: #FF0022;
+  --destructive-500: #FF0022;
+  --destructive-400: #FF4D64;
+  --destructive-300: #FF8091;
+  --destructive-200: #FFCCD3;
+  --destructive-100: #FFE6E9;
+
+  /* --- Spacing --- */
+  --none: 0px;
+  --xxs: 2px;
+  --xs: 4px;
+  --s: 8px;
+  --m: 12px;
+  --l: 16px;
+  --xl: 20px;
+  --xxl: 24px;
+  --3xl: 28px;
+  --4xl: 32px;
+  --5xl: 40px;
+  --6xl: 48px;
+  --7xl: 64px;
+  --8xl: 80px;
+  --max: 128px;
+
+  /* --- Border Radius --- */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-full: 9999px;
+
+  /* --- Elevation --- */
+  --elevation-level1: 0px 1px 1px rgba(0,0,0,0.05), 0px 3px 3px rgba(0,0,0,0.04), 0px 6px 4px rgba(0,0,0,0.03), 0px 11px 4px rgba(0,0,0,0.01), 0px 17px 5px rgba(0,0,0,0);
+  --elevation-level2: 0px 2px 4px rgba(0,0,0,0.05), 0px 7px 7px rgba(0,0,0,0.04), 0px 15px 9px rgba(0,0,0,0.03), 0px 27px 11px rgba(0,0,0,0.01), 0px 42px 12px rgba(0,0,0,0);
+  --elevation-level3: 0px 3px 7px rgba(0,0,0,0.05), 0px 13px 13px rgba(0,0,0,0.04), 0px 30px 18px rgba(0,0,0,0.03), 0px 53px 21px rgba(0,0,0,0.01), 0px 83px 23px rgba(0,0,0,0);
+  --elevation-level4: 0px 5px 11px rgba(0,0,0,0.05), 0px 20px 20px rgba(0,0,0,0.04), 0px 45px 27px rgba(0,0,0,0.03), 0px 80px 32px rgba(0,0,0,0.01), 0px 125px 35px rgba(0,0,0,0);
+  --elevation-level5: 0px 7px 15px rgba(0,0,0,0.05), 0px 27px 27px rgba(0,0,0,0.04), 0px 60px 36px rgba(0,0,0,0.03), 0px 107px 43px rgba(0,0,0,0.01), 0px 167px 47px rgba(0,0,0,0);
+}
+
+/* --- Dark Mode --- */
+.dark {
+  --accent-900: #FFF3EB;
+  --accent-800: #FED5B8;
+  --accent-700: #FEB886;
+  --accent-600: #FC7D21;
+  --accent-500: #F76803;
+  --accent-400: #C55302;
+  --accent-300: #923E02;
+  --accent-200: #602901;
+  --accent-100: #2A1200;
+
+  --primary-900: #f0f0f0;
+  --primary-800: #e6e6e6;
+  --primary-700: #cccccc;
+  --primary-600: #999999;
+  --primary-500: #808080;
+  --primary-400: #666666;
+  --primary-300: #4d4d4d;
+  --primary-200: #333333;
+  --primary-100: #191919;
+
+  --primary: #f0f0f0;
+  --brand: #FFA500;
+
+  --surface: #111111;
+  --surface-adjacent: #1A1A1A;
+  --surface-adjacent-2: #242424;
+
+  --constant-white: #FFFFFF;
+  --constant-black: #191919;
+
+  --success-800: #B3DEC8;
+  --success-700: #4ADE80;
+  --success-600: #4DB27E;
+  --success-400: #009147;
+  --success-200: #006632;
+  --success-100: #0A2618;
+
+  --warning-600: #FFC985;
+  --warning-500: #FBBF24;
+  --warning-400: #E98300;
+  --warning-300: #B86700;
+  --warning-200: #7A4400;
+  --warning-100: #2A1800;
+
+  --destructive-600: #FF8091;
+  --destructive-550: #FF4D64;
+  --destructive-500: #FF0022;
+  --destructive-400: #CC001B;
+  --destructive-300: #990014;
+  --destructive-200: #4D000A;
+  --destructive-100: #2A0005;
+
+  --elevation-level1: 0px 1px 1px rgba(0,0,0,0.2), 0px 3px 3px rgba(0,0,0,0.16), 0px 6px 4px rgba(0,0,0,0.12), 0px 11px 4px rgba(0,0,0,0.06), 0px 17px 5px rgba(0,0,0,0);
+  --elevation-level2: 0px 2px 4px rgba(0,0,0,0.2), 0px 7px 7px rgba(0,0,0,0.16), 0px 15px 9px rgba(0,0,0,0.12), 0px 27px 11px rgba(0,0,0,0.06), 0px 42px 12px rgba(0,0,0,0);
+  --elevation-level3: 0px 3px 7px rgba(0,0,0,0.2), 0px 13px 13px rgba(0,0,0,0.16), 0px 30px 18px rgba(0,0,0,0.12), 0px 53px 21px rgba(0,0,0,0.06), 0px 83px 23px rgba(0,0,0,0);
+  --elevation-level4: 0px 5px 11px rgba(0,0,0,0.2), 0px 20px 20px rgba(0,0,0,0.16), 0px 45px 27px rgba(0,0,0,0.12), 0px 80px 32px rgba(0,0,0,0.06), 0px 125px 35px rgba(0,0,0,0);
+  --elevation-level5: 0px 7px 15px rgba(0,0,0,0.2), 0px 27px 27px rgba(0,0,0,0.16), 0px 60px 36px rgba(0,0,0,0.12), 0px 107px 43px rgba(0,0,0,0.06), 0px 167px 47px rgba(0,0,0,0);
+}
