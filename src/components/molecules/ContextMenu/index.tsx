@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
+import { Icon } from "@/components/atoms/Icon";
+import { Typography } from "@/components/atoms/Typography";
 
 /**
  * ContextMenu — Molecule
@@ -107,10 +109,7 @@ export function ContextMenu({
               {/* Left side: icon + label */}
               <div className="flex flex-1 items-center gap-[var(--s)]">
                 {item.leftIcon && (
-                  <i
-                    className={`fa-regular ${item.leftIcon} text-[12px] w-[12px] text-center text-[var(--accent-600)] shrink-0`}
-                    aria-hidden="true"
-                  />
+                  <Icon name={item.leftIcon} size="xs" weight="regular" className="w-[12px] text-center text-[var(--accent-600)] shrink-0" />
                 )}
                 <span className="whitespace-nowrap">{item.label}</span>
               </div>
@@ -118,18 +117,18 @@ export function ContextMenu({
               {(item.additionalText || item.rightIcon) && (
                 <div className="flex items-center gap-[var(--xs)] shrink-0">
                   {item.additionalText && (
-                    <span
-                      className="text-[12px] text-[var(--primary-500)] leading-[1.2]"
+                    <Typography
+                      variant="caption"
+                      as="span"
+                      color="muted"
+                      className="leading-[1.2]"
                       style={{ fontFeatureSettings: "'cv12' 1, 'cv13' 1, 'cv14' 1, 'cv15' 1, 'cv16' 1" }}
                     >
                       {item.additionalText}
-                    </span>
+                    </Typography>
                   )}
                   {item.rightIcon && (
-                    <i
-                      className={`fa-regular ${item.rightIcon} text-[12px] w-[12px] text-center text-[var(--primary-900)] shrink-0`}
-                      aria-hidden="true"
-                    />
+                    <Icon name={item.rightIcon} size="xs" weight="regular" className="w-[12px] text-center text-[var(--primary-900)] shrink-0" />
                   )}
                 </div>
               )}

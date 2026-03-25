@@ -2,6 +2,8 @@
 
 import React, { useEffect, useRef } from "react";
 import { Button } from "@/components/molecules/Button";
+import { Typography } from "@/components/atoms/Typography";
+import { Icon } from "@/components/atoms/Icon";
 
 export interface ModalProps {
   open: boolean;
@@ -65,18 +67,15 @@ export const Modal: React.FC<ModalProps> = ({
       >
         {/* Header */}
         <div className="flex flex-row justify-between items-center">
-          <h2 className="text-[20px] font-medium text-[var(--primary-900,#191919)]">
+          <Typography variant="h6" as="h2" className="text-[var(--primary-900,#191919)]">
             {title}
-          </h2>
+          </Typography>
           <button
             onClick={onClose}
             className="cursor-pointer bg-transparent border-none p-0"
             aria-label="Close modal"
           >
-            <i
-              className="fa-solid fa-xmark text-[20px] text-[var(--primary-900,#191919)]"
-              aria-hidden="true"
-            />
+            <Icon name="fa-xmark" size="lg" className="text-[var(--primary-900,#191919)]" />
           </button>
         </div>
 
@@ -135,18 +134,15 @@ export const Modal: React.FC<ModalProps> = ({
       >
         {/* Header */}
         <div className="flex flex-row justify-between items-center">
-          <h2 className="text-[16px] font-semibold text-[var(--primary-900,#191919)]">
+          <Typography variant="textM" as="h2" className="!font-semibold text-[var(--primary-900,#191919)]">
             {title}
-          </h2>
+          </Typography>
           <button
             onClick={onClose}
             className="cursor-pointer bg-transparent border-none p-0"
             aria-label="Close modal"
           >
-            <i
-              className="fa-solid fa-xmark text-[20px] text-[var(--primary-900,#191919)]"
-              aria-hidden="true"
-            />
+            <Icon name="fa-xmark" size="lg" className="text-[var(--primary-900,#191919)]" />
           </button>
         </div>
 

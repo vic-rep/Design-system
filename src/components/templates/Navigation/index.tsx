@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
+import { Typography } from "@/components/atoms/Typography";
+import { Icon } from "@/components/atoms/Icon";
 
 export interface NavLink {
   label: string;
@@ -33,8 +35,10 @@ export function Navigation({
     >
       <div className="max-w-[1200px] mx-auto h-full px-[var(--xxl)] flex items-center">
         {/* Logo */}
-        <a href="/" className="text-[20px] font-semibold text-[var(--accent-600)] shrink-0">
-          {logoText}
+        <a href="/" className="shrink-0">
+          <Typography variant="h6" as="span" color="accent">
+            {logoText}
+          </Typography>
         </a>
 
         {/* Desktop links */}
@@ -44,13 +48,15 @@ export function Navigation({
               key={link.label}
               href={link.href}
               className={[
-                "text-[14px] leading-[1.2] transition-colors duration-150",
+                "transition-colors duration-150",
                 link.active
-                  ? "text-[var(--accent-600)] font-semibold"
-                  : "text-[var(--primary-600)] hover:text-[var(--primary-900)] font-normal",
+                  ? "text-[var(--accent-600)]"
+                  : "text-[var(--primary-600)] hover:text-[var(--primary-900)]",
               ].join(" ")}
             >
-              {link.label}
+              <Typography variant="textM" as="span" color="inherit" bold={link.active}>
+                {link.label}
+              </Typography>
             </a>
           ))}
         </div>
@@ -68,9 +74,11 @@ export function Navigation({
           aria-label="Toggle menu"
           className="md:hidden ml-auto w-[36px] h-[36px] flex items-center justify-center rounded-[var(--s)] hover:bg-[var(--primary-100)] transition-colors duration-150 cursor-pointer"
         >
-          <i
-            className={`fa-solid ${menuOpen ? "fa-xmark" : "fa-bars"} text-[18px] text-[var(--primary-900)]`}
-            aria-hidden="true"
+          <Icon
+            name={menuOpen ? "fa-xmark" : "fa-bars"}
+            size="lg"
+            weight="solid"
+            className="text-[var(--primary-900)]"
           />
         </button>
       </div>
@@ -83,13 +91,15 @@ export function Navigation({
               key={link.label}
               href={link.href}
               className={[
-                "block py-[var(--s)] text-[16px]",
+                "block py-[var(--s)]",
                 link.active
-                  ? "text-[var(--accent-600)] font-semibold"
+                  ? "text-[var(--accent-600)]"
                   : "text-[var(--primary-600)]",
               ].join(" ")}
             >
-              {link.label}
+              <Typography variant="text" as="span" color="inherit" bold={link.active}>
+                {link.label}
+              </Typography>
             </a>
           ))}
           {actions && <div className="pt-[var(--m)] border-t border-[var(--primary-200)] mt-[var(--s)]">{actions}</div>}

@@ -3,6 +3,9 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { useTheme } from "@/lib/theme";
 
+import { Typography } from "@/components/atoms/Typography";
+import { Icon } from "@/components/atoms/Icon";
+import { Badge } from "@/components/atoms/Badge";
 import { Button } from "@/components/molecules/Button";
 import { Input } from "@/components/molecules/Input";
 import { Alert } from "@/components/molecules/Alert";
@@ -322,31 +325,31 @@ function DocPreview({
       >
         <div className="flex items-center justify-between px-[var(--xxl)] py-[var(--l)] border-b border-[var(--primary-200)]">
           <div>
-            <h3 className="text-[20px] font-semibold text-[var(--primary-900)]">
+            <Typography variant="h6" as="h3">
               Component Documentation
-            </h3>
-            <p className="text-[12px] text-[var(--primary-500)] mt-[var(--xxs)]">
+            </Typography>
+            <Typography variant="textSm" as="p" color="muted" className="mt-[var(--xxs)]">
               {docPath}
-            </p>
+            </Typography>
           </div>
           <button
             onClick={onClose}
             aria-label="Close documentation"
             className="w-[32px] h-[32px] flex items-center justify-center rounded-[var(--radius-md)] hover:bg-[var(--primary-100)] transition-colors duration-150"
           >
-            <i className="fa-solid fa-xmark text-[var(--primary-600)]" aria-hidden="true" />
+            <Icon name="fa-xmark" size="md" className="text-[var(--primary-600)]" />
           </button>
         </div>
         <div className="flex-1 overflow-y-auto px-[var(--xxl)] py-[var(--l)]">
           {loading ? (
             <div className="flex items-center gap-[var(--s)] text-[var(--primary-500)]">
-              <i className="fa-solid fa-spinner fa-spin" aria-hidden="true" />
+              <Icon name="fa-spinner" size="md" className="fa-spin" />
               Loading...
             </div>
           ) : (
-            <pre className="text-[14px] leading-[1.6] text-[var(--primary-800)] whitespace-pre-wrap font-[var(--font-sans)]">
+            <Typography variant="textM" as="pre" className="leading-[1.6] whitespace-pre-wrap font-[var(--font-sans)] text-[var(--primary-800)]">
               {content}
-            </pre>
+            </Typography>
           )}
         </div>
       </div>
@@ -382,17 +385,17 @@ function Section({
       <div className="mb-[var(--l)] flex items-start justify-between">
         <div>
           <div className="flex items-center gap-[var(--s)]">
-            <h2 className="text-[24px] font-semibold text-[var(--primary-900)]">{title ?? label}</h2>
+            <Typography variant="h5" as="h2">{title ?? label}</Typography>
             {level && (
-              <span className="px-[var(--s)] py-[var(--xxs)] text-[12px] font-medium rounded-[var(--radius-full)] bg-[var(--accent-100)] text-[var(--accent-800)]">
+              <Badge variant="accent" size="md" className="rounded-[var(--radius-full)]">
                 {level}
-              </span>
+              </Badge>
             )}
           </div>
           {description && (
-            <p className="mt-[var(--xs)] text-[14px] text-[var(--primary-600)] max-w-[600px]">
+            <Typography variant="textM" as="p" color="secondary" className="mt-[var(--xs)] max-w-[600px]">
               {description}
-            </p>
+            </Typography>
           )}
         </div>
         <div className="flex items-center gap-[var(--s)] shrink-0">
@@ -405,7 +408,7 @@ function Section({
             >
               <i className="fa-brands fa-figma" aria-hidden="true" />
               Figma
-              <i className="fa-solid fa-arrow-up-right-from-square text-[10px]" aria-hidden="true" />
+              <Icon name="fa-arrow-up-right-from-square" size="xs" className="text-[10px]" />
             </a>
           )}
           {docPath && (
@@ -413,7 +416,7 @@ function Section({
               onClick={() => setShowDoc(true)}
               className="inline-flex items-center gap-[var(--xs)] text-[12px] text-[var(--primary-500)] hover:text-[var(--accent-600)] transition-colors duration-150"
             >
-              <i className="fa-solid fa-file-lines" aria-hidden="true" />
+              <Icon name="fa-file-lines" size="xs" />
               Docs
             </button>
           )}
@@ -440,9 +443,9 @@ function FoundationSection({
 }) {
   return (
     <section id={id} className="mb-[var(--7xl)] scroll-mt-[80px]">
-      <h2 className="text-[24px] font-semibold text-[var(--primary-900)] mb-[var(--l)]">
+      <Typography variant="h5" as="h2" className="mb-[var(--l)]">
         {title}
-      </h2>
+      </Typography>
       <div className="rounded-[var(--radius-lg)] border border-[var(--primary-200)] bg-[var(--surface-adjacent)] p-[var(--xxl)]">
         {children}
       </div>
@@ -543,9 +546,9 @@ function ColorsPreview() {
     <div className="space-y-[var(--xxl)]">
       {colorGroups.map((group) => (
         <div key={group.name}>
-          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+          <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             {group.name}
-          </p>
+          </Typography>
           <div className="flex flex-wrap gap-[var(--s)]">
             {group.colors.map((color) => (
               <div key={color.var} className="flex flex-col items-center gap-[var(--xs)]">
@@ -553,7 +556,7 @@ function ColorsPreview() {
                   className="w-[48px] h-[48px] rounded-[var(--radius-lg)] border border-[var(--primary-200)]"
                   style={{ backgroundColor: `var(${color.var})` }}
                 />
-                <span className="text-[10px] text-[var(--primary-500)]">{color.label}</span>
+                <Typography variant="caption" as="span" color="muted">{color.label}</Typography>
               </div>
             ))}
           </div>
@@ -596,9 +599,9 @@ function TypographyPreview() {
     <div className="space-y-[var(--xxl)]">
       {/* Desktop scale */}
       <div>
-        <p className="text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)] mb-[var(--m)]">
+        <Typography variant="textSm" as="p" color="muted" className="!font-medium uppercase tracking-wider mb-[var(--m)]">
           Desktop (≥768px)
-        </p>
+        </Typography>
         <div className="space-y-[var(--m)]">
           {desktopStyles.map((s) => (
             <div key={`d-${s.name}`} className="flex flex-col gap-[var(--xxs)]">
@@ -608,9 +611,9 @@ function TypographyPreview() {
               >
                 {s.name}
               </span>
-              <span className="text-[12px] text-[var(--primary-400)]">
+              <Typography variant="textSm" as="span" color="subtle">
                 {s.name} &mdash; {s.spec} Source Sans 3
-              </span>
+              </Typography>
             </div>
           ))}
         </div>
@@ -618,9 +621,9 @@ function TypographyPreview() {
 
       {/* Mobile scale */}
       <div>
-        <p className="text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)] mb-[var(--m)]">
+        <Typography variant="textSm" as="p" color="muted" className="!font-medium uppercase tracking-wider mb-[var(--m)]">
           Mobile (&lt;768px)
-        </p>
+        </Typography>
         <div className="space-y-[var(--m)]">
           {mobileStyles.map((s) => (
             <div key={`m-${s.name}`} className="flex flex-col gap-[var(--xxs)]">
@@ -630,9 +633,9 @@ function TypographyPreview() {
               >
                 {s.name}
               </span>
-              <span className="text-[12px] text-[var(--primary-400)]">
+              <Typography variant="textSm" as="span" color="subtle">
                 {s.name} &mdash; {s.spec} Source Sans 3
-              </span>
+              </Typography>
             </div>
           ))}
         </div>
@@ -656,17 +659,17 @@ function SpacingPreview() {
 
   return (
     <div className="space-y-[var(--s)]">
-      <p className="text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)] mb-[var(--s)]">
+      <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
         2px Base Grid — T-Shirt Sizing
-      </p>
+      </Typography>
       {tokens.map((t) => (
         <div key={t.name} className="flex items-center gap-[var(--l)]">
-          <span className="text-[12px] text-[var(--primary-500)] w-[40px]">{t.name}</span>
+          <Typography variant="textSm" as="span" color="muted" className="w-[40px]">{t.name}</Typography>
           <div
             className="h-[12px] rounded-[var(--radius-sm)] bg-[var(--accent-200)]"
             style={{ width: `var(${t.var})`, minWidth: "2px" }}
           />
-          <span className="text-[12px] text-[var(--primary-400)]">{t.value}</span>
+          <Typography variant="textSm" as="span" color="subtle">{t.value}</Typography>
         </div>
       ))}
     </div>
@@ -708,7 +711,7 @@ function ButtonPreview() {
     <Section {...meta}>
       <div className="space-y-[var(--xxl)]">
         <div>
-          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+          <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Types
           </p>
           <div className="flex flex-wrap items-center gap-[var(--m)]">
@@ -719,7 +722,7 @@ function ButtonPreview() {
           </div>
         </div>
         <div>
-          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+          <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Sizes
           </p>
           <div className="flex flex-wrap items-end gap-[var(--m)]">
@@ -730,7 +733,7 @@ function ButtonPreview() {
           </div>
         </div>
         <div>
-          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+          <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             States
           </p>
           <div className="flex flex-wrap items-center gap-[var(--m)]">
@@ -740,7 +743,7 @@ function ButtonPreview() {
           </div>
         </div>
         <div>
-          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+          <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Secondary Variants
           </p>
           <div className="flex flex-wrap items-end gap-[var(--m)]">
@@ -751,7 +754,7 @@ function ButtonPreview() {
           </div>
         </div>
         <div>
-          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+          <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Icon Buttons
           </p>
           <div className="flex flex-wrap items-end gap-[var(--m)]">
@@ -763,7 +766,7 @@ function ButtonPreview() {
           </div>
         </div>
         <div>
-          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+          <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Full Width
           </p>
           <Button fullWidth leadingIcon="fa-house" trailingIcon="fa-chevron-right">Full Width Button</Button>
@@ -781,7 +784,7 @@ function InputPreview() {
       <div className="space-y-[var(--xxl)]">
         {/* Text */}
         <div>
-          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+          <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Text Input
           </p>
           <div className="max-w-[400px] space-y-[var(--m)]">
@@ -794,7 +797,7 @@ function InputPreview() {
 
         {/* Textarea */}
         <div>
-          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+          <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Text Area
           </p>
           <div className="max-w-[400px] space-y-[var(--m)]">
@@ -805,7 +808,7 @@ function InputPreview() {
 
         {/* Dropdown */}
         <div>
-          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+          <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Dropdown
           </p>
           <div className="max-w-[400px] space-y-[var(--m)]">
@@ -825,7 +828,7 @@ function InputPreview() {
 
         {/* Plate */}
         <div>
-          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+          <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             License Plate
           </p>
           <div className="max-w-[400px] space-y-[var(--m)]">
@@ -836,7 +839,7 @@ function InputPreview() {
 
         {/* Phone */}
         <div>
-          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+          <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Phone
           </p>
           <div className="max-w-[400px] space-y-[var(--m)]">
@@ -847,7 +850,7 @@ function InputPreview() {
 
         {/* Datepicker */}
         <div>
-          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+          <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Date Picker
           </p>
           <div className="max-w-[400px] space-y-[var(--m)]">
@@ -905,7 +908,7 @@ function TogglePreview() {
         <Toggle checked={checked2} onChange={setChecked2} label="SMS alerts" />
         <Toggle checked={false} onChange={() => {}} disabled label="Disabled toggle" />
         <div>
-          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+          <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Small size
           </p>
           <Toggle checked={checked1} onChange={setChecked1} size="sm" label="Compact toggle" />
@@ -939,7 +942,7 @@ function TooltipPreview() {
     <Section {...meta}>
       <div className="space-y-[var(--xxl)]">
         <div>
-          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+          <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Info (Default)
           </p>
           <div className="flex gap-[var(--xxl)] items-center justify-center py-[var(--4xl)]">
@@ -958,7 +961,7 @@ function TooltipPreview() {
           </div>
         </div>
         <div>
-          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+          <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Error
           </p>
           <div className="flex gap-[var(--xxl)] items-center justify-center py-[var(--4xl)]">
@@ -1026,7 +1029,7 @@ function TabsPreview() {
     <Section {...meta}>
       <div className="space-y-[var(--xxl)]">
         <div>
-          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+          <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Default
           </p>
           <Tabs
@@ -1043,7 +1046,7 @@ function TabsPreview() {
           </p>
         </div>
         <div>
-          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+          <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             With Disabled Tab
           </p>
           <Tabs
@@ -1056,7 +1059,7 @@ function TabsPreview() {
           />
         </div>
         <div>
-          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+          <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Many Tabs
           </p>
           <Tabs
@@ -1082,7 +1085,7 @@ function ContextMenuPreview() {
     <Section {...meta}>
       <div className="space-y-[var(--xxl)]">
         <div>
-          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+          <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Default (always visible for preview)
           </p>
           <div className="inline-block">
@@ -1118,7 +1121,7 @@ function ProgressBarPreview() {
     <Section {...meta}>
       <div className="space-y-[var(--xxl)]">
         <div>
-          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+          <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Interactive
           </p>
           <ProgressBar
@@ -1137,7 +1140,7 @@ function ProgressBarPreview() {
           </div>
         </div>
         <div>
-          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+          <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Steps
           </p>
           <div className="space-y-[var(--m)]">
@@ -1159,13 +1162,13 @@ function PaginationPreview() {
     <Section {...meta}>
       <div className="space-y-[var(--xxl)]">
         <div>
-          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+          <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Interactive ({page}/20)
           </p>
           <Pagination currentPage={page} totalPages={20} onPageChange={setPage} />
         </div>
         <div>
-          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+          <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Few Pages
           </p>
           <Pagination currentPage={2} totalPages={5} onPageChange={() => {}} />
@@ -1182,7 +1185,7 @@ function PillPreview() {
     <Section {...meta}>
       <div className="space-y-[var(--xxl)]">
         <div>
-          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+          <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Variants
           </p>
           <div className="flex flex-wrap gap-[var(--s)]">
@@ -1194,7 +1197,7 @@ function PillPreview() {
           </div>
         </div>
         <div>
-          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+          <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Sizes
           </p>
           <div className="flex flex-wrap items-center gap-[var(--s)]">
@@ -1205,7 +1208,7 @@ function PillPreview() {
           </div>
         </div>
         <div>
-          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+          <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             With Icons
           </p>
           <div className="flex flex-wrap gap-[var(--s)]">
@@ -1215,7 +1218,7 @@ function PillPreview() {
           </div>
         </div>
         <div>
-          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+          <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Interactive (click to select)
           </p>
           <div className="flex flex-wrap gap-[var(--s)]">
@@ -1267,7 +1270,7 @@ function RadioThumbPreview() {
     <Section {...meta}>
       <div className="space-y-[var(--xxl)]">
         <div>
-          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+          <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Icon Type
           </p>
           <RadioThumbGroup
@@ -1284,7 +1287,7 @@ function RadioThumbPreview() {
           />
         </div>
         <div>
-          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+          <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Logo Type
           </p>
           <RadioThumbGroup
@@ -1348,7 +1351,7 @@ function TagPreview() {
     <Section {...meta}>
       <div className="space-y-[var(--xxl)]">
         <div>
-          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+          <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Sizes with Left Icon
           </p>
           <div className="flex flex-wrap items-center gap-[var(--s)]">
@@ -1359,7 +1362,7 @@ function TagPreview() {
           </div>
         </div>
         <div>
-          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+          <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Removable Tags
           </p>
           <div className="flex flex-wrap gap-[var(--s)]">
@@ -1433,7 +1436,7 @@ function AccordionPreview() {
     <Section {...meta}>
       <div className="space-y-[var(--xxl)]">
         <div>
-          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+          <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Single Open (Default)
           </p>
           <Accordion
@@ -1447,7 +1450,7 @@ function AccordionPreview() {
           />
         </div>
         <div>
-          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+          <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Multiple Open
           </p>
           <Accordion

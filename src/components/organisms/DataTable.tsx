@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
+import { Typography } from "@/components/atoms/Typography";
+import { Icon } from "@/components/atoms/Icon";
 
 export interface DataTableColumn {
   key: string;
@@ -18,10 +20,10 @@ export interface DataTableProps {
 }
 
 const SortIndicator: React.FC<{ direction?: SortDirection }> = ({ direction }) => (
-  <span className="ml-1 inline-block w-4 text-on-surface-muted">
-    {direction === "asc" && "\u2191"}
-    {direction === "desc" && "\u2193"}
-    {!direction && "\u2195"}
+  <span className="ml-1 inline-flex w-4 items-center text-on-surface-muted">
+    {direction === "asc" && <Icon name="fa-sort-up" size="sm" />}
+    {direction === "desc" && <Icon name="fa-sort-down" size="sm" />}
+    {!direction && <Icon name="fa-sort" size="sm" />}
   </span>
 );
 
@@ -52,10 +54,10 @@ export const DataTable: React.FC<DataTableProps> = ({ columns, rows, sortable = 
                 ].join(" ")}
                 onClick={() => handleSort(col.key)}
               >
-                <span className="inline-flex items-center">
+                <Typography variant="textSm" as="span" color="inherit" bold className="inline-flex items-center">
                   {col.label}
                   {sortable && <SortIndicator direction={sortKey === col.key ? sortDir : undefined} />}
-                </span>
+                </Typography>
               </th>
             ))}
           </tr>

@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { Typography } from "@/components/atoms/Typography";
 
 export interface SliderProps {
   min?: number;
@@ -36,14 +37,14 @@ export function Slider({
       {(label || showValue) && (
         <div className="flex items-center justify-between">
           {label && (
-            <label htmlFor={id} className="text-[14px] font-medium text-[var(--primary-900)] leading-[1.2]">
+            <Typography variant="textSm" as="label" className="!font-medium text-[var(--primary-900)]" {...{ htmlFor: id } as any}>
               {label}
-            </label>
+            </Typography>
           )}
           {showValue && (
-            <span className="text-[14px] font-medium text-[var(--primary-900)]">
+            <Typography variant="textSm" as="span" className="!font-medium text-[var(--primary-900)]">
               {displayValue}
-            </span>
+            </Typography>
           )}
         </div>
       )}

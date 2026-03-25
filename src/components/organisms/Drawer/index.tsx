@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
+import { Typography } from "@/components/atoms/Typography";
+import { Icon } from "@/components/atoms/Icon";
 
 /**
  * Drawer — Organism (slide-in panel replacing modals)
@@ -110,16 +112,16 @@ export function Drawer({
           {/* Header */}
           {title && (
             <div className="flex items-center gap-[var(--l)] shrink-0 mb-[var(--xl)]">
-              <h2 className="flex-1 text-[18px] md:text-[24px] font-medium leading-[1.2] text-black">
+              <Typography variant="h6" as="h2" className="flex-1 max-md:!text-[18px]">
                 {title}
-              </h2>
+              </Typography>
               <button
                 type="button"
                 onClick={onClose}
                 aria-label="Close drawer"
                 className="flex items-center justify-center w-[24px] h-[24px] rounded-full cursor-pointer shrink-0"
               >
-                <i className="fa-regular fa-xmark text-[16px] text-[var(--primary-900)]" aria-hidden="true" />
+                <Icon name="fa-xmark" size="md" weight="regular" />
               </button>
             </div>
           )}
@@ -200,16 +202,16 @@ export function Drawer({
             {/* Header */}
             {title && (
               <div className="flex items-center gap-[var(--l)] shrink-0 mb-[var(--xl)]">
-                <h2 className="flex-1 text-[24px] font-medium leading-[1.2] text-black">
+                <Typography variant="h5" as="h2" className="flex-1">
                   {title}
-                </h2>
+                </Typography>
                 <button
                   type="button"
                   onClick={onClose}
                   aria-label="Close drawer"
                   className="flex items-center justify-center w-[24px] h-[24px] rounded-full cursor-pointer shrink-0"
                 >
-                  <i className="fa-regular fa-xmark text-[16px] text-[var(--primary-900)]" aria-hidden="true" />
+                  <Icon name="fa-xmark" size="md" weight="regular" />
                 </button>
               </div>
             )}

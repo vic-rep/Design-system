@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { Typography } from "@/components/atoms/Typography";
 import { Accordion } from "@/components/organisms/Accordion";
 
 export interface FAQItem {
@@ -27,9 +28,9 @@ export function FAQ({
 
   return (
     <div className={`max-w-[720px] mx-auto ${className}`}>
-      <h3 className="text-[36px] font-semibold text-[var(--primary-900)] text-center mb-[var(--xxl)] leading-[1.2]">
+      <Typography variant="h3" as="h3" className="text-center mb-[var(--xxl)]">
         {title}
-      </h3>
+      </Typography>
       <Accordion items={accordionItems} />
     </div>
   );

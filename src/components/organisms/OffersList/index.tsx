@@ -1,6 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
+import { Typography } from "@/components/atoms/Typography";
+import { Icon } from "@/components/atoms/Icon";
+import { Checkbox } from "@/components/molecules/Checkbox";
 
 /**
  * OffersList — Organism (horizontal row-based offer items)
@@ -173,12 +176,9 @@ function CompanyLogo({
     );
   }
   return (
-    <span
-      className="text-[16px] font-semibold text-[var(--primary-900)] shrink-0"
-      style={fontFeature}
-    >
+    <Typography variant="text" as="span" className="shrink-0 !font-semibold">
       {name}
-    </span>
+    </Typography>
   );
 }
 
@@ -205,10 +205,7 @@ function OfferCheckbox({
       className="relative shrink-0 w-[24px] h-[24px] rounded-[var(--xs)] border border-[var(--primary-800)] bg-[var(--constant-white)] cursor-pointer flex items-center justify-center"
     >
       {checked && (
-        <i
-          className="fa-solid fa-check text-[12px] text-[var(--primary-900)]"
-          aria-hidden="true"
-        />
+        <Icon name="fa-check" size="xs" className="text-[var(--primary-900)]" />
       )}
     </button>
   );
@@ -221,16 +218,10 @@ function BestPricePill() {
       className="inline-flex items-center gap-[var(--s)] px-[var(--l)] py-[var(--s)] rounded-[var(--xxl)] shrink-0 whitespace-nowrap"
       style={{ backgroundColor: "var(--success-700, #009147)" }}
     >
-      <i
-        className="fa-solid fa-star text-[12px] text-[var(--surface-adjacent)]"
-        aria-hidden="true"
-      />
-      <span
-        className="text-[14px] font-medium leading-[1.2] text-[var(--surface-adjacent)]"
-        style={fontFeature}
-      >
+      <Icon name="fa-star" size="xs" className="text-[var(--surface-adjacent)]" />
+      <Typography variant="textSm" as="span" color="white" className="!font-medium">
         Най-добра цена
-      </span>
+      </Typography>
     </span>
   );
 }
@@ -260,54 +251,42 @@ function InsuranceOfferRow({
             {/* Installment price column */}
             {showInstallments && (
               <div className="flex flex-col items-start gap-0">
-                <span
-                  className="text-[12px] font-normal leading-[1.2] text-[var(--primary-700)] whitespace-nowrap"
-                  style={fontFeature}
-                >
+                <Typography variant="caption" as="span" color="secondary" className="whitespace-nowrap">
                   {offer.installmentLabel ?? "Първа вноска"}
-                </span>
-                <span className="h-[23px] flex items-center" style={fontFeature}>
-                  <span className="text-[18px] font-bold leading-[1.2] text-[var(--primary-900)]">
+                </Typography>
+                <span className="h-[23px] flex items-center">
+                  <Typography variant="textLg" as="span" bold>
                     {offer.installmentPrice.amount.toFixed(2).replace(".", ",")}
-                  </span>
-                  <span className="text-[18px] font-normal leading-[1.2] text-[var(--primary-400)]">
+                  </Typography>
+                  <Typography variant="textLg" as="span" color="subtle">
                     {" "}лв
-                  </span>
+                  </Typography>
                 </span>
                 {offer.installmentPrice.euroEquivalent != null && (
-                  <span
-                    className="text-[12px] font-normal leading-[1.2] text-[var(--primary-400)] whitespace-nowrap"
-                    style={fontFeature}
-                  >
+                  <Typography variant="caption" as="span" color="subtle" className="whitespace-nowrap">
                     {offer.installmentPrice.euroEquivalent.toFixed(2).replace(".", ",")} euro
-                  </span>
+                  </Typography>
                 )}
               </div>
             )}
 
             {/* Total price column */}
             <div className="flex flex-col items-start gap-0 w-[70px]">
-              <span
-                className="text-[12px] font-normal leading-[1.2] text-[var(--primary-700)] whitespace-nowrap"
-                style={fontFeature}
-              >
+              <Typography variant="caption" as="span" color="secondary" className="whitespace-nowrap">
                 {offer.totalLabel ?? "Общо"}
-              </span>
-              <span className="h-[23px] flex items-center" style={fontFeature}>
-                <span className="text-[16px] font-bold leading-[1.2] text-[var(--primary-900)]">
+              </Typography>
+              <span className="h-[23px] flex items-center">
+                <Typography variant="text" as="span" bold>
                   {offer.totalPrice.amount.toFixed(2).replace(".", ",")}
-                </span>
-                <span className="text-[16px] font-normal leading-[1.2] text-[var(--primary-400)]">
+                </Typography>
+                <Typography variant="text" as="span" color="subtle">
                   {" "}лв
-                </span>
+                </Typography>
               </span>
               {offer.totalPrice.euroEquivalent != null && (
-                <span
-                  className="text-[12px] font-normal leading-[1.2] text-[var(--primary-400)] whitespace-nowrap"
-                  style={fontFeature}
-                >
+                <Typography variant="caption" as="span" color="subtle" className="whitespace-nowrap">
                   {offer.totalPrice.euroEquivalent.toFixed(2).replace(".", ",")} euro
-                </span>
+                </Typography>
               )}
             </div>
           </div>
@@ -322,10 +301,7 @@ function InsuranceOfferRow({
             aria-label={`Select ${offer.companyName}`}
             className="flex items-center justify-center w-[24px] h-[24px] p-[10px] shrink-0 cursor-pointer rounded-[100px]"
           >
-            <i
-              className="fa-regular fa-chevron-right text-[12px] text-[var(--primary-900)]"
-              aria-hidden="true"
-            />
+            <Icon name="fa-chevron-right" size="xs" weight="regular" />
           </button>
         </div>
       </div>
@@ -357,12 +333,9 @@ function QuickLoanOfferRow({
         </div>
 
         {/* Right: Duration */}
-        <span
-          className="text-[16px] font-medium leading-[1.2] text-[var(--primary-900)] shrink-0 whitespace-nowrap"
-          style={fontFeature}
-        >
+        <Typography variant="textM" as="span" className="shrink-0 whitespace-nowrap">
           {offer.duration}
-        </span>
+        </Typography>
       </div>
     </CardWrapper>
   );
@@ -385,43 +358,31 @@ function FineOfferRow({
         <div className="flex gap-[16px] items-start w-full">
           {/* Title + date */}
           <div className="flex flex-1 flex-col gap-[var(--xs)] min-w-0">
-            <p
-              className="text-[20px] font-medium leading-[1.2] text-[var(--primary-900)]"
-              style={fontFeature}
-            >
+            <Typography variant="h6">
               {offer.title}
-            </p>
+            </Typography>
             <div className="flex items-center gap-[var(--xs)]">
-              <i
-                className="fa-regular fa-calendar-lines-pen text-[12px] text-[var(--primary-600)]"
-                aria-hidden="true"
-              />
-              <span
-                className="text-[14px] font-normal leading-[1.2] text-[var(--primary-600)]"
-                style={fontFeature}
-              >
+              <Icon name="fa-calendar-lines-pen" size="xs" weight="regular" className="text-[var(--primary-600)]" />
+              <Typography variant="textSm" as="span" className="text-[var(--primary-600)]">
                 {offer.date}
-              </span>
+              </Typography>
             </div>
           </div>
 
           {/* Price (in €, with лв as secondary) */}
           <div className="flex flex-col items-end shrink-0 w-[70px]">
-            <span className="flex items-center" style={fontFeature}>
-              <span className="text-[16px] font-bold leading-[1.2] text-[var(--primary-900)]">
+            <span className="flex items-center">
+              <Typography variant="text" as="span" bold>
                 {offer.price.amount.toFixed(2).replace(".", ",")}
-              </span>
-              <span className="text-[16px] font-normal leading-[1.2] text-[var(--primary-400)]">
+              </Typography>
+              <Typography variant="text" as="span" color="subtle">
                 {" "}{offer.price.currency ?? "€"}
-              </span>
+              </Typography>
             </span>
             {offer.price.euroEquivalent != null && (
-              <span
-                className="text-[12px] font-normal leading-[1.2] text-[var(--primary-400)] whitespace-nowrap"
-                style={fontFeature}
-              >
+              <Typography variant="caption" as="span" color="subtle" className="whitespace-nowrap">
                 {offer.price.euroEquivalent.toFixed(2).replace(".", ",")} лв.
-              </span>
+              </Typography>
             )}
           </div>
         </div>
@@ -431,17 +392,11 @@ function FineOfferRow({
           {/* Status pill */}
           <span className="inline-flex items-center gap-[var(--s)] px-[var(--s)] py-[var(--xs)] rounded-[var(--xxl)] bg-[var(--primary-200)]">
             {offer.statusIcon && (
-              <i
-                className={`fa-regular ${offer.statusIcon} text-[12px] text-[var(--primary-900)]`}
-                aria-hidden="true"
-              />
+              <Icon name={offer.statusIcon} size="xs" weight="regular" />
             )}
-            <span
-              className="text-[14px] font-normal leading-[1.2] text-[var(--primary-900)] whitespace-nowrap"
-              style={fontFeature}
-            >
+            <Typography variant="textSm" as="span" className="whitespace-nowrap">
               {offer.status}
-            </span>
+            </Typography>
           </span>
 
           {/* Expand link */}
@@ -453,16 +408,10 @@ function FineOfferRow({
             }}
             className="inline-flex items-center gap-[var(--m)] cursor-pointer"
           >
-            <span
-              className="text-[14px] font-medium leading-[1.2] text-[var(--primary-900)] whitespace-nowrap"
-              style={fontFeature}
-            >
+            <Typography variant="textSm" as="span" className="whitespace-nowrap !font-medium">
               Вижте повече
-            </span>
-            <i
-              className={`fa-regular ${expanded ? "fa-chevron-up" : "fa-chevron-down"} text-[16px] text-[var(--accent-600)]`}
-              aria-hidden="true"
-            />
+            </Typography>
+            <Icon name={expanded ? "fa-chevron-up" : "fa-chevron-down"} size="md" weight="regular" className="text-[var(--accent-600)]" />
           </button>
         </div>
       </div>
@@ -494,27 +443,21 @@ function CarLeasingOfferRow({
         {/* Right: Installment price */}
         <div className="flex items-center gap-[var(--m)] shrink-0">
           <div className="flex flex-col items-start gap-0">
-            <span
-              className="text-[10px] font-normal leading-[1.3] text-[var(--primary-700)] whitespace-nowrap"
-              style={fontFeature}
-            >
+            <Typography variant="caption" as="span" color="secondary" className="whitespace-nowrap">
               {offer.installmentLabel ?? "Вноска"}
-            </span>
-            <span className="h-[23px] flex items-center w-[70px]" style={fontFeature}>
-              <span className="text-[16px] font-bold leading-[1.2] text-[var(--primary-900)]">
+            </Typography>
+            <span className="h-[23px] flex items-center w-[70px]">
+              <Typography variant="text" as="span" bold>
                 {offer.installmentPrice.amount.toFixed(2).replace(".", ",")}
-              </span>
-              <span className="text-[16px] font-normal leading-[1.2] text-[var(--primary-400)]">
+              </Typography>
+              <Typography variant="text" as="span" color="subtle">
                 {" "}лв
-              </span>
+              </Typography>
             </span>
             {offer.installmentPrice.euroEquivalent != null && (
-              <span
-                className="text-[10px] font-normal leading-[1.3] text-[var(--primary-400)] whitespace-nowrap"
-                style={fontFeature}
-              >
+              <Typography variant="caption" as="span" color="subtle" className="whitespace-nowrap">
                 {offer.installmentPrice.euroEquivalent.toFixed(2).replace(".", ",")} euro
-              </span>
+              </Typography>
             )}
           </div>
         </div>

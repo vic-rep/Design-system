@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { Icon } from "@/components/atoms/Icon";
 
 /**
  * Tag — Molecule (compact removable label)
@@ -65,10 +66,7 @@ export function Tag({
       style={{ fontFeatureSettings: "'cv12' 1, 'cv13' 1, 'cv14' 1, 'cv15' 1, 'cv16' 1" }}
     >
       {leftIcon && (
-        <i
-          className={`fa-solid ${leftIcon} ${sizeIcon[size]} shrink-0 text-[var(--primary-900)]`}
-          aria-hidden="true"
-        />
+        <Icon name={leftIcon} size={size === "l" ? "md" : "xs"} className="shrink-0 text-[var(--primary-900)]" />
       )}
       <span className="whitespace-nowrap">{children}</span>
       {onRemove && (
@@ -78,10 +76,7 @@ export function Tag({
           aria-label={`Remove ${typeof children === "string" ? children : "tag"}`}
           className={`flex items-center justify-center shrink-0 cursor-pointer hover:opacity-60 transition-opacity duration-100 ${sizeIcon[size]}`}
         >
-          <i
-            className={`fa-solid fa-xmark ${sizeIcon[size]} text-[var(--primary-900)]`}
-            aria-hidden="true"
-          />
+          <Icon name="fa-xmark" size={size === "l" ? "md" : "xs"} className="text-[var(--primary-900)]" />
         </button>
       )}
     </span>

@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { Typography } from "@/components/atoms/Typography";
 
 export interface RadioOption {
   value: string;
@@ -28,9 +29,9 @@ export function RadioGroup({
   return (
     <fieldset className={`flex flex-col gap-[var(--m)] ${className}`}>
       {legend && (
-        <legend className="text-[14px] font-medium text-[var(--primary-900)] mb-[var(--xs)]">
+        <Typography variant="textSm" as="legend" className="!font-medium mb-[var(--xs)]">
           {legend}
-        </legend>
+        </Typography>
       )}
       {options.map((opt) => {
         const isSelected = opt.value === value;
@@ -65,9 +66,9 @@ export function RadioGroup({
                 <span className="absolute w-[10px] h-[10px] rounded-full bg-[var(--accent-600)]" />
               )}
             </span>
-            <span className="text-[14px] text-[var(--primary-900)] leading-[1.2]">
+            <Typography variant="textSm" as="span">
               {opt.label}
-            </span>
+            </Typography>
           </label>
         );
       })}

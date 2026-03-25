@@ -2,6 +2,8 @@
 
 import React, { useState, useId } from "react";
 import { Button } from "@/components/molecules/Button";
+import { Typography } from "@/components/atoms/Typography";
+import { Icon } from "@/components/atoms/Icon";
 
 /**
  * Alert — Molecule (collapsible notification banner)
@@ -106,20 +108,22 @@ export function Alert({
         ].join(" ")}
       >
         {/* Icon */}
-        <i
-          className={`fa-solid ${config.icon} text-[16px] shrink-0 mt-[1px]`}
-          aria-hidden="true"
+        <Icon
+          name={config.icon}
+          size="md"
+          className="shrink-0 mt-[1px]"
           style={{ color: config.iconColor }}
         />
         {/* Title */}
-        <span className="flex-1 font-semibold text-[16px] leading-[1.2] text-black">
+        <Typography variant="text" as="span" className="flex-1 !font-semibold leading-[1.2] text-black">
           {title}
-        </span>
+        </Typography>
         {/* Chevron */}
         {hasExpandableContent && (
-          <i
-            className={`fa-solid ${isExpanded ? "fa-chevron-up" : "fa-chevron-down"} text-[16px] text-[var(--primary-900)] shrink-0 mt-[1px]`}
-            aria-hidden="true"
+          <Icon
+            name={isExpanded ? "fa-chevron-up" : "fa-chevron-down"}
+            size="md"
+            className="text-[var(--primary-900)] shrink-0 mt-[1px]"
           />
         )}
       </button>
@@ -138,12 +142,14 @@ export function Alert({
         >
           <div className="px-[var(--l)] pb-[var(--l)] flex flex-col gap-[var(--m)]">
             {description && (
-              <p
-                className="text-[16px] text-black leading-[1.2] font-normal"
+              <Typography
+                variant="text"
+                as="p"
+                className="text-black leading-[1.2] font-normal"
                 style={{ fontFeatureSettings: "'cv12' 1, 'cv13' 1, 'cv14' 1, 'cv15' 1, 'cv16' 1" }}
               >
                 {description}
-              </p>
+              </Typography>
             )}
             {(primaryAction || secondaryAction) && (
               <div className="flex items-center gap-[var(--l)]">

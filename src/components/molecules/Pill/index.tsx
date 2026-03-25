@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { Icon } from "@/components/atoms/Icon";
 
 /**
  * Pill — Molecule (compact label / filter chip)
@@ -99,17 +100,11 @@ export function Pill({
       style={{ fontFeatureSettings: "'cv12' 1, 'cv13' 1, 'cv14' 1, 'cv15' 1, 'cv16' 1" }}
     >
       {leftIcon && (
-        <i
-          className={`fa-regular ${leftIcon} ${sizeIcon[size]} shrink-0`}
-          aria-hidden="true"
-        />
+        <Icon name={leftIcon} size={size === "l" ? "md" : "xs"} weight="regular" className="shrink-0" />
       )}
       <span>{children}</span>
       {rightIcon && (
-        <i
-          className={`fa-regular ${rightIcon} ${sizeIcon[size]} shrink-0`}
-          aria-hidden="true"
-        />
+        <Icon name={rightIcon} size={size === "l" ? "md" : "xs"} weight="regular" className="shrink-0" />
       )}
     </Tag>
   );

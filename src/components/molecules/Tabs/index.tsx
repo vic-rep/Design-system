@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
+import { Typography } from "@/components/atoms/Typography";
 
 /**
  * Tabs — Molecule
@@ -96,7 +97,9 @@ export function Tabs({
               .filter(Boolean)
               .join(" ")}
           >
-            {item.label}
+            <Typography variant="text" as="span" className="inherit-color">
+              {item.label}
+            </Typography>
           </button>
         );
       })}

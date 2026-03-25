@@ -1,6 +1,8 @@
 "use client";
 
 import React from "react";
+import { Typography } from "@/components/atoms/Typography";
+import { Icon } from "@/components/atoms/Icon";
 
 export interface CartItem {
   id: string;
@@ -38,31 +40,31 @@ export function Cart({
     >
       {/* Header */}
       <div className="px-[var(--xxl)] py-[var(--l)] border-b border-[var(--primary-200)]">
-        <h3 className="text-[18px] font-semibold text-[var(--primary-900)]">Order Summary</h3>
+        <Typography variant="textLg" as="h3" bold>Order Summary</Typography>
       </div>
 
       {/* Items */}
       <div className="px-[var(--xxl)] py-[var(--m)]">
         {items.length === 0 ? (
-          <p className="text-[14px] text-[var(--primary-500)] py-[var(--l)] text-center">
+          <Typography variant="textM" as="p" color="muted" className="py-[var(--l)] text-center">
             No items selected
-          </p>
+          </Typography>
         ) : (
           <ul className="divide-y divide-[var(--primary-200)]">
             {items.map((item) => (
               <li key={item.id} className="flex items-start justify-between py-[var(--m)]">
                 <div className="flex-1 mr-[var(--m)]">
-                  <p className="text-[14px] font-medium text-[var(--primary-900)]">{item.label}</p>
+                  <Typography variant="textM" as="p" bold>{item.label}</Typography>
                   {item.description && (
-                    <p className="text-[12px] text-[var(--primary-500)] mt-[var(--xxs)]">
+                    <Typography variant="textSm" as="p" color="muted" className="mt-[var(--xxs)]">
                       {item.description}
-                    </p>
+                    </Typography>
                   )}
                 </div>
                 <div className="flex items-center gap-[var(--s)] shrink-0">
-                  <span className="text-[14px] font-medium text-[var(--primary-900)]">
+                  <Typography variant="textM" as="span" bold>
                     {item.price.toFixed(2)} {currency}
-                  </span>
+                  </Typography>
                   {item.removable !== false && onRemove && (
                     <button
                       type="button"
@@ -70,7 +72,7 @@ export function Cart({
                       aria-label={`Remove ${item.label}`}
                       className="w-[24px] h-[24px] flex items-center justify-center rounded-[var(--xs)] text-[var(--primary-400)] hover:text-[var(--destructive-600)] hover:bg-[var(--destructive-100)] transition-colors duration-150 cursor-pointer"
                     >
-                      <i className="fa-solid fa-xmark text-[11px]" aria-hidden="true" />
+                      <Icon name="fa-xmark" size="xs" weight="solid" />
                     </button>
                   )}
                 </div>
@@ -84,10 +86,10 @@ export function Cart({
       {items.length > 0 && (
         <div className="px-[var(--xxl)] py-[var(--m)] border-t-2 border-[var(--primary-900)]">
           <div className="flex items-center justify-between">
-            <span className="text-[16px] font-semibold text-[var(--primary-900)]">Total</span>
-            <span className="text-[20px] font-semibold text-[var(--primary-900)]">
+            <Typography variant="text" as="span" bold>Total</Typography>
+            <Typography variant="h6" as="span" bold>
               {total.toFixed(2)} {currency}
-            </span>
+            </Typography>
           </div>
         </div>
       )}
