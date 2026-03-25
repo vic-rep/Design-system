@@ -7,9 +7,9 @@ import React from "react";
  * Figma: Page 74:11 → Node 409:3053
  * Doc: .claude/skills/docs/molecules/pill.md
  *
- * Sizes: XS, S, M, L
+ * Sizes: XS, S, M, L (with size-specific padding, text, icon sizes)
  * Variants: default, accent, success, warning, destructive
- * Icons: optional leading + trailing (Font Awesome class)
+ * Features: border/stroke, optional leading/trailing FA icons
  */
 
 export type PillVariant = "default" | "accent" | "success" | "warning" | "destructive";
@@ -26,22 +26,25 @@ export interface PillProps {
   className?: string;
 }
 
+/* Fill + stroke per variant */
 const variantStyles: Record<PillVariant, string> = {
-  default: "bg-[var(--surface-adjacent)] text-[var(--primary-900)]",
-  accent: "bg-[var(--accent-100)] text-[var(--accent-800)]",
-  success: "bg-[var(--success-100)] text-[var(--success-800)]",
-  warning: "bg-[var(--warning-100)] text-[var(--warning-600)]",
-  destructive: "bg-[var(--destructive-100)] text-[var(--destructive-600)]",
+  default: "bg-[var(--surface-adjacent)] border border-[var(--primary-300)] text-[var(--primary-900)]",
+  accent: "bg-[var(--accent-100)] border border-[var(--accent-300)] text-[var(--accent-800)]",
+  success: "bg-[var(--success-100)] border border-[var(--success-300)] text-[var(--success-800)]",
+  warning: "bg-[var(--warning-100)] border border-[var(--warning-300)] text-[var(--warning-600)]",
+  destructive: "bg-[var(--destructive-100)] border border-[var(--destructive-300)] text-[var(--destructive-600)]",
 };
 
-const selectedBorders: Record<PillVariant, string> = {
-  default: "ring-1 ring-[var(--primary-400)]",
-  accent: "ring-1 ring-[var(--accent-600)]",
-  success: "ring-1 ring-[var(--success-700)]",
-  warning: "ring-1 ring-[var(--warning-500)]",
-  destructive: "ring-1 ring-[var(--destructive-550)]",
+/* Selected: stronger border */
+const selectedStyles: Record<PillVariant, string> = {
+  default: "border-[var(--primary-900)]",
+  accent: "border-[var(--accent-600)]",
+  success: "border-[var(--success-700)]",
+  warning: "border-[var(--warning-500)]",
+  destructive: "border-[var(--destructive-550)]",
 };
 
+/* Padding per size */
 const sizePadding: Record<PillSize, string> = {
   xs: "px-[var(--s)] py-[var(--xs)]",
   s: "px-[var(--m)] py-[var(--xs)]",
@@ -49,6 +52,7 @@ const sizePadding: Record<PillSize, string> = {
   l: "px-[var(--l)] py-[var(--s)]",
 };
 
+/* Typography per size */
 const sizeText: Record<PillSize, string> = {
   xs: "text-[12px] leading-[1.3] font-normal",
   s: "text-[14px] leading-[1.2] font-normal",
@@ -56,6 +60,7 @@ const sizeText: Record<PillSize, string> = {
   l: "text-[16px] leading-[1.2] font-normal",
 };
 
+/* Icon sizing per pill size — S/M/XS use 12px, L uses 16px */
 const sizeIcon: Record<PillSize, string> = {
   xs: "text-[12px] w-[12px] h-[12px]",
   s: "text-[12px] w-[12px] h-[12px]",
@@ -85,7 +90,7 @@ export function Pill({
         sizePadding[size],
         sizeText[size],
         variantStyles[variant],
-        selected ? selectedBorders[variant] : "",
+        selected ? selectedStyles[variant] : "",
         isInteractive ? "cursor-pointer hover:opacity-80" : "",
         className,
       ]
