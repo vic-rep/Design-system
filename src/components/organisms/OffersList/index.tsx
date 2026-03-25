@@ -4,22 +4,34 @@ import React, { useState } from "react";
 
 /**
  * OffersList — Organism (horizontal row-based offer items)
- * Figma: Page 147:1690 → Section 173:800
+ * Figma: Page 147:1690 → Section 173:800 → Node 2847:11012
  *
  * Product types:
  *   MTPL / Casco / Travel — Logo + optional best-price pill + installment + total + chevron CTA
  *   QuickLoans            — Checkbox + logo + duration text
- *   Fines                 — Title + date + price + status pill + expand link
+ *   Fines                 — Title + date + price(€) + status pill + expand link
  *   CarLeasing            — Checkbox + logo + installment info
  *
  * Shared: Level 2 elevation, surface-adjacent bg, rounded-s, px-m py-s
  */
 
-/* ── Elevation shadow ── */
-const SHADOW_L1 =
-  "0px 1px 2px 0px rgba(0,0,0,0.06), 0px 1px 3px 0px rgba(0,0,0,0.10)";
-const SHADOW_L2 =
-  "0px 4px 6px -1px rgba(0,0,0,0.10), 0px 2px 4px -2px rgba(0,0,0,0.10)";
+/* ── Figma Elevation / Level 2 (exact 5-layer) ── */
+const ELEVATION_L2 = [
+  "0px 2px 4px 0px rgba(0,0,0,0.05)",
+  "0px 7px 7px 0px rgba(0,0,0,0.04)",
+  "0px 15px 9px 0px rgba(0,0,0,0.03)",
+  "0px 27px 11px 0px rgba(0,0,0,0.01)",
+  "0px 42px 12px 0px rgba(0,0,0,0)",
+].join(", ");
+
+const ELEVATION_L1 = [
+  "0px 1px 2px 0px rgba(0,0,0,0.06)",
+  "0px 1px 3px 0px rgba(0,0,0,0.10)",
+].join(", ");
+
+const fontFeature = {
+  fontFeatureSettings: "'cv12' 1, 'cv13' 1, 'cv14' 1, 'cv15' 1, 'cv16' 1",
+};
 
 /* ── Types ── */
 
@@ -44,6 +56,7 @@ export interface InsuranceOffer {
   companyName: string;
   companyLogo?: string;
   recommended?: boolean;
+  showInstallments?: boolean;
   installmentLabel?: string;
   installmentPrice: OfferPrice;
   totalLabel?: string;
@@ -68,6 +81,7 @@ export interface FineOffer {
   date: string;
   price: OfferPrice;
   status: string;
+  statusIcon?: string;
 }
 
 /** Car Leasing offer */
@@ -96,12 +110,6 @@ export interface OffersListProps {
 }
 
 /* ── Shared card wrapper ── */
-const cardBase = [
-  "rounded-[var(--s)] bg-[var(--surface-adjacent)]",
-  "px-[var(--m)] py-[var(--s)]",
-  "transition-shadow duration-150",
-].join(" ");
-
 function CardWrapper({
   children,
   onClick,
@@ -120,84 +128,30 @@ function CardWrapper({
       }}
       onClick={onClick}
       className={[
-        cardBase,
+        "rounded-[var(--s)] bg-[var(--surface-adjacent)]",
+        "px-[var(--m)] py-[var(--s)]",
+        "transition-all duration-150",
         onClick ? "cursor-pointer" : "",
         className,
-      ].join(" ")}
-      style={{ boxShadow: SHADOW_L2 }}
-      onMouseEnter={(e) => {
-        (e.currentTarget as HTMLDivElement).style.boxShadow = SHADOW_L2;
-      }}
+      ]
+        .filter(Boolean)
+        .join(" ")}
+      style={{ boxShadow: ELEVATION_L2 }}
       onMouseDown={(e) => {
-        (e.currentTarget as HTMLDivElement).style.boxShadow = SHADOW_L1;
+        (e.currentTarget as HTMLDivElement).style.boxShadow = ELEVATION_L1;
         (e.currentTarget as HTMLDivElement).style.transform = "translateY(1px)";
       }}
       onMouseUp={(e) => {
-        (e.currentTarget as HTMLDivElement).style.boxShadow = SHADOW_L2;
+        (e.currentTarget as HTMLDivElement).style.boxShadow = ELEVATION_L2;
         (e.currentTarget as HTMLDivElement).style.transform = "";
       }}
       onMouseLeave={(e) => {
-        (e.currentTarget as HTMLDivElement).style.boxShadow = SHADOW_L2;
+        (e.currentTarget as HTMLDivElement).style.boxShadow = ELEVATION_L2;
         (e.currentTarget as HTMLDivElement).style.transform = "";
       }}
     >
       {children}
     </div>
-  );
-}
-
-/* ── Price display helper ── */
-function PriceColumn({
-  label,
-  price,
-  bold = false,
-}: {
-  label: string;
-  price: OfferPrice;
-  bold?: boolean;
-}) {
-  const currency = price.currency ?? "лв.";
-  return (
-    <div className="flex flex-col items-end">
-      <span
-        className="text-[12px] leading-[1.3] text-[var(--primary-500)]"
-        style={{
-          fontFeatureSettings:
-            "'cv12' 1, 'cv13' 1, 'cv14' 1, 'cv15' 1, 'cv16' 1",
-        }}
-      >
-        {label}
-      </span>
-      <span
-        className={[
-          "text-[18px] leading-[1.2] text-[var(--primary-900)]",
-          bold ? "font-semibold" : "font-normal",
-        ].join(" ")}
-      >
-        {price.amount.toFixed(2)} {currency}
-      </span>
-      {price.euroEquivalent != null && (
-        <span
-          className="text-[12px] leading-[1.3] text-[var(--primary-500)]"
-          style={{
-            fontFeatureSettings:
-              "'cv12' 1, 'cv13' 1, 'cv14' 1, 'cv15' 1, 'cv16' 1",
-          }}
-        >
-          {price.euroEquivalent.toFixed(2)} €
-        </span>
-      )}
-    </div>
-  );
-}
-
-/* ── Best-price pill ── */
-function BestPricePill() {
-  return (
-    <span className="inline-flex items-center gap-[var(--xs)] px-[var(--s)] py-[2px] rounded-[var(--xs)] bg-[var(--success-100)] text-[var(--success-700)] text-[12px] font-medium leading-[1.3] whitespace-nowrap">
-      <i className="fa-solid fa-star text-[10px]" aria-hidden="true" />
-      Най-добра цена
-    </span>
   );
 }
 
@@ -219,8 +173,64 @@ function CompanyLogo({
     );
   }
   return (
-    <span className="text-[16px] font-semibold text-[var(--primary-900)] shrink-0">
+    <span
+      className="text-[16px] font-semibold text-[var(--primary-900)] shrink-0"
+      style={fontFeature}
+    >
       {name}
+    </span>
+  );
+}
+
+/* ── Checkbox (matches Figma: 24px, rounded-xs, white bg, primary-800 border) ── */
+function OfferCheckbox({
+  checked,
+  onChange,
+  label,
+}: {
+  checked: boolean;
+  onChange: (checked: boolean) => void;
+  label: string;
+}) {
+  return (
+    <button
+      type="button"
+      role="checkbox"
+      aria-checked={checked}
+      aria-label={label}
+      onClick={(e) => {
+        e.stopPropagation();
+        onChange(!checked);
+      }}
+      className="relative shrink-0 w-[24px] h-[24px] rounded-[var(--xs)] border border-[var(--primary-800)] bg-[var(--constant-white)] cursor-pointer flex items-center justify-center"
+    >
+      {checked && (
+        <i
+          className="fa-solid fa-check text-[12px] text-[var(--primary-900)]"
+          aria-hidden="true"
+        />
+      )}
+    </button>
+  );
+}
+
+/* ── Best-price pill (Figma: green-700 bg, white text, rounded-xxl, star icon) ── */
+function BestPricePill() {
+  return (
+    <span
+      className="inline-flex items-center gap-[var(--s)] px-[var(--l)] py-[var(--s)] rounded-[var(--xxl)] shrink-0 whitespace-nowrap"
+      style={{ backgroundColor: "var(--success-700, #009147)" }}
+    >
+      <i
+        className="fa-solid fa-star text-[12px] text-[var(--surface-adjacent)]"
+        aria-hidden="true"
+      />
+      <span
+        className="text-[14px] font-medium leading-[1.2] text-[var(--surface-adjacent)]"
+        style={fontFeature}
+      >
+        Най-добра цена
+      </span>
     </span>
   );
 }
@@ -233,44 +243,91 @@ function InsuranceOfferRow({
   offer: InsuranceOffer;
   onSelect?: (id: string) => void;
 }) {
+  const showInstallments = offer.showInstallments !== false;
+
   return (
     <CardWrapper onClick={() => onSelect?.(offer.id)}>
-      <div className="flex items-center gap-[var(--m)]">
-        {/* Logo + pill */}
-        <div className="flex items-center gap-[var(--m)] flex-1 min-w-0">
+      <div className="flex items-center justify-between">
+        {/* Left: Logo + pill */}
+        <div className="flex flex-1 items-center gap-[var(--4xl)] min-w-0">
           <CompanyLogo name={offer.companyName} logo={offer.companyLogo} />
           {offer.recommended && <BestPricePill />}
         </div>
 
-        {/* Prices */}
-        <div className="flex items-center gap-[var(--xl)] shrink-0">
-          <PriceColumn
-            label={offer.installmentLabel ?? "Първа вноска"}
-            price={offer.installmentPrice}
-            bold
-          />
-          <PriceColumn
-            label={offer.totalLabel ?? "Общо"}
-            price={offer.totalPrice}
-            bold
-          />
-        </div>
+        {/* Right: Prices + chevron */}
+        <div className="flex items-center gap-[var(--4xl)] shrink-0">
+          <div className="flex items-center gap-[var(--4xl)]">
+            {/* Installment price column */}
+            {showInstallments && (
+              <div className="flex flex-col items-start gap-0">
+                <span
+                  className="text-[12px] font-normal leading-[1.2] text-[var(--primary-700)] whitespace-nowrap"
+                  style={fontFeature}
+                >
+                  {offer.installmentLabel ?? "Първа вноска"}
+                </span>
+                <span className="h-[23px] flex items-center" style={fontFeature}>
+                  <span className="text-[18px] font-bold leading-[1.2] text-[var(--primary-900)]">
+                    {offer.installmentPrice.amount.toFixed(2).replace(".", ",")}
+                  </span>
+                  <span className="text-[18px] font-normal leading-[1.2] text-[var(--primary-400)]">
+                    {" "}лв
+                  </span>
+                </span>
+                {offer.installmentPrice.euroEquivalent != null && (
+                  <span
+                    className="text-[12px] font-normal leading-[1.2] text-[var(--primary-400)] whitespace-nowrap"
+                    style={fontFeature}
+                  >
+                    {offer.installmentPrice.euroEquivalent.toFixed(2).replace(".", ",")} euro
+                  </span>
+                )}
+              </div>
+            )}
 
-        {/* Chevron CTA */}
-        <button
-          type="button"
-          onClick={(e) => {
-            e.stopPropagation();
-            onSelect?.(offer.id);
-          }}
-          aria-label={`Select ${offer.companyName}`}
-          className="flex items-center justify-center w-[32px] h-[32px] shrink-0 cursor-pointer rounded-full hover:bg-[var(--primary-100)] transition-colors duration-100"
-        >
-          <i
-            className="fa-regular fa-chevron-right text-[14px] text-[var(--primary-900)]"
-            aria-hidden="true"
-          />
-        </button>
+            {/* Total price column */}
+            <div className="flex flex-col items-start gap-0 w-[70px]">
+              <span
+                className="text-[12px] font-normal leading-[1.2] text-[var(--primary-700)] whitespace-nowrap"
+                style={fontFeature}
+              >
+                {offer.totalLabel ?? "Общо"}
+              </span>
+              <span className="h-[23px] flex items-center" style={fontFeature}>
+                <span className="text-[16px] font-bold leading-[1.2] text-[var(--primary-900)]">
+                  {offer.totalPrice.amount.toFixed(2).replace(".", ",")}
+                </span>
+                <span className="text-[16px] font-normal leading-[1.2] text-[var(--primary-400)]">
+                  {" "}лв
+                </span>
+              </span>
+              {offer.totalPrice.euroEquivalent != null && (
+                <span
+                  className="text-[12px] font-normal leading-[1.2] text-[var(--primary-400)] whitespace-nowrap"
+                  style={fontFeature}
+                >
+                  {offer.totalPrice.euroEquivalent.toFixed(2).replace(".", ",")} euro
+                </span>
+              )}
+            </div>
+          </div>
+
+          {/* Chevron CTA button */}
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              onSelect?.(offer.id);
+            }}
+            aria-label={`Select ${offer.companyName}`}
+            className="flex items-center justify-center w-[24px] h-[24px] p-[10px] shrink-0 cursor-pointer rounded-[100px]"
+          >
+            <i
+              className="fa-regular fa-chevron-right text-[12px] text-[var(--primary-900)]"
+              aria-hidden="true"
+            />
+          </button>
+        </div>
       </div>
     </CardWrapper>
   );
@@ -286,28 +343,23 @@ function QuickLoanOfferRow({
 }) {
   return (
     <CardWrapper>
-      <div className="flex items-center gap-[var(--m)]">
-        {/* Checkbox */}
-        <input
-          type="checkbox"
-          checked={offer.selected ?? false}
-          onChange={(e) => onToggle?.(offer.id, e.target.checked)}
-          className="w-[20px] h-[20px] shrink-0 cursor-pointer accent-[var(--accent-600)]"
-          aria-label={`Select ${offer.companyName}`}
-        />
-
-        {/* Logo */}
-        <div className="flex-1 min-w-0">
-          <CompanyLogo name={offer.companyName} logo={offer.companyLogo} />
+      <div className="flex items-center justify-between">
+        {/* Left: Checkbox + Logo */}
+        <div className="flex flex-1 items-center min-w-0">
+          <div className="flex items-center gap-[var(--l)] shrink-0">
+            <OfferCheckbox
+              checked={offer.selected ?? false}
+              onChange={(checked) => onToggle?.(offer.id, checked)}
+              label={`Select ${offer.companyName}`}
+            />
+            <CompanyLogo name={offer.companyName} logo={offer.companyLogo} />
+          </div>
         </div>
 
-        {/* Duration */}
+        {/* Right: Duration */}
         <span
-          className="text-[14px] leading-[1.2] text-[var(--primary-900)] shrink-0"
-          style={{
-            fontFeatureSettings:
-              "'cv12' 1, 'cv13' 1, 'cv14' 1, 'cv15' 1, 'cv16' 1",
-          }}
+          className="text-[16px] font-medium leading-[1.2] text-[var(--primary-900)] shrink-0 whitespace-nowrap"
+          style={fontFeature}
         >
           {offer.duration}
         </span>
@@ -325,74 +377,94 @@ function FineOfferRow({
   onSelect?: (id: string) => void;
 }) {
   const [expanded, setExpanded] = useState(false);
-  const currency = offer.price.currency ?? "лв.";
 
   return (
-    <CardWrapper>
-      <div className="flex flex-col gap-[var(--s)]">
-        {/* Top row: title + price + status */}
-        <div className="flex items-start gap-[var(--m)]">
-          <div className="flex-1 min-w-0">
-            <h3 className="text-[20px] font-medium leading-[1.2] text-[var(--primary-900)]">
+    <CardWrapper className="p-[var(--m)]">
+      <div className="flex flex-col gap-[var(--l)]">
+        {/* Top section */}
+        <div className="flex gap-[16px] items-start w-full">
+          {/* Title + date */}
+          <div className="flex flex-1 flex-col gap-[var(--xs)] min-w-0">
+            <p
+              className="text-[20px] font-medium leading-[1.2] text-[var(--primary-900)]"
+              style={fontFeature}
+            >
               {offer.title}
-            </h3>
-            {/* Date row */}
-            <div className="flex items-center gap-[var(--xs)] mt-[var(--xs)]">
+            </p>
+            <div className="flex items-center gap-[var(--xs)]">
               <i
-                className="fa-regular fa-calendar text-[14px] text-[var(--primary-600)]"
+                className="fa-regular fa-calendar-lines-pen text-[12px] text-[var(--primary-600)]"
                 aria-hidden="true"
               />
               <span
-                className="text-[14px] leading-[1.2] text-[var(--primary-600)]"
-                style={{
-                  fontFeatureSettings:
-                    "'cv12' 1, 'cv13' 1, 'cv14' 1, 'cv15' 1, 'cv16' 1",
-                }}
+                className="text-[14px] font-normal leading-[1.2] text-[var(--primary-600)]"
+                style={fontFeature}
               >
                 {offer.date}
               </span>
             </div>
           </div>
 
-          {/* Price */}
-          <div className="flex flex-col items-end shrink-0">
-            <span className="text-[18px] font-semibold leading-[1.2] text-[var(--primary-900)]">
-              {offer.price.amount.toFixed(2)} {currency}
+          {/* Price (in €, with лв as secondary) */}
+          <div className="flex flex-col items-end shrink-0 w-[70px]">
+            <span className="flex items-center" style={fontFeature}>
+              <span className="text-[16px] font-bold leading-[1.2] text-[var(--primary-900)]">
+                {offer.price.amount.toFixed(2).replace(".", ",")}
+              </span>
+              <span className="text-[16px] font-normal leading-[1.2] text-[var(--primary-400)]">
+                {" "}{offer.price.currency ?? "€"}
+              </span>
             </span>
             {offer.price.euroEquivalent != null && (
               <span
-                className="text-[12px] leading-[1.3] text-[var(--primary-500)]"
-                style={{
-                  fontFeatureSettings:
-                    "'cv12' 1, 'cv13' 1, 'cv14' 1, 'cv15' 1, 'cv16' 1",
-                }}
+                className="text-[12px] font-normal leading-[1.2] text-[var(--primary-400)] whitespace-nowrap"
+                style={fontFeature}
               >
-                {offer.price.euroEquivalent.toFixed(2)} €
+                {offer.price.euroEquivalent.toFixed(2).replace(".", ",")} лв.
               </span>
             )}
           </div>
-
-          {/* Status pill */}
-          <span className="inline-flex items-center px-[var(--s)] py-[2px] rounded-[var(--xs)] bg-[var(--primary-200)] text-[var(--primary-900)] text-[12px] font-medium leading-[1.3] shrink-0 whitespace-nowrap">
-            {offer.status}
-          </span>
         </div>
 
-        {/* Expand link */}
-        <button
-          type="button"
-          onClick={() => {
-            setExpanded(!expanded);
-            onSelect?.(offer.id);
-          }}
-          className="inline-flex items-center gap-[var(--xs)] text-[14px] font-medium text-[var(--accent-600)] cursor-pointer hover:underline self-start"
-        >
-          Вижте повече
-          <i
-            className={`fa-regular ${expanded ? "fa-chevron-up" : "fa-chevron-down"} text-[12px] text-[var(--accent-600)]`}
-            aria-hidden="true"
-          />
-        </button>
+        {/* Bottom: Status pill + expand link */}
+        <div className="flex items-center justify-between w-full">
+          {/* Status pill */}
+          <span className="inline-flex items-center gap-[var(--s)] px-[var(--s)] py-[var(--xs)] rounded-[var(--xxl)] bg-[var(--primary-200)]">
+            {offer.statusIcon && (
+              <i
+                className={`fa-regular ${offer.statusIcon} text-[12px] text-[var(--primary-900)]`}
+                aria-hidden="true"
+              />
+            )}
+            <span
+              className="text-[14px] font-normal leading-[1.2] text-[var(--primary-900)] whitespace-nowrap"
+              style={fontFeature}
+            >
+              {offer.status}
+            </span>
+          </span>
+
+          {/* Expand link */}
+          <button
+            type="button"
+            onClick={() => {
+              setExpanded(!expanded);
+              onSelect?.(offer.id);
+            }}
+            className="inline-flex items-center gap-[var(--m)] cursor-pointer"
+          >
+            <span
+              className="text-[14px] font-medium leading-[1.2] text-[var(--primary-900)] whitespace-nowrap"
+              style={fontFeature}
+            >
+              Вижте повече
+            </span>
+            <i
+              className={`fa-regular ${expanded ? "fa-chevron-up" : "fa-chevron-down"} text-[16px] text-[var(--accent-600)]`}
+              aria-hidden="true"
+            />
+          </button>
+        </div>
       </div>
     </CardWrapper>
   );
@@ -408,27 +480,44 @@ function CarLeasingOfferRow({
 }) {
   return (
     <CardWrapper>
-      <div className="flex items-center gap-[var(--m)]">
-        {/* Checkbox */}
-        <input
-          type="checkbox"
-          checked={offer.selected ?? false}
-          onChange={(e) => onToggle?.(offer.id, e.target.checked)}
-          className="w-[20px] h-[20px] shrink-0 cursor-pointer accent-[var(--accent-600)]"
-          aria-label={`Select ${offer.companyName}`}
-        />
-
-        {/* Logo */}
-        <div className="flex-1 min-w-0">
+      <div className="flex items-center justify-between">
+        {/* Left: Checkbox + Logo */}
+        <div className="flex items-center gap-[var(--s)] shrink-0">
+          <OfferCheckbox
+            checked={offer.selected ?? false}
+            onChange={(checked) => onToggle?.(offer.id, checked)}
+            label={`Select ${offer.companyName}`}
+          />
           <CompanyLogo name={offer.companyName} logo={offer.companyLogo} />
         </div>
 
-        {/* Installment price */}
-        <PriceColumn
-          label={offer.installmentLabel ?? "Вноска"}
-          price={offer.installmentPrice}
-          bold
-        />
+        {/* Right: Installment price */}
+        <div className="flex items-center gap-[var(--m)] shrink-0">
+          <div className="flex flex-col items-start gap-0">
+            <span
+              className="text-[10px] font-normal leading-[1.3] text-[var(--primary-700)] whitespace-nowrap"
+              style={fontFeature}
+            >
+              {offer.installmentLabel ?? "Вноска"}
+            </span>
+            <span className="h-[23px] flex items-center w-[70px]" style={fontFeature}>
+              <span className="text-[16px] font-bold leading-[1.2] text-[var(--primary-900)]">
+                {offer.installmentPrice.amount.toFixed(2).replace(".", ",")}
+              </span>
+              <span className="text-[16px] font-normal leading-[1.2] text-[var(--primary-400)]">
+                {" "}лв
+              </span>
+            </span>
+            {offer.installmentPrice.euroEquivalent != null && (
+              <span
+                className="text-[10px] font-normal leading-[1.3] text-[var(--primary-400)] whitespace-nowrap"
+                style={fontFeature}
+              >
+                {offer.installmentPrice.euroEquivalent.toFixed(2).replace(".", ",")} euro
+              </span>
+            )}
+          </div>
+        </div>
       </div>
     </CardWrapper>
   );
@@ -438,15 +527,17 @@ function CarLeasingOfferRow({
 function SkeletonRow() {
   return (
     <div
-      className={[cardBase, "animate-pulse"].join(" ")}
-      style={{ boxShadow: SHADOW_L2 }}
+      className="rounded-[var(--s)] bg-[var(--surface-adjacent)] px-[var(--m)] py-[var(--s)] animate-pulse"
+      style={{ boxShadow: ELEVATION_L2 }}
     >
-      <div className="flex items-center gap-[var(--m)]">
-        <div className="w-[80px] h-[32px] rounded-[var(--xs)] bg-[var(--primary-200)]" />
+      <div className="flex items-center justify-between">
+        <div className="w-[84px] h-[32px] rounded-[var(--xs)] bg-[var(--primary-200)]" />
         <div className="flex-1" />
-        <div className="w-[80px] h-[20px] rounded-[var(--xs)] bg-[var(--primary-200)]" />
-        <div className="w-[80px] h-[20px] rounded-[var(--xs)] bg-[var(--primary-200)]" />
-        <div className="w-[32px] h-[32px] rounded-full bg-[var(--primary-200)]" />
+        <div className="flex items-center gap-[var(--4xl)]">
+          <div className="w-[70px] h-[40px] rounded-[var(--xs)] bg-[var(--primary-200)]" />
+          <div className="w-[70px] h-[40px] rounded-[var(--xs)] bg-[var(--primary-200)]" />
+          <div className="w-[24px] h-[24px] rounded-full bg-[var(--primary-200)]" />
+        </div>
       </div>
     </div>
   );
