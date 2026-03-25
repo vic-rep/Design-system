@@ -16,6 +16,7 @@ import { ProgressBar } from "@/components/molecules/ProgressBar";
 import { Pagination } from "@/components/molecules/Pagination";
 import { Pill } from "@/components/molecules/Pill";
 import { RadioGroup } from "@/components/molecules/Radio";
+import { RadioThumbGroup } from "@/components/molecules/RadioThumb";
 import { Slider } from "@/components/molecules/Slider";
 import { Tag } from "@/components/molecules/Tag";
 import { Toast } from "@/components/molecules/Toast";
@@ -145,6 +146,14 @@ const components: ComponentMeta[] = [
     figmaNode: "102:1630",
     docPath: ".claude/skills/docs/molecules/radio.md",
     description: "Single selection from a group of mutually exclusive options.",
+  },
+  {
+    id: "radio-thumb",
+    label: "Radio Thumb",
+    level: "Molecule",
+    figmaNode: "2418:32",
+    docPath: "",
+    description: "Thumbnail radio cards with logo/icon, label, and optional disclaimer.",
   },
   {
     id: "slider",
@@ -1186,6 +1195,27 @@ function PillPreview() {
         </div>
         <div>
           <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+            Sizes
+          </p>
+          <div className="flex flex-wrap items-center gap-[var(--s)]">
+            <Pill size="xs" leftIcon="fa-house" rightIcon="fa-house">XS</Pill>
+            <Pill size="s" leftIcon="fa-house" rightIcon="fa-house">Small</Pill>
+            <Pill size="m" leftIcon="fa-house" rightIcon="fa-house">Medium</Pill>
+            <Pill size="l" leftIcon="fa-house" rightIcon="fa-house">Large</Pill>
+          </div>
+        </div>
+        <div>
+          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+            With Icons
+          </p>
+          <div className="flex flex-wrap gap-[var(--s)]">
+            <Pill variant="accent" leftIcon="fa-tag">Left icon</Pill>
+            <Pill variant="success" rightIcon="fa-check">Right icon</Pill>
+            <Pill variant="default" leftIcon="fa-star" rightIcon="fa-chevron-right">Both icons</Pill>
+          </div>
+        </div>
+        <div>
+          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
             Interactive (click to select)
           </p>
           <div className="flex flex-wrap gap-[var(--s)]">
@@ -1224,6 +1254,50 @@ function RadioPreview() {
             { value: "disabled", label: "Custom (unavailable)", disabled: true },
           ]}
         />
+      </div>
+    </Section>
+  );
+}
+
+function RadioThumbPreview() {
+  const meta = components.find((c) => c.id === "radio-thumb")!;
+  const [iconVal, setIconVal] = useState("office");
+  const [logoVal, setLogoVal] = useState("speedy");
+  return (
+    <Section {...meta}>
+      <div className="space-y-[var(--xxl)]">
+        <div>
+          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+            Icon Type
+          </p>
+          <RadioThumbGroup
+            name="delivery-icon"
+            type="icon"
+            value={iconVal}
+            onChange={setIconVal}
+            options={[
+              { value: "office", label: "Office", icon: "fa-building", disclaimer: "Free" },
+              { value: "home", label: "Home", icon: "fa-house", disclaimer: "5.00 лв." },
+              { value: "shop", label: "Shop", icon: "fa-shop", disclaimer: "2.00 лв." },
+              { value: "disabled", label: "Unavailable", icon: "fa-ban", disclaimer: "N/A", disabled: true },
+            ]}
+          />
+        </div>
+        <div>
+          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+            Logo Type
+          </p>
+          <RadioThumbGroup
+            name="carrier-logo"
+            type="logo"
+            value={logoVal}
+            onChange={setLogoVal}
+            options={[
+              { value: "speedy", label: "Speedy", logo: <span className="text-[14px] font-bold">Speedy</span>, disclaimer: "2.00 лв / 1.02 €" },
+              { value: "econt", label: "Econt", logo: <span className="text-[14px] font-bold">Econt</span>, disclaimer: "3.00 лв / 1.53 €" },
+            ]}
+          />
+        </div>
       </div>
     </Section>
   );
@@ -1784,6 +1858,7 @@ export default function Home() {
           {visibleIds.has("pagination") && <PaginationPreview />}
           {visibleIds.has("pill") && <PillPreview />}
           {visibleIds.has("radio") && <RadioPreview />}
+          {visibleIds.has("radio-thumb") && <RadioThumbPreview />}
           {visibleIds.has("slider") && <SliderPreview />}
           {visibleIds.has("tag") && <TagPreview />}
           {visibleIds.has("toast") && <ToastPreview />}
