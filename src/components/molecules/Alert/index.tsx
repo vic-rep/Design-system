@@ -1,10 +1,11 @@
 "use client";
 
 import React, { useState, useId } from "react";
+import { Button } from "@/components/molecules/Button";
 
 /**
  * Alert — Molecule (collapsible notification banner)
- * Figma: Page 45:13 → Section 161:786
+ * Figma: Page 45:13 → Node 269:4635
  * Doc: .claude/skills/docs/molecules/alert.md
  *
  * Variants: warning, error, info, success
@@ -38,7 +39,7 @@ const variantConfig: Record<
     bg: "var(--warning-100)",
     border: "var(--warning-500)",
     icon: "fa-triangle-exclamation",
-    iconColor: "var(--warning-500)",
+    iconColor: "var(--accent-600)",
   },
   error: {
     bg: "var(--destructive-100)",
@@ -47,10 +48,10 @@ const variantConfig: Record<
     iconColor: "var(--destructive-550)",
   },
   info: {
-    bg: "var(--primary-100)",
-    border: "var(--primary-300)",
+    bg: "var(--surface-adjacent)",
+    border: "var(--primary-900)",
     icon: "fa-circle-info",
-    iconColor: "var(--primary-600)",
+    iconColor: "var(--primary-900)",
   },
   success: {
     bg: "var(--success-100)",
@@ -88,8 +89,8 @@ export function Alert({
   return (
     <div
       role="alert"
-      className={`rounded-[var(--radius-lg)] border-l-4 overflow-hidden ${className}`}
-      style={{ backgroundColor: config.bg, borderLeftColor: config.border }}
+      className={`rounded-[var(--s)] border overflow-hidden ${className}`}
+      style={{ backgroundColor: config.bg, borderColor: config.border }}
     >
       {/* Header */}
       <button
@@ -99,22 +100,26 @@ export function Alert({
         aria-controls={hasExpandableContent ? contentId : undefined}
         onClick={hasExpandableContent ? handleToggle : undefined}
         className={[
-          "flex items-center gap-[var(--m)] w-full px-[var(--l)] py-[var(--m)]",
-          "text-left text-[var(--primary-900)] font-medium text-[16px]",
-          hasExpandableContent ? "cursor-pointer hover:brightness-95 transition-[filter] duration-150" : "cursor-default",
+          "flex items-start gap-[var(--s)] w-full p-[var(--l)]",
+          "text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-600)] focus-visible:ring-inset",
+          hasExpandableContent ? "cursor-pointer" : "cursor-default",
         ].join(" ")}
       >
+        {/* Icon */}
         <i
-          className={`fa-solid ${config.icon}`}
+          className={`fa-solid ${config.icon} text-[16px] shrink-0 mt-[1px]`}
           aria-hidden="true"
           style={{ color: config.iconColor }}
         />
-        <span className="flex-1">{title}</span>
+        {/* Title */}
+        <span className="flex-1 font-semibold text-[16px] leading-[1.2] text-black">
+          {title}
+        </span>
+        {/* Chevron */}
         {hasExpandableContent && (
           <i
-            className="fa-solid fa-chevron-down transition-transform duration-200 ease-in-out text-[var(--primary-500)]"
+            className={`fa-solid ${isExpanded ? "fa-chevron-up" : "fa-chevron-down"} text-[16px] text-[var(--primary-900)] shrink-0 mt-[1px]`}
             aria-hidden="true"
-            style={{ transform: isExpanded ? "rotate(180deg)" : "rotate(0deg)" }}
           />
         )}
       </button>
@@ -133,29 +138,32 @@ export function Alert({
         >
           <div className="px-[var(--l)] pb-[var(--l)] flex flex-col gap-[var(--m)]">
             {description && (
-              <p className="text-[14px] text-[var(--primary-700)] leading-[1.4]">
+              <p
+                className="text-[16px] text-black leading-[1.2] font-normal"
+                style={{ fontFeatureSettings: "'cv12' 1, 'cv13' 1, 'cv14' 1, 'cv15' 1, 'cv16' 1" }}
+              >
                 {description}
               </p>
             )}
             {(primaryAction || secondaryAction) && (
               <div className="flex items-center gap-[var(--l)]">
                 {primaryAction && (
-                  <button
-                    type="button"
+                  <Button
+                    variant="secondary"
+                    size="s"
                     onClick={primaryAction.onClick}
-                    className="text-[14px] font-medium text-[var(--accent-600)] hover:text-[var(--accent-700)] transition-colors duration-150"
                   >
                     {primaryAction.label}
-                  </button>
+                  </Button>
                 )}
                 {secondaryAction && (
-                  <button
-                    type="button"
+                  <Button
+                    variant="link"
+                    size="s"
                     onClick={secondaryAction.onClick}
-                    className="text-[14px] text-[var(--primary-600)] hover:text-[var(--primary-900)] underline transition-colors duration-150"
                   >
                     {secondaryAction.label}
-                  </button>
+                  </Button>
                 )}
               </div>
             )}
