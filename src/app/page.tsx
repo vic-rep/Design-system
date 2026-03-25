@@ -1803,8 +1803,8 @@ export default function Home() {
       {/* Navbar */}
       <nav className="sticky top-0 z-40 h-[64px] border-b border-[var(--primary-200)] bg-[var(--surface-adjacent)] flex items-center px-[var(--xxl)]">
         <div className="flex items-center gap-[var(--m)] flex-1">
-          <span className="text-[20px] font-semibold text-[var(--accent-600)]">Trusti</span>
-          <span className="text-[14px] text-[var(--primary-400)]">Design System</span>
+          <Typography variant="h6" as="span" color="accent">Trusti</Typography>
+          <Typography variant="textM" as="span" color="subtle">Design System</Typography>
         </div>
         <div className="flex items-center gap-[var(--l)]">
           <a
@@ -1821,10 +1821,7 @@ export default function Home() {
             aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
             className="w-[36px] h-[36px] flex items-center justify-center rounded-[var(--radius-md)] hover:bg-[var(--primary-100)] transition-colors duration-150"
           >
-            <i
-              className={`fa-solid ${isDark ? "fa-sun" : "fa-moon"} text-[var(--primary-600)]`}
-              aria-hidden="true"
-            />
+            <Icon name={isDark ? "fa-sun" : "fa-moon"} size="md" className="text-[var(--primary-600)]" />
           </button>
         </div>
       </nav>
@@ -1834,10 +1831,7 @@ export default function Home() {
         <aside className="fixed left-0 top-[64px] z-30 w-[240px] h-[calc(100vh-64px)] border-r border-[var(--primary-200)] bg-[var(--surface-adjacent)] flex flex-col">
           <div className="p-[var(--l)]">
             <div className="relative">
-              <i
-                className="fa-solid fa-magnifying-glass absolute left-[var(--m)] top-1/2 -translate-y-1/2 text-[var(--primary-400)] text-[12px]"
-                aria-hidden="true"
-              />
+              <Icon name="fa-magnifying-glass" size="xs" className="absolute left-[var(--m)] top-1/2 -translate-y-1/2 text-[var(--primary-400)]" />
               <input
                 type="text"
                 value={search}
@@ -1850,9 +1844,9 @@ export default function Home() {
           <nav className="flex-1 overflow-y-auto px-[var(--s)]">
             {filteredSections.map((section) => (
               <div key={section.title} className="mb-[var(--l)]">
-                <p className="px-[var(--s)] mb-[var(--xs)] text-[11px] font-medium uppercase tracking-wider text-[var(--primary-400)]">
+                <Typography variant="caption" as="p" color="subtle" className="px-[var(--s)] mb-[var(--xs)] !font-medium uppercase tracking-wider">
                   {section.title}
-                </p>
+                </Typography>
                 {section.items.map((item) => (
                   <button
                     key={item.id}
@@ -1871,20 +1865,20 @@ export default function Home() {
             ))}
           </nav>
           <div className="p-[var(--l)] border-t border-[var(--primary-200)]">
-            <p className="text-[11px] text-[var(--primary-400)]">v1.0.0 — Trusti 2026</p>
+            <Typography variant="caption" as="p" color="subtle">v1.0.0 — Trusti 2026</Typography>
           </div>
         </aside>
 
         {/* Main content */}
         <main className="ml-[240px] flex-1 px-[var(--5xl)] py-[var(--4xl)] max-w-[900px]">
           <div className="mb-[var(--5xl)]">
-            <h1 className="text-[48px] font-semibold text-[var(--primary-900)] leading-[1.2]">
+            <Typography variant="h1" as="h1">
               Trusti Design System
-            </h1>
-            <p className="mt-[var(--m)] text-[18px] text-[var(--primary-600)] leading-[1.4] max-w-[600px]">
+            </Typography>
+            <Typography variant="textLg" as="p" color="secondary" className="mt-[var(--m)] leading-[1.4] max-w-[600px]">
               Component library for the Trusti insurance comparison platform.
               Built with atomic design methodology, Source Sans 3, and the Trusti brand identity.
-            </p>
+            </Typography>
           </div>
 
           {/* Foundations */}
