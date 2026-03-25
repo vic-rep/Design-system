@@ -83,19 +83,22 @@ export function Checkbox({
           </div>
         </div>
         {label && (
-          <Typography
-            variant="textSm"
-            as="label"
+          <label
             htmlFor={id}
             className={[
-              "text-[var(--primary-900)] select-none leading-[1.2]",
-              "font-normal",
+              "select-none leading-[1.2]",
               disabled ? "cursor-not-allowed" : "cursor-pointer",
             ].join(" ")}
-            style={{ fontFeatureSettings: "'cv12' 1, 'cv13' 1, 'cv14' 1, 'cv15' 1, 'cv16' 1" }}
           >
-            {label}
-          </Typography>
+            <Typography
+              variant="textSm"
+              as="span"
+              className="font-normal"
+              style={{ fontFeatureSettings: "'cv12' 1, 'cv13' 1, 'cv14' 1, 'cv15' 1, 'cv16' 1" }}
+            >
+              {label}
+            </Typography>
+          </label>
         )}
       </div>
 

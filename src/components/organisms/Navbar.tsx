@@ -4,6 +4,12 @@ import React from "react";
 import { Typography } from "@/components/atoms/Typography";
 import { Icon } from "@/components/atoms/Icon";
 
+export interface NavbarProps {
+  title: string;
+  onThemeToggle?: () => void;
+  isDark?: boolean;
+}
+
 export const Navbar: React.FC<NavbarProps> = ({ title, onThemeToggle, isDark = false }) => {
   return (
     <header className="sticky top-0 z-40 flex h-14 items-center justify-between bg-surface px-6 border-b border-border">
