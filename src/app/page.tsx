@@ -1041,9 +1041,9 @@ function TabsPreview() {
             value={activeTab}
             onChange={setActiveTab}
           />
-          <p className="mt-[var(--m)] text-[14px] text-[var(--primary-600)]">
+          <Typography variant="textM" as="p" color="secondary" className="mt-[var(--m)]">
             Active: <strong>{activeTab}</strong>
-          </p>
+          </Typography>
         </div>
         <div>
           <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
@@ -1104,9 +1104,9 @@ function ContextMenuPreview() {
             />
           </div>
           {selected && (
-            <p className="mt-[var(--m)] text-[14px] text-[var(--primary-600)]">
+            <Typography variant="textM" as="p" color="secondary" className="mt-[var(--m)]">
               Selected: <strong>{selected}</strong>
-            </p>
+            </Typography>
           )}
         </div>
       </div>
