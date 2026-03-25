@@ -1512,48 +1512,87 @@ function DrawerPreview() {
 function OffersListPreview() {
   const meta = components.find((c) => c.id === "offers-list")!;
   const [loading, setLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState<"insurance" | "loans" | "fines" | "leasing">("insurance");
+  const [loanSelections, setLoanSelections] = useState<Record<string, boolean>>({});
+  const [leasingSelections, setLeasingSelections] = useState<Record<string, boolean>>({});
 
-  const sampleOffers = [
+  const insuranceOffers = [
     {
-      id: "1",
+      id: "mtpl-1",
+      type: "mtpl" as const,
       companyName: "Euroins",
-      price: 245.50,
       recommended: true,
-      features: [
-        { label: "Third party liability", included: true },
-        { label: "Roadside assistance", included: true },
-        { label: "Glass coverage", included: true },
-        { label: "Theft protection", included: false },
-      ],
+      installmentPrice: { amount: 122.75, currency: "лв.", euroEquivalent: 62.77 },
+      totalPrice: { amount: 245.50, currency: "лв.", euroEquivalent: 125.54 },
     },
     {
-      id: "2",
+      id: "mtpl-2",
+      type: "mtpl" as const,
       companyName: "Lev Ins",
-      price: 289.00,
-      features: [
-        { label: "Third party liability", included: true },
-        { label: "Roadside assistance", included: true },
-        { label: "Glass coverage", included: false },
-        { label: "Theft protection", included: false },
-      ],
+      installmentPrice: { amount: 144.50, currency: "лв.", euroEquivalent: 73.89 },
+      totalPrice: { amount: 289.00, currency: "лв.", euroEquivalent: 147.78 },
     },
     {
-      id: "3",
+      id: "casco-1",
+      type: "casco" as const,
       companyName: "DZI",
-      price: 312.75,
-      features: [
-        { label: "Third party liability", included: true },
-        { label: "Roadside assistance", included: true },
-        { label: "Glass coverage", included: true },
-        { label: "Theft protection", included: true },
-      ],
+      recommended: true,
+      installmentPrice: { amount: 156.38, currency: "лв.", euroEquivalent: 79.96 },
+      totalPrice: { amount: 312.75, currency: "лв.", euroEquivalent: 159.92 },
+    },
+    {
+      id: "travel-1",
+      type: "travel" as const,
+      companyName: "Allianz",
+      installmentPrice: { amount: 45.00, currency: "лв.", euroEquivalent: 23.01 },
+      totalPrice: { amount: 45.00, currency: "лв.", euroEquivalent: 23.01 },
     },
   ];
 
+  const loanOffers = [
+    { id: "loan-1", type: "quickLoans" as const, companyName: "UniCredit", duration: "11 месеца", selected: !!loanSelections["loan-1"] },
+    { id: "loan-2", type: "quickLoans" as const, companyName: "DSK Bank", duration: "24 месеца", selected: !!loanSelections["loan-2"] },
+    { id: "loan-3", type: "quickLoans" as const, companyName: "Fibank", duration: "6 месеца", selected: !!loanSelections["loan-3"] },
+  ];
+
+  const fineOffers = [
+    { id: "fine-1", type: "fines" as const, title: "Фиш", date: "12.03.2025", price: { amount: 50.00, currency: "лв.", euroEquivalent: 25.56 }, status: "Невръчена" },
+    { id: "fine-2", type: "fines" as const, title: "Фиш", date: "28.01.2025", price: { amount: 100.00, currency: "лв.", euroEquivalent: 51.13 }, status: "Платена" },
+  ];
+
+  const leasingOffers = [
+    { id: "lease-1", type: "carLeasing" as const, companyName: "UniCredit Leasing", installmentPrice: { amount: 450.00, currency: "лв.", euroEquivalent: 230.08 }, selected: !!leasingSelections["lease-1"] },
+    { id: "lease-2", type: "carLeasing" as const, companyName: "DSK Leasing", installmentPrice: { amount: 520.00, currency: "лв.", euroEquivalent: 265.87 }, selected: !!leasingSelections["lease-2"] },
+  ];
+
+  const tabs = [
+    { label: "MTPL / Casco / Travel", key: "insurance" },
+    { label: "Quick Loans", key: "loans" },
+    { label: "Fines", key: "fines" },
+    { label: "Car Leasing", key: "leasing" },
+  ];
+
+  const currentOffers =
+    activeTab === "insurance" ? insuranceOffers :
+    activeTab === "loans" ? loanOffers :
+    activeTab === "fines" ? fineOffers :
+    leasingOffers;
+
   return (
     <Section {...meta}>
-      <div className="space-y-[var(--xxl)]">
-        <div className="flex gap-[var(--s)] mb-[var(--m)]">
+      <div className="space-y-[var(--l)]">
+        {/* Tab selector */}
+        <div className="flex gap-[var(--s)] flex-wrap">
+          {tabs.map((t) => (
+            <Button
+              key={t.key}
+              variant={activeTab === t.key ? "primary" : "secondary"}
+              size="s"
+              onClick={() => setActiveTab(t.key as typeof activeTab)}
+            >
+              {t.label}
+            </Button>
+          ))}
           <Button
             variant="secondary"
             size="s"
@@ -1565,10 +1604,18 @@ function OffersListPreview() {
             Simulate Loading
           </Button>
         </div>
+
         <OffersList
-          offers={sampleOffers}
+          offers={currentOffers}
           loading={loading}
           onSelect={(id) => alert(`Selected offer: ${id}`)}
+          onToggle={(id, selected) => {
+            if (activeTab === "loans") {
+              setLoanSelections((prev) => ({ ...prev, [id]: selected }));
+            } else {
+              setLeasingSelections((prev) => ({ ...prev, [id]: selected }));
+            }
+          }}
         />
       </div>
     </Section>

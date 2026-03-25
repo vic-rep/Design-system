@@ -101,11 +101,6 @@ function AccordionPanel({
         </div>
       </div>
 
-      {/* Bottom divider line */}
-      <div
-        className="w-full h-[1px] mt-[var(--l)]"
-        style={{ backgroundColor: "var(--primary-200)" }}
-      />
     </div>
   );
 }
