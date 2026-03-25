@@ -1297,7 +1297,7 @@ function RadioThumbPreview() {
             onChange={setLogoVal}
             options={[
               { value: "speedy", label: "Speedy", logo: <Typography variant="textM" as="span" bold>Speedy</Typography>, disclaimer: "2.00 лв / 1.02 €" },
-              { value: "econt", label: "Econt", logo: <span className="text-[14px] font-bold">Econt</span>, disclaimer: "3.00 лв / 1.53 €" },
+              { value: "econt", label: "Econt", logo: <Typography variant="textM" as="span" bold>Econt</Typography>, disclaimer: "3.00 лв / 1.53 €" },
             ]}
           />
         </div>
@@ -1375,9 +1375,9 @@ function TagPreview() {
               <button
                 type="button"
                 onClick={() => setTags(["MTPL", "Casco", "Travel", "Home"])}
-                className="text-[12px] text-[var(--accent-600)] cursor-pointer"
+                className="cursor-pointer"
               >
-                Reset tags
+                <Typography variant="textSm" as="span" color="accent">Reset tags</Typography>
               </button>
             )}
           </div>
@@ -1629,9 +1629,9 @@ function OffersListPreview() {
 function CarouselPreview() {
   const meta = components.find((c) => c.id === "carousel")!;
   const slides = [
-    { id: "1", content: <div className="h-[200px] bg-[var(--accent-100)] flex items-center justify-center rounded-[var(--s)]"><span className="text-[24px] font-semibold text-[var(--accent-800)]">Slide 1 — Promotions</span></div> },
-    { id: "2", content: <div className="h-[200px] bg-[var(--success-100)] flex items-center justify-center rounded-[var(--s)]"><span className="text-[24px] font-semibold text-[var(--success-800)]">Slide 2 — Partners</span></div> },
-    { id: "3", content: <div className="h-[200px] bg-[var(--warning-100)] flex items-center justify-center rounded-[var(--s)]"><span className="text-[24px] font-semibold text-[var(--warning-600)]">Slide 3 — Testimonials</span></div> },
+    { id: "1", content: <div className="h-[200px] bg-[var(--accent-100)] flex items-center justify-center rounded-[var(--s)]"><Typography variant="h5" as="span" className="text-[var(--accent-800)]">Slide 1 — Promotions</Typography></div> },
+    { id: "2", content: <div className="h-[200px] bg-[var(--success-100)] flex items-center justify-center rounded-[var(--s)]"><Typography variant="h5" as="span" className="text-[var(--success-800)]">Slide 2 — Partners</Typography></div> },
+    { id: "3", content: <div className="h-[200px] bg-[var(--warning-100)] flex items-center justify-center rounded-[var(--s)]"><Typography variant="h5" as="span" className="text-[var(--warning-600)]">Slide 3 — Testimonials</Typography></div> },
   ];
   return (
     <Section {...meta}>
