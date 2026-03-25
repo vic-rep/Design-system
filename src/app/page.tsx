@@ -1349,11 +1349,22 @@ function TagPreview() {
       <div className="space-y-[var(--xxl)]">
         <div>
           <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
+            Sizes with Left Icon
+          </p>
+          <div className="flex flex-wrap items-center gap-[var(--s)]">
+            <Tag size="xs" leftIcon="fa-car" onRemove={() => {}}>EA 1234 CB</Tag>
+            <Tag size="s" leftIcon="fa-car" onRemove={() => {}}>EA 1234 CB</Tag>
+            <Tag size="m" leftIcon="fa-car" onRemove={() => {}}>EA 1234 CB</Tag>
+            <Tag size="l" leftIcon="fa-car" onRemove={() => {}}>EA 1234 CB</Tag>
+          </div>
+        </div>
+        <div>
+          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
             Removable Tags
           </p>
           <div className="flex flex-wrap gap-[var(--s)]">
             {tags.map((t) => (
-              <Tag key={t} onRemove={() => setTags((prev) => prev.filter((x) => x !== t))}>
+              <Tag key={t} size="s" onRemove={() => setTags((prev) => prev.filter((x) => x !== t))}>
                 {t}
               </Tag>
             ))}
@@ -1366,15 +1377,6 @@ function TagPreview() {
                 Reset tags
               </button>
             )}
-          </div>
-        </div>
-        <div>
-          <p className="mb-[var(--s)] text-[12px] font-medium uppercase tracking-wider text-[var(--primary-500)]">
-            Accent Variant
-          </p>
-          <div className="flex flex-wrap gap-[var(--s)]">
-            <Tag variant="accent">Selected filter</Tag>
-            <Tag variant="accent" onRemove={() => {}}>Removable</Tag>
           </div>
         </div>
       </div>
@@ -1463,33 +1465,45 @@ function AccordionPreview() {
 
 function DrawerPreview() {
   const meta = components.find((c) => c.id === "drawer")!;
-  const [openRight, setOpenRight] = useState(false);
-  const [openLeft, setOpenLeft] = useState(false);
-  const [openBottom, setOpenBottom] = useState(false);
+  const [openInfo, setOpenInfo] = useState(false);
+  const [openAction, setOpenAction] = useState(false);
   return (
     <Section {...meta}>
       <div className="flex flex-wrap gap-[var(--s)]">
-        <Button variant="secondary" size="s" onClick={() => setOpenRight(true)}>
-          Right Drawer
+        <Button variant="secondary" size="s" onClick={() => setOpenInfo(true)}>
+          Info Drawer
         </Button>
-        <Button variant="secondary" size="s" onClick={() => setOpenLeft(true)}>
-          Left Drawer
-        </Button>
-        <Button variant="secondary" size="s" onClick={() => setOpenBottom(true)}>
-          Bottom Drawer
+        <Button variant="secondary" size="s" onClick={() => setOpenAction(true)}>
+          Action Drawer
         </Button>
       </div>
-      <Drawer open={openRight} onClose={() => setOpenRight(false)} position="right" title="Filters">
+      <Drawer open={openInfo} onClose={() => setOpenInfo(false)} type="info" title="Details">
         <div className="space-y-[var(--m)]">
-          <p className="text-[14px] text-[var(--primary-600)]">Filter content goes here. Press Escape or click the backdrop to close.</p>
-          <Button variant="primary" size="m" onClick={() => setOpenRight(false)}>Apply Filters</Button>
+          <p className="text-[14px] text-[var(--primary-900)] leading-[1.2]">
+            This is an informative drawer. On mobile it slides from the right at 300px width. On desktop it is 480px wide.
+          </p>
+          <p className="text-[14px] text-[var(--primary-900)] leading-[1.2]">
+            Press Escape or click the overlay to close.
+          </p>
         </div>
       </Drawer>
-      <Drawer open={openLeft} onClose={() => setOpenLeft(false)} position="left" title="Navigation">
-        <p className="text-[14px] text-[var(--primary-600)]">Navigation panel content.</p>
-      </Drawer>
-      <Drawer open={openBottom} onClose={() => setOpenBottom(false)} position="bottom" title="Actions">
-        <p className="text-[14px] text-[var(--primary-600)]">Bottom sheet content for mobile actions.</p>
+      <Drawer
+        open={openAction}
+        onClose={() => setOpenAction(false)}
+        type="action"
+        title="Choose option"
+        notch
+        footer={
+          <Button variant="primary" size="l" fullWidth onClick={() => setOpenAction(false)}>
+            Confirm
+          </Button>
+        }
+      >
+        <div className="space-y-[var(--m)]">
+          <p className="text-[14px] text-[var(--primary-900)] leading-[1.2]">
+            This is an actionable drawer. On mobile it slides from the bottom with a notch. On desktop it slides from the right.
+          </p>
+        </div>
       </Drawer>
     </Section>
   );
