@@ -5,12 +5,11 @@ import React, { useEffect, useRef } from "react";
 /**
  * ContextMenu — Molecule
  * Figma: Page 45:10 → Node 133:379
+ * Doc: .claude/skills/docs/molecules/context-menu.md
  *
- * Dropdown list with optional left icon, right icon, and additional text.
- * Container: --surface-adjacent bg, elevation-level1 shadow, --s border-radius, --m padding
- * Items have 5 states: default, hover, active, focus, disabled
- * Hover: --primary-100 bg
- * Active: --accent-100 bg, --accent-800 text
+ * Container: surface-adjacent bg, primary-100 border, elevation-level1, rounded-s, p-m
+ * Item: p-m, rounded-xs, 16px text, optional left icon (accent-600), additional text, right icon
+ * States: Default, Hover (primary-100), Focus (accent-700 border), Pressed (primary-200), Disabled (opacity-20)
  */
 
 export interface ContextMenuItem {
@@ -69,12 +68,15 @@ export function ContextMenu({
       ref={menuRef}
       role="menu"
       className={[
-        "flex flex-col p-[var(--s)] min-w-[200px]",
+        "flex flex-col p-[var(--m)] min-w-[188px]",
         "bg-[var(--surface-adjacent)] rounded-[var(--s)]",
-        "border border-[var(--primary-200)]",
+        "border border-[var(--primary-100)]",
         className,
       ].join(" ")}
-      style={{ boxShadow: "var(--elevation-level1)" }}
+      style={{
+        boxShadow:
+          "0px 1px 1px 0px rgba(0,0,0,0.05), 0px 3px 3px 0px rgba(0,0,0,0.04), 0px 6px 4px 0px rgba(0,0,0,0.03), 0px 11px 4px 0px rgba(0,0,0,0.01), 0px 17px 5px 0px rgba(0,0,0,0)",
+      }}
     >
       {items.map((item) => (
         <React.Fragment key={item.id}>
@@ -89,35 +91,49 @@ export function ContextMenu({
               }
             }}
             className={[
-              "flex items-center gap-[var(--s)] w-full px-[var(--m)] py-[var(--s)]",
-              "rounded-[var(--xs)] text-left text-[14px] leading-[1.2] font-normal",
+              "flex items-center w-full p-[var(--m)]",
+              "rounded-[var(--xs)] text-left text-[16px] leading-[1.2] font-normal",
               "transition-colors duration-100",
-              "focus-visible:outline-none focus-visible:bg-[var(--primary-100)]",
+              "focus-visible:outline-none focus-visible:border-[1.5px] focus-visible:border-[var(--accent-700)]",
               item.disabled
-                ? "opacity-40 cursor-not-allowed"
+                ? "opacity-20 cursor-not-allowed"
                 : item.destructive
-                  ? "text-[var(--destructive-600)] hover:bg-[var(--destructive-100)] cursor-pointer"
-                  : "text-[var(--primary-900)] hover:bg-[var(--primary-100)] active:bg-[var(--accent-100)] active:text-[var(--accent-800)] cursor-pointer",
+                  ? "text-[var(--destructive-600)] hover:bg-[var(--destructive-100)] active:bg-[var(--primary-200)] cursor-pointer"
+                  : "text-[var(--primary-900)] hover:bg-[var(--primary-100)] active:bg-[var(--primary-200)] cursor-pointer",
             ].join(" ")}
+            style={{ fontFeatureSettings: "'cv12' 1, 'cv13' 1, 'cv14' 1, 'cv15' 1, 'cv16' 1" }}
           >
-            {item.leftIcon && (
-              <i
-                className={`${item.leftIcon} w-[16px] text-center text-[14px] shrink-0`}
-                aria-hidden="true"
-              />
-            )}
-            <span className="flex-1">{item.label}</span>
-            {item.additionalText && (
-              <span className="text-[12px] text-[var(--primary-400)] shrink-0">
-                {item.additionalText}
-              </span>
-            )}
-            {item.rightIcon && (
-              <i
-                className={`${item.rightIcon} w-[16px] text-center text-[12px] text-[var(--primary-400)] shrink-0`}
-                aria-hidden="true"
-              />
-            )}
+            <div className="flex flex-1 items-center justify-between">
+              {/* Left side: icon + label */}
+              <div className="flex flex-1 items-center gap-[var(--s)]">
+                {item.leftIcon && (
+                  <i
+                    className={`fa-regular ${item.leftIcon} text-[12px] w-[12px] text-center text-[var(--accent-600)] shrink-0`}
+                    aria-hidden="true"
+                  />
+                )}
+                <span className="whitespace-nowrap">{item.label}</span>
+              </div>
+              {/* Right side: additional text + icon */}
+              {(item.additionalText || item.rightIcon) && (
+                <div className="flex items-center gap-[var(--xs)] shrink-0">
+                  {item.additionalText && (
+                    <span
+                      className="text-[12px] text-[var(--primary-500)] leading-[1.2]"
+                      style={{ fontFeatureSettings: "'cv12' 1, 'cv13' 1, 'cv14' 1, 'cv15' 1, 'cv16' 1" }}
+                    >
+                      {item.additionalText}
+                    </span>
+                  )}
+                  {item.rightIcon && (
+                    <i
+                      className={`fa-regular ${item.rightIcon} text-[12px] w-[12px] text-center text-[var(--primary-900)] shrink-0`}
+                      aria-hidden="true"
+                    />
+                  )}
+                </div>
+              )}
+            </div>
           </button>
           {item.dividerAfter && (
             <div className="h-px bg-[var(--primary-200)] my-[var(--xs)]" />
