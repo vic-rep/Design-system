@@ -17,4 +17,13 @@ export { Drawer } from "./Drawer";
 export type { DrawerProps, DrawerType } from "./Drawer";
 
 export { OffersList } from "./OffersList";
-export type { OffersListProps, Offer, OfferFeature } from "./OffersList";
+export type {
+  OffersListProps,
+  Offer,
+  OfferProductType,
+  OfferPrice,
+  InsuranceOffer,
+  QuickLoanOffer,
+  FineOffer,
+  CarLeasingOffer,
+} from "./OffersList";
