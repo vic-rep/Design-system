@@ -2,6 +2,18 @@
 
 import React, { useState, useRef, useEffect } from "react";
 
+/**
+ * Accordion — Organism
+ * Figma: Node 648:1547
+ *
+ * Flat list with divider lines (top/bottom borders per item).
+ * Expanded: accent-colored top line, title (18px medium) + chevron-up, content (14px)
+ * Collapsed: title (18px medium) + chevron-down
+ * Chevron: 12px fa-regular, no rotation animation — just swaps up/down
+ * Padding: px-l for title and content, gap-l between title and content
+ * Bottom padding: pb-4xl below each expanded item
+ */
+
 export interface AccordionItem {
   id: string;
   title: string;
@@ -38,7 +50,16 @@ function AccordionPanel({
   const panelId = `accordion-panel-${item.id}`;
 
   return (
-    <div className="border-b border-[var(--primary-200)] last:border-b-0">
+    <div className="flex flex-col pb-[var(--4xl)]">
+      {/* Top divider line — accent color when open, primary-200 when closed */}
+      <div
+        className="w-full h-[2px] transition-colors duration-200"
+        style={{
+          backgroundColor: isOpen ? "var(--accent-600)" : "var(--primary-200)",
+        }}
+      />
+
+      {/* Title button */}
       <button
         type="button"
         id={triggerId}
@@ -47,24 +68,23 @@ function AccordionPanel({
         disabled={item.disabled}
         onClick={onToggle}
         className={[
-          "w-full flex items-center justify-between px-[var(--l)] py-[var(--m)]",
-          "text-left text-[16px] font-medium text-[var(--primary-900)] leading-[1.3]",
-          "transition-colors duration-150 rounded-[var(--xs)]",
-          item.disabled
-            ? "opacity-50 cursor-not-allowed"
-            : "hover:bg-[var(--primary-100)] cursor-pointer",
+          "w-full flex items-center gap-[var(--l)] px-[var(--l)] pt-[var(--l)]",
+          "text-left cursor-pointer",
+          item.disabled ? "opacity-50 cursor-not-allowed" : "",
         ].join(" ")}
       >
-        <span>{item.title}</span>
+        <span
+          className="flex-1 text-[18px] font-medium leading-[1.2] text-[var(--primary-900)]"
+        >
+          {item.title}
+        </span>
         <i
-          className={[
-            "fa-solid fa-chevron-right text-[12px] text-[var(--primary-500)]",
-            "transition-transform duration-200 ease-in-out shrink-0 ml-[var(--m)]",
-            isOpen ? "rotate-90" : "",
-          ].join(" ")}
+          className={`fa-regular ${isOpen ? "fa-chevron-up" : "fa-chevron-down"} text-[12px] text-[var(--primary-900)] shrink-0`}
           aria-hidden="true"
         />
       </button>
+
+      {/* Expandable content */}
       <div
         id={panelId}
         role="region"
@@ -73,10 +93,19 @@ function AccordionPanel({
         className="overflow-hidden transition-[max-height] duration-200 ease-in-out"
         style={{ maxHeight }}
       >
-        <div className="px-[var(--l)] pb-[var(--l)] text-[14px] text-[var(--primary-600)] leading-[1.5]">
+        <div
+          className="px-[var(--l)] pt-[var(--l)] text-[14px] text-[var(--primary-900)] leading-[1.2] font-normal"
+          style={{ fontFeatureSettings: "'cv12' 1, 'cv13' 1, 'cv14' 1, 'cv15' 1, 'cv16' 1" }}
+        >
           {item.content}
         </div>
       </div>
+
+      {/* Bottom divider line */}
+      <div
+        className="w-full h-[1px] mt-[var(--l)]"
+        style={{ backgroundColor: "var(--primary-200)" }}
+      />
     </div>
   );
 }
@@ -103,12 +132,7 @@ export function Accordion({
   };
 
   return (
-    <div
-      className={[
-        "rounded-[var(--s)] border border-[var(--primary-200)] bg-[var(--surface-adjacent)] overflow-hidden",
-        className,
-      ].join(" ")}
-    >
+    <div className={`flex flex-col ${className}`}>
       {items.map((item) => (
         <AccordionPanel
           key={item.id}

@@ -14,7 +14,7 @@ export { Accordion } from "./Accordion";
 export type { AccordionProps, AccordionItem } from "./Accordion";
 
 export { Drawer } from "./Drawer";
-export type { DrawerProps, DrawerPosition } from "./Drawer";
+export type { DrawerProps, DrawerType } from "./Drawer";
 
 export { OffersList } from "./OffersList";
 export type { OffersListProps, Offer, OfferFeature } from "./OffersList";

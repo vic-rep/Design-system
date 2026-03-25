@@ -41,7 +41,7 @@ export { Slider } from "./Slider";
 export type { SliderProps } from "./Slider";
 
 export { Tag } from "./Tag";
-export type { TagProps, TagVariant } from "./Tag";
+export type { TagProps, TagSize } from "./Tag";
 
 export { Toast } from "./Toast";
 export type { ToastProps, ToastVariant, ToastAction } from "./Toast";
