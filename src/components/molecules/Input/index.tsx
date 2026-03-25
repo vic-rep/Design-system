@@ -1,7 +1,6 @@
 "use client";
 
 import React, { forwardRef, useId, useState, useRef, useEffect } from "react";
-import { Tooltip } from "@/components/molecules/Tooltip";
 
 /**
  * Input — Molecule
@@ -69,21 +68,37 @@ function ChevronDown({ className }: { className?: string }) {
   );
 }
 
-/* ── Error tooltip trigger ────────────────────────────────── */
+/* ── Error tooltip (always visible above input on error) ──── */
 
 function ErrorBadge({ error }: { error: string }) {
   return (
     <div className="absolute right-0 bottom-full mb-[2px] z-10">
-      <Tooltip content={error} type="error" position="bottom">
-        <button
-          type="button"
-          tabIndex={-1}
-          aria-label={`Error: ${error}`}
-          className="flex items-center justify-center w-[20px] h-[20px] rounded-full bg-[var(--destructive-100)] border border-[var(--destructive-300)] text-[var(--destructive-600)] text-[10px] font-medium cursor-default"
-        >
-          !
-        </button>
-      </Tooltip>
+      <div
+        role="tooltip"
+        className="relative p-[var(--s)] rounded-[var(--xs)] text-[12px] leading-[1.3] font-normal max-w-[320px] min-w-[120px] bg-[var(--primary-100)] border border-[var(--destructive-200)] text-[var(--destructive-600)]"
+      >
+        {error}
+        {/* Arrow pointing down toward the input */}
+        <span
+          className="absolute w-0 h-0 border-solid border-[6px]"
+          style={{
+            top: "100%",
+            right: "var(--s)",
+            borderColor: "var(--destructive-200) transparent transparent transparent",
+          }}
+          aria-hidden="true"
+        />
+        <span
+          className="absolute w-0 h-0 border-solid border-[6px]"
+          style={{
+            top: "100%",
+            right: "var(--s)",
+            borderColor: "var(--primary-100) transparent transparent transparent",
+            marginTop: "-1px",
+          }}
+          aria-hidden="true"
+        />
+      </div>
     </div>
   );
 }
