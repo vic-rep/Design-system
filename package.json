@@ -1,13 +1,67 @@
 {
-  "name": "design-system",
+  "name": "@vic-rep/design-system",
   "version": "0.1.0",
-  "private": true,
+  "description": "Trusti Design System — React component library with atomic design methodology",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "tailwind.preset.js",
+    "src/styles/tokens.css"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./atoms": {
+      "types": "./dist/atoms/index.d.ts",
+      "import": "./dist/atoms/index.js",
+      "require": "./dist/atoms/index.cjs"
+    },
+    "./molecules": {
+      "types": "./dist/molecules/index.d.ts",
+      "import": "./dist/molecules/index.js",
+      "require": "./dist/molecules/index.cjs"
+    },
+    "./organisms": {
+      "types": "./dist/organisms/index.d.ts",
+      "import": "./dist/organisms/index.js",
+      "require": "./dist/organisms/index.cjs"
+    },
+    "./templates": {
+      "types": "./dist/templates/index.d.ts",
+      "import": "./dist/templates/index.js",
+      "require": "./dist/templates/index.cjs"
+    },
+    "./theme": {
+      "types": "./dist/theme/index.d.ts",
+      "import": "./dist/theme/index.js",
+      "require": "./dist/theme/index.cjs"
+    },
+    "./tokens.css": "./src/styles/tokens.css",
+    "./tailwind-preset": "./tailwind.preset.js"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "node scripts/load-design-docs.js && next build",
+    "build:lib": "tsup",
     "start": "next start",
     "lint": "next lint",
+    "prepublishOnly": "npm run build:lib",
     "prebuild": "node scripts/load-design-docs.js"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0",
+    "tailwindcss": "^3.4.0"
+  },
+  "peerDependenciesMeta": {
+    "tailwindcss": {
+      "optional": true
+    }
   },
   "dependencies": {
     "next": "^14.2.0",
@@ -23,6 +77,13 @@
     "eslint-config-next": "^14.2.0",
     "postcss": "^8.4.0",
     "tailwindcss": "^3.4.0",
+    "tsup": "^8.5.1",
     "typescript": "^5.0.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vic-rep/Design-system.git"
+  },
+  "license": "MIT",
+  "sideEffects": false
 }
