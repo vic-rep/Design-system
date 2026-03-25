@@ -693,10 +693,10 @@ function ElevationPreview() {
           className="w-[140px] h-[100px] rounded-[var(--radius-lg)] bg-[var(--surface-adjacent)] flex flex-col items-center justify-center"
           style={{ boxShadow: `var(${l.var})` }}
         >
-          <span className="text-[14px] font-medium text-[var(--primary-900)]">{l.name}</span>
-          <span className="text-[11px] text-[var(--primary-500)] text-center mt-[var(--xxs)]">
+          <Typography variant="textM" as="span" bold>{l.name}</Typography>
+          <Typography variant="caption" as="span" color="muted" className="text-center mt-[var(--xxs)]">
             {l.context}
-          </span>
+          </Typography>
         </div>
       ))}
     </div>
@@ -713,7 +713,7 @@ function ButtonPreview() {
         <div>
           <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Types
-          </p>
+          </Typography>
           <div className="flex flex-wrap items-center gap-[var(--m)]">
             <Button variant="primary" leadingIcon="fa-house" trailingIcon="fa-chevron-right">Primary</Button>
             <Button variant="secondary" leadingIcon="fa-house" trailingIcon="fa-chevron-right">Secondary</Button>
@@ -724,7 +724,7 @@ function ButtonPreview() {
         <div>
           <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Sizes
-          </p>
+          </Typography>
           <div className="flex flex-wrap items-end gap-[var(--m)]">
             <Button size="s">Small</Button>
             <Button size="m">Medium</Button>
@@ -735,7 +735,7 @@ function ButtonPreview() {
         <div>
           <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             States
-          </p>
+          </Typography>
           <div className="flex flex-wrap items-center gap-[var(--m)]">
             <Button>Default</Button>
             <Button disabled>Disabled</Button>
@@ -745,7 +745,7 @@ function ButtonPreview() {
         <div>
           <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Secondary Variants
-          </p>
+          </Typography>
           <div className="flex flex-wrap items-end gap-[var(--m)]">
             <Button variant="secondary" size="s">Small</Button>
             <Button variant="secondary" size="m">Medium</Button>
@@ -756,7 +756,7 @@ function ButtonPreview() {
         <div>
           <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Icon Buttons
-          </p>
+          </Typography>
           <div className="flex flex-wrap items-end gap-[var(--m)]">
             <Button variant="icon" size="s" leadingIcon="fa-house" />
             <Button variant="icon" size="m" leadingIcon="fa-house" />
@@ -768,7 +768,7 @@ function ButtonPreview() {
         <div>
           <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Full Width
-          </p>
+          </Typography>
           <Button fullWidth leadingIcon="fa-house" trailingIcon="fa-chevron-right">Full Width Button</Button>
         </div>
       </div>
@@ -786,7 +786,7 @@ function InputPreview() {
         <div>
           <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Text Input
-          </p>
+          </Typography>
           <div className="max-w-[400px] space-y-[var(--m)]">
             <Input label="Default" placeholder="Placeholder" value={value} onChange={(e) => setValue((e as React.ChangeEvent<HTMLInputElement>).target.value)} />
             <Input label="Filled" placeholder="Placeholder" defaultValue="Fill text" />
@@ -799,7 +799,7 @@ function InputPreview() {
         <div>
           <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Text Area
-          </p>
+          </Typography>
           <div className="max-w-[400px] space-y-[var(--m)]">
             <Input inputType="textarea" label="Default" placeholder="Placeholder" />
             <Input inputType="textarea" label="Error" defaultValue="Fill text" error="Field is invalid" />
@@ -810,7 +810,7 @@ function InputPreview() {
         <div>
           <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Dropdown
-          </p>
+          </Typography>
           <div className="max-w-[400px] space-y-[var(--m)]">
             <Input
               inputType="dropdown"
@@ -830,7 +830,7 @@ function InputPreview() {
         <div>
           <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             License Plate
-          </p>
+          </Typography>
           <div className="max-w-[400px] space-y-[var(--m)]">
             <Input inputType="plate" placeholder="EA1234CB" />
             <Input inputType="plate" defaultValue="EA124" error="Invalid plate number" />
@@ -841,7 +841,7 @@ function InputPreview() {
         <div>
           <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Phone
-          </p>
+          </Typography>
           <div className="max-w-[400px] space-y-[var(--m)]">
             <Input inputType="phone" placeholder="089xxxxxxxxxx" />
             <Input inputType="phone" defaultValue="089" error="Invalid phone number" />
@@ -852,7 +852,7 @@ function InputPreview() {
         <div>
           <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Date Picker
-          </p>
+          </Typography>
           <div className="max-w-[400px] space-y-[var(--m)]">
             <Input inputType="datepicker" label="Default" placeholder="Select date" />
             <Input inputType="datepicker" label="Disabled" disabled />
@@ -910,7 +910,7 @@ function TogglePreview() {
         <div>
           <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Small size
-          </p>
+          </Typography>
           <Toggle checked={checked1} onChange={setChecked1} size="sm" label="Compact toggle" />
         </div>
       </div>
@@ -944,7 +944,7 @@ function TooltipPreview() {
         <div>
           <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Info (Default)
-          </p>
+          </Typography>
           <div className="flex gap-[var(--xxl)] items-center justify-center py-[var(--4xl)]">
             <Tooltip content="Tooltips and toggletips look visually similar, and both have an interactive trigger." position="top">
               <Button variant="secondary" size="s">Top</Button>
@@ -963,7 +963,7 @@ function TooltipPreview() {
         <div>
           <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Error
-          </p>
+          </Typography>
           <div className="flex gap-[var(--xxl)] items-center justify-center py-[var(--4xl)]">
             <Tooltip content="This field is required" type="error" position="top">
               <Button variant="secondary" size="s">Top</Button>
@@ -1031,7 +1031,7 @@ function TabsPreview() {
         <div>
           <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Default
-          </p>
+          </Typography>
           <Tabs
             items={[
               { value: "tab1", label: "Overview" },
@@ -1048,7 +1048,7 @@ function TabsPreview() {
         <div>
           <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             With Disabled Tab
-          </p>
+          </Typography>
           <Tabs
             items={[
               { value: "a", label: "Active" },
@@ -1061,7 +1061,7 @@ function TabsPreview() {
         <div>
           <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Many Tabs
-          </p>
+          </Typography>
           <Tabs
             items={[
               { value: "1", label: "Step 1" },
@@ -1087,7 +1087,7 @@ function ContextMenuPreview() {
         <div>
           <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Default (always visible for preview)
-          </p>
+          </Typography>
           <div className="inline-block">
             <ContextMenu
               open={true}
@@ -1123,7 +1123,7 @@ function ProgressBarPreview() {
         <div>
           <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Interactive
-          </p>
+          </Typography>
           <ProgressBar
             currentStep={step}
             totalSteps={5}
@@ -1142,7 +1142,7 @@ function ProgressBarPreview() {
         <div>
           <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Steps
-          </p>
+          </Typography>
           <div className="space-y-[var(--m)]">
             <ProgressBar currentStep={1} totalSteps={4} stepLabel="Step 1" showBack={false} />
             <ProgressBar currentStep={2} totalSteps={4} stepLabel="Step 2" />
@@ -1164,13 +1164,13 @@ function PaginationPreview() {
         <div>
           <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Interactive ({page}/20)
-          </p>
+          </Typography>
           <Pagination currentPage={page} totalPages={20} onPageChange={setPage} />
         </div>
         <div>
           <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Few Pages
-          </p>
+          </Typography>
           <Pagination currentPage={2} totalPages={5} onPageChange={() => {}} />
         </div>
       </div>
@@ -1187,7 +1187,7 @@ function PillPreview() {
         <div>
           <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Variants
-          </p>
+          </Typography>
           <div className="flex flex-wrap gap-[var(--s)]">
             <Pill variant="default">Default</Pill>
             <Pill variant="accent">Accent</Pill>
@@ -1199,7 +1199,7 @@ function PillPreview() {
         <div>
           <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Sizes
-          </p>
+          </Typography>
           <div className="flex flex-wrap items-center gap-[var(--s)]">
             <Pill size="xs" leftIcon="fa-house" rightIcon="fa-house">XS</Pill>
             <Pill size="s" leftIcon="fa-house" rightIcon="fa-house">Small</Pill>
@@ -1210,7 +1210,7 @@ function PillPreview() {
         <div>
           <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             With Icons
-          </p>
+          </Typography>
           <div className="flex flex-wrap gap-[var(--s)]">
             <Pill variant="accent" leftIcon="fa-tag">Left icon</Pill>
             <Pill variant="success" rightIcon="fa-check">Right icon</Pill>
@@ -1220,7 +1220,7 @@ function PillPreview() {
         <div>
           <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Interactive (click to select)
-          </p>
+          </Typography>
           <div className="flex flex-wrap gap-[var(--s)]">
             {["default", "accent", "success", "warning", "destructive"].map((v) => (
               <Pill
@@ -1272,7 +1272,7 @@ function RadioThumbPreview() {
         <div>
           <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Icon Type
-          </p>
+          </Typography>
           <RadioThumbGroup
             name="delivery-icon"
             type="icon"
@@ -1289,14 +1289,14 @@ function RadioThumbPreview() {
         <div>
           <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Logo Type
-          </p>
+          </Typography>
           <RadioThumbGroup
             name="carrier-logo"
             type="logo"
             value={logoVal}
             onChange={setLogoVal}
             options={[
-              { value: "speedy", label: "Speedy", logo: <span className="text-[14px] font-bold">Speedy</span>, disclaimer: "2.00 лв / 1.02 €" },
+              { value: "speedy", label: "Speedy", logo: <Typography variant="textM" as="span" bold>Speedy</Typography>, disclaimer: "2.00 лв / 1.02 €" },
               { value: "econt", label: "Econt", logo: <span className="text-[14px] font-bold">Econt</span>, disclaimer: "3.00 лв / 1.53 €" },
             ]}
           />
@@ -1353,7 +1353,7 @@ function TagPreview() {
         <div>
           <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Sizes with Left Icon
-          </p>
+          </Typography>
           <div className="flex flex-wrap items-center gap-[var(--s)]">
             <Tag size="xs" leftIcon="fa-car" onRemove={() => {}}>EA 1234 CB</Tag>
             <Tag size="s" leftIcon="fa-car" onRemove={() => {}}>EA 1234 CB</Tag>
@@ -1364,7 +1364,7 @@ function TagPreview() {
         <div>
           <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Removable Tags
-          </p>
+          </Typography>
           <div className="flex flex-wrap gap-[var(--s)]">
             {tags.map((t) => (
               <Tag key={t} size="s" onRemove={() => setTags((prev) => prev.filter((x) => x !== t))}>
@@ -1438,7 +1438,7 @@ function AccordionPreview() {
         <div>
           <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Single Open (Default)
-          </p>
+          </Typography>
           <Accordion
             items={[
               { id: "1", title: "What is MTPL insurance?", content: "Motor Third Party Liability insurance covers damages to third parties caused by your vehicle. It is mandatory in Bulgaria." },
@@ -1452,7 +1452,7 @@ function AccordionPreview() {
         <div>
           <Typography variant="textSm" as="p" color="muted" className="mb-[var(--s)] !font-medium uppercase tracking-wider">
             Multiple Open
-          </p>
+          </Typography>
           <Accordion
             allowMultiple
             items={[
