@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { Icon } from "@/components/atoms/Icon";
+import { Input } from "@/components/molecules/Input";
 import { getLogoSrc } from "./logos";
 import "./vehicleDetailsCard.css";
 
@@ -14,6 +15,8 @@ export interface VehicleService {
   label: string;
   status: ServiceStatus;
   href?: string;
+  /** Show the info (circle-info) icon after the label */
+  showInfo?: boolean;
 }
 
 export interface VehicleDetails {
@@ -44,14 +47,13 @@ export interface VehicleDetailsCardProps {
   className?: string;
 }
 
-/* ─── Default services (no-talon) ────────────────────────────────────────── */
+/* ─── Default services shown when talon=false and no services prop given ──── */
 
 const DEFAULT_SERVICES: VehicleService[] = [
-  { id: "fines",            label: "Глоби",                  status: "locked" },
-  { id: "civil-liability",  label: "Гражданска отговорност", status: "locked" },
-  { id: "kasko",            label: "Каско",                  status: "locked" },
-  { id: "vignette",         label: "Винетка",                status: "locked" },
-  { id: "reverse-leasing",  label: "Обратен лизинг",         status: "locked" },
+  { id: "fines",           label: "Имате 2 глоби неплатени глоби", status: "warning", showInfo: true },
+  { id: "civil-liability", label: "Гражданска отговорност",        status: "locked" },
+  { id: "kasko",           label: "Каско",                         status: "locked", href: "#kasko" },
+  { id: "vignette",        label: "Винетка",                       status: "locked" },
 ];
 
 /* ─── Error messages ─────────────────────────────────────────────────────── */
@@ -62,41 +64,39 @@ const TALON_ERROR_MESSAGES: Record<NonNullable<TalonError>, string> = {
 };
 
 /* ─── Status icon ─────────────────────────────────────────────────────────── */
+/* Figma: locked → fa-circle-question (#808080), warning → fa-warning (#FF9D1F) */
 
 function StatusIcon({ status }: { status: ServiceStatus }) {
-  const iconMap: Record<ServiceStatus, { name: string; mod: string }> = {
+  const map: Record<ServiceStatus, { name: string; mod: string }> = {
     valid:   { name: "fa-circle-check",         mod: "vdc__service-status-icon--valid" },
     warning: { name: "fa-triangle-exclamation", mod: "vdc__service-status-icon--warning" },
     expired: { name: "fa-circle-xmark",         mod: "vdc__service-status-icon--expired" },
-    locked:  { name: "fa-lock",                 mod: "vdc__service-status-icon--locked" },
+    locked:  { name: "fa-circle-question",      mod: "vdc__service-status-icon--locked" },
   };
-
-  const { name, mod } = iconMap[status];
-
+  const { name, mod } = map[status];
   return (
     <span className={`vdc__service-status-icon ${mod}`}>
-      <Icon name={name} size="sm" />
+      <Icon name={name} size="md" />
     </span>
   );
 }
 
 /* ─── Service row ─────────────────────────────────────────────────────────── */
 
-function ServiceRow({ service, showInfo }: { service: VehicleService; showInfo?: boolean }) {
-  const isLocked = service.status === "locked";
-  const hasLink  = !!service.href;
+function ServiceRow({ service }: { service: VehicleService }) {
+  const hasLink = !!service.href;
 
-  const inner = (
+  const content = (
     <>
-      <StatusIcon status={service.status} />
-      <span className={`vdc__service-label${isLocked ? " vdc__service-label--muted" : ""}`}>
-        {service.label}
-      </span>
-      {showInfo && !isLocked && (
-        <span className="vdc__service-info-icon">
-          <Icon name="fa-circle-info" size="xs" />
-        </span>
-      )}
+      <div className="vdc__service-row__left">
+        <StatusIcon status={service.status} />
+        <span className="vdc__service-label">{service.label}</span>
+        {service.showInfo && (
+          <span className="vdc__service-info-icon">
+            <Icon name="fa-circle-info" size="xs" />
+          </span>
+        )}
+      </div>
       {hasLink && (
         <span className="vdc__service-chevron">
           <Icon name="fa-chevron-right" size="xs" />
@@ -113,15 +113,15 @@ function ServiceRow({ service, showInfo }: { service: VehicleService; showInfo?:
         rel="noopener noreferrer"
         className="vdc__service-row vdc__service-row--clickable"
       >
-        {inner}
+        {content}
       </a>
     );
   }
 
-  return <div className="vdc__service-row">{inner}</div>;
+  return <div className="vdc__service-row">{content}</div>;
 }
 
-/* ─── Skeleton row ────────────────────────────────────────────────────────── */
+/* ─── Skeleton rows ───────────────────────────────────────────────────────── */
 
 function SkeletonRows({ count = 4 }: { count?: number }) {
   return (
@@ -137,32 +137,29 @@ function SkeletonRows({ count = 4 }: { count?: number }) {
 
 function VehiclePills({ vehicle }: { vehicle: VehicleDetails }) {
   const pills = [
-    vehicle.plate,
-    vehicle.fuel,
-    vehicle.engine,
-    vehicle.power,
-    vehicle.drive,
-    vehicle.isTaxi || vehicle.isLeasing ? "Такси или отдаване под наем" : undefined,
-  ].filter(Boolean) as string[];
+    vehicle.plate                              ? { text: vehicle.plate,   icon: "fa-car" }             : null,
+    vehicle.fuel                               ? { text: vehicle.fuel,    icon: "fa-gas-pump" }        : null,
+    vehicle.engine                             ? { text: vehicle.engine,  icon: "fa-engine" }          : null,
+    vehicle.power                              ? { text: vehicle.power,   icon: "fa-horse" }           : null,
+    vehicle.drive                              ? { text: vehicle.drive,   icon: "fa-steering-wheel" }  : null,
+    vehicle.isTaxi || vehicle.isLeasing        ? { text: "Такси или отдаване под наем", icon: "fa-taxi" } : null,
+  ].filter(Boolean) as { text: string; icon: string }[];
 
   return (
     <div className="vdc__pills">
       {pills.map((p) => (
-        <span key={p} className="vdc__pill">{p}</span>
+        <span key={p.text} className="vdc__pill">
+          <Icon name={p.icon} size="xs" className="vdc__pill-icon" />
+          {p.text}
+        </span>
       ))}
     </div>
   );
 }
 
-/* ─── Talon input ─────────────────────────────────────────────────────────── */
+/* ─── Talon input section ─────────────────────────────────────────────────── */
 
-function TalonInput({
-  onSubmit,
-  error,
-}: {
-  onSubmit: (value: string) => void;
-  error?: TalonError;
-}) {
+function TalonInput({ onSubmit, error }: { onSubmit: (v: string) => void; error?: TalonError }) {
   const [value, setValue] = useState("");
 
   function handleSubmit(e: React.FormEvent) {
@@ -172,25 +169,30 @@ function TalonInput({
 
   return (
     <div className="vdc__talon-section">
+      {/* Promo row */}
       <div className="vdc__talon-promo">
         <div className="vdc__talon-promo-icon">
-          <Icon name="fa-robot" size="sm" />
+          <Icon name="fa-shield-halved" size="sm" />
         </div>
         <p className="vdc__talon-promo-text">
           Проверете всички задължения свързани с автомобила си с Trusti AI Брокер.
         </p>
       </div>
 
+      {/* Input + button */}
       <form onSubmit={handleSubmit}>
         <div className="vdc__talon-form">
-          <input
-            className={`vdc__talon-input${error ? " vdc__talon-input--error" : ""}`}
-            type="text"
-            placeholder="Номер на талон"
-            value={value}
-            onChange={(e) => setValue(e.target.value)}
-            autoComplete="off"
-          />
+          <div className="vdc__talon-input-wrap">
+            <Input
+              inputType="text"
+              placeholder="Номер на талон"
+              value={value}
+              onChange={(e) => setValue(e.target.value)}
+              autoComplete="off"
+              error={error ? TALON_ERROR_MESSAGES[error] : undefined}
+              className="vdc__talon-input"
+            />
+          </div>
           <button
             type="submit"
             className="vdc__talon-submit"
@@ -199,9 +201,6 @@ function TalonInput({
             Въведи
           </button>
         </div>
-        {error && (
-          <p className="vdc__talon-error">{TALON_ERROR_MESSAGES[error]}</p>
-        )}
       </form>
     </div>
   );
@@ -220,33 +219,38 @@ export function VehicleDetailsCard({
 }: VehicleDetailsCardProps) {
   const logoSrc = getLogoSrc(vehicle.make);
 
-  /* No-talon state ────────────────────────────────────────────────────────── */
+  /* ── No-talon state ────────────────────────────────────────────────────── */
 
   if (!talon) {
     const rows = services ?? DEFAULT_SERVICES;
+    const isGrid = rows.length >= 2; /* 2-col on desktop, 1-col on mobile via CSS */
 
     return (
       <div className={`vdc ${className}`}>
-        {/* Header */}
-        <div className="vdc__header">
-          <h3 className="vdc__header-title">Резултати от проверката</h3>
-          <span className="vdc__plate-badge">{vehicle.plate}</span>
+        {/* Dark top section */}
+        <div className="vdc__dark">
+          <div className="vdc__header">
+            <h3 className="vdc__header-title">Резултати от проверката</h3>
+            <span className="vdc__plate-badge">
+              <i className="fa-solid fa-car vdc__plate-badge-icon" aria-hidden="true" />
+              {vehicle.plate}
+            </span>
+          </div>
+
+          <div className={`vdc__services-list${isGrid ? " vdc__services-list--grid" : ""}`}>
+            {rows.map((s) => (
+              <ServiceRow key={s.id} service={s} />
+            ))}
+          </div>
         </div>
 
-        {/* Services grid */}
-        <div className="vdc__services-grid">
-          {rows.map((s) => (
-            <ServiceRow key={s.id} service={s} />
-          ))}
-        </div>
-
-        {/* Talon input footer */}
+        {/* Light bottom section — talon input */}
         <TalonInput onSubmit={onTalonSubmit} error={talonError} />
       </div>
     );
   }
 
-  /* With-talon state ──────────────────────────────────────────────────────── */
+  /* ── With-talon state ──────────────────────────────────────────────────── */
 
   return (
     <div className={`vdc ${className}`}>
@@ -255,11 +259,7 @@ export function VehicleDetailsCard({
         <div className="vdc__vehicle-col">
           <div className="vdc__vehicle-header">
             {logoSrc && (
-              <img
-                src={logoSrc}
-                alt={vehicle.make}
-                className="vdc__vehicle-logo"
-              />
+              <img src={logoSrc} alt={vehicle.make} className="vdc__vehicle-logo" />
             )}
             <span className="vdc__vehicle-name">
               {vehicle.make} {vehicle.model} {vehicle.year}
@@ -277,7 +277,7 @@ export function VehicleDetailsCard({
             <SkeletonRows count={5} />
           ) : (
             services.map((s) => (
-              <ServiceRow key={s.id} service={s} showInfo />
+              <ServiceRow key={s.id} service={s} />
             ))
           )}
         </div>
