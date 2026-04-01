@@ -1,0 +1,446 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   VehicleDetailsCard — Template
+   Figma node 3016-4263 (Mobile) · 3016-4264 (Desktop)
+   Two states: talon=false (unauthenticated) · talon=true (authenticated)
+───────────────────────────────────────────────────────────────────────────── */
+
+/* ── Card shell — no padding/bg, sections handle their own ───────────────── */
+
+.vdc {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  /* Clip border-radius of child sections */
+  border-radius: var(--s);       /* 8px */
+  overflow: hidden;
+  /* Container queries — breakpoints respond to the card's own width */
+  container-type: inline-size;
+  container-name: vdc;
+}
+
+/* ── Dark top section (header + services) ─────────────────────────────────── */
+
+.vdc__dark {
+  background: #191919;           /* --surface in always-dark context */
+  padding: var(--m);             /* 12px — Figma: p-[var(--m,12px)] */
+  display: flex;
+  flex-direction: column;
+  gap: var(--m);                 /* 12px between header and service list */
+}
+
+/* ── Header ───────────────────────────────────────────────────────────────── */
+
+.vdc__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s);
+}
+
+.vdc__header-title {
+  font-size: 16px;               /* Figma: Mobile/H6 */
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--constant-white);
+}
+
+/* Plate badge — border + car icon + text */
+.vdc__plate-badge {
+  display: flex;
+  align-items: center;
+  gap: var(--s);
+  flex-shrink: 0;
+  padding: var(--xs) var(--s);   /* 4px 8px */
+  border-radius: var(--xs);      /* 4px */
+  border: 1px solid #333333;     /* surface-adjacent-2 in dark */
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.3;
+  color: var(--constant-white);
+  white-space: nowrap;
+}
+
+.vdc__plate-badge-icon {
+  font-size: 12px;
+  color: var(--constant-white);
+  flex-shrink: 0;
+}
+
+/* ── Service rows list ────────────────────────────────────────────────────── */
+
+.vdc__services-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s);                 /* 8px — Figma: gap-[var(--s,8px)] */
+}
+
+/* Desktop: 2-column grid for no-talon state */
+.vdc__services-list--grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s);
+}
+
+/* ── Service row ──────────────────────────────────────────────────────────── */
+
+.vdc__service-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s);                 /* 8px */
+  padding: var(--xs) var(--s);   /* 4px 8px — Figma: py-[var(--xs)] px-[var(--s)] */
+  border-radius: var(--xs);      /* 4px — Figma: rounded-[var(--xs,4px)] */
+  background: #333333;           /* surface-adjacent-2 in dark context */
+  min-height: 28px;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+.vdc__service-row--clickable {
+  cursor: pointer;
+  transition: background 120ms ease;
+}
+
+.vdc__service-row--clickable:hover {
+  background: #3d3d3d;
+}
+
+.vdc__service-row__left {
+  display: flex;
+  align-items: center;
+  gap: var(--s);
+  min-width: 0;
+  flex: 1;
+}
+
+/* Status icon wrapper */
+.vdc__service-status-icon {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.vdc__service-status-icon--valid    { color: var(--success-600); }
+.vdc__service-status-icon--warning  { color: #FF9D1F; }  /* warning-400 — Figma: var(--warning/300,#ff9d1f) */
+.vdc__service-status-icon--expired  { color: var(--destructive-500); }
+.vdc__service-status-icon--locked   { color: #808080; }  /* primary-500 — Figma: var(--primary/500,#808080) */
+
+.vdc__service-label {
+  font-size: 14px;
+  font-weight: 500;              /* Figma: Medium */
+  line-height: 1.2;
+  color: var(--constant-white);
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Info icon — sits after label text */
+.vdc__service-info-icon {
+  flex-shrink: 0;
+  font-size: 12px;
+  color: #4d4d4d;                /* Figma: var(--primary/300,#4d4d4d) */
+  width: 12px;
+  height: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Chevron — right side */
+.vdc__service-chevron {
+  flex-shrink: 0;
+  font-size: 12px;
+  color: var(--accent-600);      /* orange */
+  width: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Talon section — light bg, always ─────────────────────────────────────── */
+/* Figma: bg-[var(--surface-adjescent-2,#e1e5eb)] — intentionally light panel */
+
+.vdc__talon-section {
+  background: #E1E5EB;           /* surface-adjacent-2 light — always light per Figma */
+  padding: var(--l);             /* 16px — Figma: p-[var(--l,16px)] */
+  display: flex;
+  flex-direction: column;
+  gap: 12px;                     /* Figma: gap-[12px] */
+}
+
+/* Promo row: circle icon + text */
+.vdc__talon-promo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.vdc__talon-promo-icon {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--constant-white);   /* Figma: bg-[var(--surface-adjescent,white)] */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-600);
+  font-size: 14px;
+}
+
+.vdc__talon-promo-text {
+  flex: 1;
+  font-size: 14px;               /* Figma: text-[14px] Medium */
+  font-weight: 500;
+  line-height: 1.2;
+  color: #191919;                /* dark text on light bg */
+}
+
+/* Input + button row — always side by side */
+.vdc__talon-form {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;         /* button anchors to bottom when error text adds height */
+}
+
+/* Wrapper that gives the DS Input component flex: 1 */
+.vdc__talon-input-wrap {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Override DS Input molecule — className lands on wrapper div, so target inner input */
+
+/* Normal state: white bg + grey border matching Figma light section */
+.vdc__talon-input input:not([aria-invalid]) {
+  background: var(--constant-white) !important;
+  border-color: #cccccc !important;          /* Figma: var(--primary/300,#ccc) */
+}
+
+/* Error state: let DS destructive colors show through unchanged */
+
+.vdc__talon-input input::placeholder {
+  color: #999999 !important;                 /* Figma: var(--primary/400,#999) */
+}
+
+.vdc__talon-submit {
+  flex-shrink: 0;
+  background: var(--accent-600);
+  color: var(--constant-white);
+  border: none;
+  border-radius: var(--s);
+  padding: var(--m) var(--xl);               /* 12px 20px — Figma */
+  height: 41px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: var(--font-sans);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 150ms ease;
+  box-sizing: border-box;
+}
+
+.vdc__talon-submit:hover  { background: var(--accent-700); }
+.vdc__talon-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ── With-talon layout (authenticated) ───────────────────────────────────── */
+
+.vdc__body {
+  display: flex;
+  align-items: stretch;
+  padding: var(--m);             /* 12px */
+  gap: var(--m);
+  background: #191919;
+}
+
+/* Left column: vehicle info */
+.vdc__vehicle-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s);                 /* 8px */
+  width: 200px;
+  flex-shrink: 0;
+}
+
+.vdc__vehicle-header {
+  display: flex;
+  align-items: center;
+  gap: var(--s);
+}
+
+.vdc__vehicle-logo {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+.vdc__vehicle-name {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--constant-white);
+}
+
+.vdc__pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--xs);                /* 4px */
+}
+
+.vdc__pill {
+  display: flex;
+  align-items: center;
+  gap: var(--s);                 /* 8px between icon and text */
+  padding: var(--xs) var(--s);   /* 4px 8px */
+  border-radius: var(--xs);      /* 4px */
+  border: 1px solid #333333;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--constant-white);
+  white-space: nowrap;
+}
+
+.vdc__pill-icon {
+  flex-shrink: 0;
+  font-size: 10px;
+  color: var(--constant-white);
+}
+
+/* Divider between columns */
+.vdc__divider {
+  width: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
+  align-self: stretch;
+}
+
+/* Right column: services */
+.vdc__services-col {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--xs);                /* 4px — Figma desktop gap */
+}
+
+/* ── Skeleton shimmer ─────────────────────────────────────────────────────── */
+
+@keyframes vdc-shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position:  400px 0; }
+}
+
+.vdc__skeleton-row {
+  height: 28px;
+  border-radius: var(--xs);
+  background: linear-gradient(90deg, #2a2a2a 25%, #333333 50%, #2a2a2a 75%);
+  background-size: 800px 28px;
+  animation: vdc-shimmer 1.4s infinite linear;
+}
+
+/* ── Desktop (≥380px container width) ────────────────────────────────────── */
+
+@container vdc (min-width: 380px) {
+  /* No-talon: 2-col services grid */
+  .vdc__services-list--grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* No-talon: service labels larger on desktop */
+  .vdc__service-label {
+    font-size: 16px;
+  }
+
+  /* No-talon: header title larger on desktop */
+  .vdc__header-title {
+    font-size: 20px;
+    font-weight: 500;
+  }
+
+  /* No-talon: talon section becomes a single horizontal row */
+  .vdc__talon-section {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+  }
+
+  /* Promo shrinks to fit text, form takes remaining space */
+  .vdc__talon-promo {
+    flex: 0 1 auto;
+    min-width: 0;
+  }
+
+  .vdc__talon-section form {
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* Input fills form area, no fixed width */
+  .vdc__talon-input-wrap {
+    flex: 1;
+    width: auto;
+  }
+
+  /* With-talon: vehicle col is flexible, services col is fixed */
+  .vdc__body {
+    padding: var(--l);
+    gap: var(--l);
+  }
+
+  .vdc__vehicle-col {
+    width: auto;
+    flex: 1;
+  }
+
+  .vdc__services-col {
+    flex: none;
+    width: 360px;
+  }
+
+  /* With-talon: vehicle name larger on desktop */
+  .vdc__vehicle-name {
+    font-size: 20px;
+    font-weight: 500;
+  }
+
+  /* With-talon: pills text larger on desktop */
+  .vdc__pill {
+    font-size: 14px;
+  }
+}
+
+/* ── Mobile: single column ────────────────────────────────────────────────── */
+
+@container vdc (max-width: 379px) {
+  .vdc__services-list--grid {
+    grid-template-columns: 1fr;
+  }
+
+  .vdc__body {
+    flex-direction: column;
+  }
+
+  .vdc__vehicle-col {
+    width: 100%;
+  }
+
+  .vdc__divider {
+    width: 100%;
+    height: 1px;
+    align-self: auto;
+  }
+}
+
+/* ── Reduced motion ───────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .vdc__skeleton-row { animation: none; background: #2a2a2a; }
+}
