@@ -1,0 +1,344 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   GoogleReviews — Template
+   Matches Figma node 4563-671 (Desktop) · 4563-672 (Mobile)
+───────────────────────────────────────────────────────────────────────────── */
+
+/* ── Outer section wrapper ────────────────────────────────────────────────── */
+
+.gr-section {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ── Dark rounded container ───────────────────────────────────────────────── */
+
+.gr-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 32px;
+  margin: var(--8xl) 0;     /* 80px top + bottom */
+
+  /* Dark base + orange radial glow at bottom */
+  background-color: #191919;
+  background-image:
+    radial-gradient(
+      ellipse at 50% 120%,
+      rgba(247, 104, 3, 0.15) 0%,
+      rgba(247, 104, 3, 0) 65%
+    ),
+    url('/3d-topo-pattern.png');  /* topo covers entire section */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  padding: var(--7xl);
+
+  /* Always-dark context — force solid surface tokens so card backgrounds
+     are visible against the #191919 base regardless of the active theme. */
+  color: var(--constant-white);
+  --surface:            #252525;
+  --surface-adjacent:   #3D3D3D;
+  --surface-adjacent-2: #2E2E2E;
+}
+
+/* Dark overlay so the topo texture sits at correct opacity over the bg */
+.gr-container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(25, 25, 25, 0.6); /* darken texture — adjust opacity to taste */
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Remove the old separate img topo element */
+.gr-topo {
+  display: none;
+}
+
+/* ── Inner layout: left text + right cards ────────────────────────────────── */
+
+.gr-layout {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--xxl);
+}
+
+/* ── Left column ──────────────────────────────────────────────────────────── */
+
+.gr-left {
+  display: flex;
+  flex-direction: column;
+  gap: var(--xxl);
+  align-items: flex-start;
+  justify-content: flex-end;
+  flex-shrink: 0;
+  width: 354px;
+  /* Clip content to its box so heading text never bleeds into the gap */
+  overflow: hidden;
+}
+
+.gr-google-badge {
+  display: block;
+  height: 84px;
+  width: auto;
+}
+
+.gr-heading-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--4xl);
+  align-items: flex-start; /* keep badge left-aligned at all widths */
+}
+
+/* ── Right column ─────────────────────────────────────────────────────────── */
+
+.gr-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--s);
+  flex: 1;
+  min-width: 0;
+}
+
+/* In mobile peek mode the viewport bleeds edge-to-edge;
+   gr-container's overflow:hidden provides the clip. */
+
+/* Row layout + isMobile: extend viewport into the right container padding only
+   so the peek card touches the container's right edge. */
+@media (min-width: 768px) {
+  .gr-right--mobile .gr-cards-viewport {
+    overflow: visible;
+    width: calc(100% + var(--7xl));
+  }
+}
+
+/* Arrow nav — top right of the cards */
+.gr-arrows {
+  display: flex;
+  gap: var(--s);
+  align-items: center;
+}
+
+.gr-arrow-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 100px;
+  border: none;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--constant-white);
+  transition: background 150ms ease, opacity 150ms ease;
+  padding: 10px;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.gr-arrow-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.gr-arrow-btn:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
+}
+
+/* ── Cards viewport — fixed height, clips overflow, drag layer ───────────── */
+
+.gr-cards-viewport {
+  position: relative;
+  width: 100%;
+  height: 373px;          /* matches card height */
+  overflow: hidden;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.gr-cards-viewport:active {
+  cursor: grabbing;
+}
+
+/* Animated cards wrapper — absolutely fills viewport so exit/enter overlap ── */
+.gr-cards {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  gap: var(--l);          /* 16px */
+}
+
+/* ── Individual review card ───────────────────────────────────────────────── */
+/* Figma: flex-col  gap-[var(--6xl,48px)]  h-[373px]  p-[var(--xxl,24px)]    */
+/*        rounded-[var(--l,16px)]  items-start  min-h-px min-w-px flex-[1_0_0]*/
+
+.gr-card {
+  flex: 1 0 0;
+  min-width: 0;
+  height: 373px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--6xl);          /* 48px between body and reviewer name */
+  padding: var(--xxl);      /* 24px */
+  border-radius: var(--l);  /* 16px */
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.gr-card--surface {
+  background: var(--surface);
+}
+
+.gr-card--surface-adjacent {
+  background: var(--surface-adjacent);
+}
+
+.gr-card--surface-adjacent-2 {
+  background: var(--surface-adjacent-2);
+}
+
+.gr-card--accent {
+  background: var(--accent-600);
+}
+
+.gr-card--tertiary {
+  background: var(--tertiary-600);
+}
+
+/* ── Card body: stars + review text ──────────────────────────────────────── */
+/* Figma: flex-col gap-[18px] items-start flex-[1_0_0] min-h-px min-w-px w-full */
+
+.gr-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: flex-start;
+  flex: 1 0 0;
+  min-height: 1px;
+  min-width: 1px;
+  width: 100%;
+}
+
+/* ── Stars row ────────────────────────────────────────────────────────────── */
+/* Figma: flex items-start  — no gap, each star 16×16                         */
+
+.gr-stars {
+  display: flex;
+  align-items: flex-start;
+  flex-shrink: 0;
+}
+
+/* 16×16 wrapper; SVG inset matches Figma absolute position:                  */
+/* inset: 7.99% 9.86% 15.31% 9.86% ≈ 1.28px top, 1.58px sides, 2.45px bottom */
+.gr-star {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.gr-star svg {
+  position: absolute;
+  top: 7.99%;
+  right: 9.86%;
+  bottom: 15.31%;
+  left: 9.86%;
+  width: auto;
+  height: auto;
+}
+
+/* ── Review text ──────────────────────────────────────────────────────────── */
+/* Figma: text-[18px] leading-[1.2] h-[219px] overflow-hidden min-w-full      */
+
+.gr-card-text {
+  height: 219px;          /* fixed — cards always same height regardless of text length */
+  overflow: hidden;
+  min-width: 100%;
+  width: 100%;
+}
+
+/* ── Reviewer name ────────────────────────────────────────────────────────── */
+/* Figma: text-[16px] leading-[24px] w-full flex-shrink: 0                    */
+
+.gr-reviewer-name {
+  flex-shrink: 0;
+  width: 100%;
+  line-height: 24px !important; /* Figma: absolute 24px, overrides Typography's leading-[1.2] */
+}
+
+/* ── JS-forced column layout (isMobile=true but CSS row still active) ───── */
+/* Applied via .gr-layout--mobile when the measured container is too narrow  */
+/* for two side-by-side cards, even before the CSS @media breakpoint fires.  */
+
+.gr-layout--mobile {
+  flex-direction: column;
+  align-items: flex-start; /* override row-mode align-items:center so children don't centre horizontally */
+  gap: var(--5xl);
+}
+
+.gr-layout--mobile .gr-left {
+  width: 100%;
+}
+
+.gr-layout--mobile .gr-right {
+  width: 100%;
+  /* Override flex-end so the oversized bleed viewport anchors to the LEFT edge,
+     not the right — otherwise the viewport overflows to the wrong side. */
+  align-items: flex-start;
+}
+
+/* In JS-forced column, bleed the viewport into the RIGHT padding only —
+   left edge stays aligned with the heading text. */
+.gr-layout--mobile .gr-right--mobile .gr-cards-viewport {
+  overflow: visible;
+  width: calc(100% + var(--7xl));
+}
+
+/* ── Reduced motion: disable spring on the track ─────────────────────────── */
+
+/* ── Mobile ──────────────────────────────────────────────────────────────── */
+
+@media (max-width: 767px) {
+  .gr-container {
+    border-radius: 24px;
+    margin: var(--5xl) 0;
+    padding: var(--5xl) var(--xl);
+  }
+
+  .gr-layout {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--5xl);
+  }
+
+  .gr-left {
+    width: 100%;
+  }
+
+  .gr-right {
+    width: 100%;
+    align-items: flex-start; /* same fix — anchor oversized viewport to left edge */
+  }
+
+  /* Peek: bleed viewport into the RIGHT padding only —
+     left edge stays aligned with the heading text above. */
+  .gr-right--mobile .gr-cards-viewport {
+    overflow: visible;
+    width: calc(100% + var(--xl));
+  }
+}
+
+/* ── Reduced motion ──────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .gr-track {
+    transition: none !important;
+  }
+}

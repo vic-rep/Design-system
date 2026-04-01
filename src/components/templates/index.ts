@@ -12,6 +12,9 @@ export type { CartProps, CartItem } from "./Cart";
 export { FAQ } from "./FAQ";
 export type { FAQProps, FAQItem } from "./FAQ";
 
+export { GoogleReviews } from "./GoogleReviews";
+export type { GoogleReviewsProps } from "./GoogleReviews";
+
 export { Footer } from "./Footer";
 export type { FooterProps, FooterColumn, FooterLink, SocialLink } from "./Footer";
 
