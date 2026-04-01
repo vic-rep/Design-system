@@ -15,9 +15,9 @@ export interface CardProps {
 }
 
 const variantStyles: Record<CardVariant, string> = {
-  default: "border border-border/50 bg-surface",
-  outlined: "border border-border bg-surface",
-  elevated: "bg-surface shadow-md",
+  default: "border border-border/50 bg-surface-adjacent",
+  outlined: "border border-border bg-surface-adjacent",
+  elevated: "bg-surface-adjacent shadow-md",
 };
 
 const paddingStyles: Record<CardPadding, string> = {

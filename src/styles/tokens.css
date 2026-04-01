@@ -2,14 +2,23 @@
 
 /* ============================================================
    TRUSTI DESIGN SYSTEM — Foundation Tokens
-   Import this file in your app to get all CSS custom properties.
+   4 color modes sourced from Figma:
+     :root          → Light
+     .dark          → Dark
+     .light-rebrand → Light Rebrand (lime-green brand)
+     .dark-rebrand  → Dark Rebrand  (lime-green brand, dark surfaces)
+                      Applied alongside .dark so Tailwind dark: utilities activate.
    ============================================================ */
 
+/* ── Light (default) ──────────────────────────────────────────────────────── */
 :root {
-  /* --- Font --- */
+  /* Font */
   --font-sans: 'Source Sans 3', system-ui, sans-serif;
 
-  /* --- Accent (Orange) --- */
+  /* Brand */
+  --brand: #FFA500;
+
+  /* Accent (Orange) */
   --accent-900: #602901;
   --accent-800: #923E02;
   --accent-700: #C55302;
@@ -20,32 +29,40 @@
   --accent-200: #FED5B8;
   --accent-100: #FFF3EB;
 
-  /* --- Primary (Neutral) --- */
+  /* Tertiary (= Accent in Light/Dark, purple in Rebrand) */
+  --tertiary-900: #602901;
+  --tertiary-800: #923E02;
+  --tertiary-700: #C55302;
+  --tertiary-600: #F76803;
+  --tertiary-500: #FC7D21;
+  --tertiary-400: #FD9A54;
+  --tertiary-300: #FEB886;
+  --tertiary-200: #FED5B8;
+  --tertiary-100: #FFF3EB;
+
+  /* Primary (Neutral) */
   --primary-900: #191919;
   --primary-800: #333333;
-  --primary-700: #4d4d4d;
+  --primary-700: #4D4D4D;
   --primary-600: #666666;
   --primary-500: #808080;
   --primary-400: #999999;
-  --primary-300: #cccccc;
-  --primary-200: #e6e6e6;
-  --primary-100: #f0f0f0;
+  --primary-300: #CCCCCC;
+  --primary-200: #E6E6E6;
+  --primary-100: #F0F0F0;
 
-  /* --- Surface --- */
+  /* Semantic aliases */
+  --primary: #191919;
   --surface: #F3F2F0;
   --surface-adjacent: #FFFFFF;
   --surface-adjacent-2: #E1E5EB;
+  --surface-adjescent-2: var(--surface-adjacent-2); /* compat alias */
 
-  /* --- Brand --- */
-  --brand: #FFA500;
-
-  /* --- Constants --- */
+  /* Constants (never change across modes) */
   --constant-white: #FFFFFF;
   --constant-black: #191919;
-  --primary: #191919;
-  --surface-adjescent-2: var(--surface-adjacent-2);
 
-  /* --- Success (Green) --- */
+  /* Success */
   --success-800: #006632;
   --success-700: #009147;
   --success-600: #4DB27E;
@@ -53,7 +70,7 @@
   --success-200: #B3DEC8;
   --success-100: #E6F4ED;
 
-  /* --- Warning (Amber) --- */
+  /* Warning */
   --warning-600: #B86700;
   --warning-500: #E98300;
   --warning-400: #FF9D1F;
@@ -61,16 +78,16 @@
   --warning-200: #FFC985;
   --warning-100: #FFE0B8;
 
-  /* --- Destructive (Red) --- */
+  /* Destructive */
   --destructive-600: #CC001B;
-  --destructive-550: #FF0022;
+  --destructive-550: #E0001E;
   --destructive-500: #FF0022;
   --destructive-400: #FF4D64;
   --destructive-300: #FF8091;
   --destructive-200: #FFCCD3;
   --destructive-100: #FFE6E9;
 
-  /* --- Spacing --- */
+  /* Spacing */
   --none: 0px;
   --xxs: 2px;
   --xs: 4px;
@@ -87,14 +104,14 @@
   --8xl: 80px;
   --max: 128px;
 
-  /* --- Border Radius --- */
+  /* Border Radius */
   --radius-sm: 4px;
   --radius-md: 6px;
   --radius-lg: 8px;
   --radius-xl: 12px;
   --radius-full: 9999px;
 
-  /* --- Elevation --- */
+  /* Elevation */
   --elevation-level1: 0px 1px 1px rgba(0,0,0,0.05), 0px 3px 3px rgba(0,0,0,0.04), 0px 6px 4px rgba(0,0,0,0.03), 0px 11px 4px rgba(0,0,0,0.01), 0px 17px 5px rgba(0,0,0,0);
   --elevation-level2: 0px 2px 4px rgba(0,0,0,0.05), 0px 7px 7px rgba(0,0,0,0.04), 0px 15px 9px rgba(0,0,0,0.03), 0px 27px 11px rgba(0,0,0,0.01), 0px 42px 12px rgba(0,0,0,0);
   --elevation-level3: 0px 3px 7px rgba(0,0,0,0.05), 0px 13px 13px rgba(0,0,0,0.04), 0px 30px 18px rgba(0,0,0,0.03), 0px 53px 21px rgba(0,0,0,0.01), 0px 83px 23px rgba(0,0,0,0);
@@ -102,63 +119,206 @@
   --elevation-level5: 0px 7px 15px rgba(0,0,0,0.05), 0px 27px 27px rgba(0,0,0,0.04), 0px 60px 36px rgba(0,0,0,0.03), 0px 107px 43px rgba(0,0,0,0.01), 0px 167px 47px rgba(0,0,0,0);
 }
 
-/* --- Dark Mode --- */
+/* ── Dark ─────────────────────────────────────────────────────────────────── */
 .dark {
+  --brand: #FFA500;
+
   --accent-900: #FFF3EB;
   --accent-800: #FED5B8;
   --accent-700: #FEB886;
-  --accent-600: #FC7D21;
-  --accent-500: #F76803;
-  --accent-400: #C55302;
-  --accent-300: #923E02;
-  --accent-200: #602901;
-  --accent-100: #2A1200;
+  --accent-600: #F76803;
+  --accent-500: #FC7D21;
+  --accent-400: #F76803;
+  --accent-300: #C55302;
+  --accent-200: #923E02;
+  --accent-100: #602901;
 
-  --primary-900: #f0f0f0;
-  --primary-800: #e6e6e6;
-  --primary-700: #cccccc;
+  --tertiary-900: #FFF3EB;
+  --tertiary-800: #FED5B8;
+  --tertiary-700: #FEB886;
+  --tertiary-600: #F76803;
+  --tertiary-500: #FC7D21;
+  --tertiary-400: #F76803;
+  --tertiary-300: #C55302;
+  --tertiary-200: #923E02;
+  --tertiary-100: #602901;
+
+  --primary-900: #F0F0F0;
+  --primary-800: #E6E6E6;
+  --primary-700: #CCCCCC;
   --primary-600: #999999;
   --primary-500: #808080;
   --primary-400: #666666;
-  --primary-300: #4d4d4d;
+  --primary-300: #4D4D4D;
   --primary-200: #333333;
   --primary-100: #191919;
 
-  --primary: #f0f0f0;
-  --brand: #FFA500;
-
-  --surface: #111111;
-  --surface-adjacent: #1A1A1A;
-  --surface-adjacent-2: #242424;
+  --primary: #FFFFFF;
+  --surface: #191919;
+  --surface-adjacent: #4D4D4D;
+  --surface-adjacent-2: #333333;
 
   --constant-white: #FFFFFF;
   --constant-black: #191919;
 
-  --success-800: #B3DEC8;
-  --success-700: #4ADE80;
-  --success-600: #4DB27E;
-  --success-400: #009147;
-  --success-200: #006632;
-  --success-100: #0A2618;
+  --success-800: #E6F4ED;
+  --success-700: #B3DEC8;
+  --success-600: #80C8A3;
+  --success-400: #4DB27E;
+  --success-200: #009147;
+  --success-100: #006632;
 
-  --warning-600: #FFC985;
-  --warning-500: #FBBF24;
-  --warning-400: #E98300;
-  --warning-300: #B86700;
-  --warning-200: #7A4400;
-  --warning-100: #2A1800;
+  --warning-600: #FFE0B8;
+  --warning-500: #FFC985;
+  --warning-400: #FFB352;
+  --warning-300: #FF9D1F;
+  --warning-200: #E98300;
+  --warning-100: #B86700;
 
-  --destructive-600: #FF8091;
-  --destructive-550: #FF4D64;
-  --destructive-500: #FF0022;
-  --destructive-400: #CC001B;
-  --destructive-300: #990014;
-  --destructive-200: #4D000A;
-  --destructive-100: #2A0005;
+  --destructive-600: #FFE6E9;
+  --destructive-550: #FFCCD3;
+  --destructive-500: #FF8091;
+  --destructive-400: #FF4D64;
+  --destructive-300: #FF0022;
+  --destructive-200: #E0001E;
+  --destructive-100: #CC001B;
 
   --elevation-level1: 0px 1px 1px rgba(0,0,0,0.2), 0px 3px 3px rgba(0,0,0,0.16), 0px 6px 4px rgba(0,0,0,0.12), 0px 11px 4px rgba(0,0,0,0.06), 0px 17px 5px rgba(0,0,0,0);
   --elevation-level2: 0px 2px 4px rgba(0,0,0,0.2), 0px 7px 7px rgba(0,0,0,0.16), 0px 15px 9px rgba(0,0,0,0.12), 0px 27px 11px rgba(0,0,0,0.06), 0px 42px 12px rgba(0,0,0,0);
   --elevation-level3: 0px 3px 7px rgba(0,0,0,0.2), 0px 13px 13px rgba(0,0,0,0.16), 0px 30px 18px rgba(0,0,0,0.12), 0px 53px 21px rgba(0,0,0,0.06), 0px 83px 23px rgba(0,0,0,0);
   --elevation-level4: 0px 5px 11px rgba(0,0,0,0.2), 0px 20px 20px rgba(0,0,0,0.16), 0px 45px 27px rgba(0,0,0,0.12), 0px 80px 32px rgba(0,0,0,0.06), 0px 125px 35px rgba(0,0,0,0);
   --elevation-level5: 0px 7px 15px rgba(0,0,0,0.2), 0px 27px 27px rgba(0,0,0,0.16), 0px 60px 36px rgba(0,0,0,0.12), 0px 107px 43px rgba(0,0,0,0.06), 0px 167px 47px rgba(0,0,0,0);
+}
+
+/* ── Light Rebrand (lime-green brand) ────────────────────────────────────── */
+.light-rebrand {
+  --brand: #B9E856;
+
+  --accent-900: #51700F;
+  --accent-800: #79A817;
+  --accent-700: #A2E01E;
+  --accent-600: #B9E856;
+  --accent-500: #C7ED78;
+  --accent-400: #D5F19A;
+  --accent-300: #E3F6BB;
+  --accent-200: #F1FADD;
+  --accent-100: #F8FDEE;
+
+  /* Tertiary becomes purple in Rebrand */
+  --tertiary-900: #3C126F;
+  --tertiary-800: #5A1BA6;
+  --tertiary-700: #7926DC;
+  --tertiary-600: #9B5DE5;
+  --tertiary-500: #AF7DEA;
+  --tertiary-400: #C39EEF;
+  --tertiary-300: #D7BEF5;
+  --tertiary-200: #EBDFFA;
+  --tertiary-100: #F5EFFC;
+
+  --primary-900: #0A1517;
+  --primary-800: #3B4445;
+  --primary-700: #545B5D;
+  --primary-600: #6C7374;
+  --primary-500: #858A8B;
+  --primary-400: #9DA1A2;
+  --primary-300: #B6B9B9;
+  --primary-200: #CED0D1;
+  --primary-100: #E7E8E8;
+
+  --primary: #0A1517;
+  --surface: #F9FAF5;
+  --surface-adjacent: #FEFFFE;
+  --surface-adjacent-2: #E5E9D4;
+
+  --constant-white: #FEFFFE;
+  --constant-black: #0A1517;
+
+  --success-800: #047035;
+  --success-700: #058C42;
+  --success-600: #50AF7B;
+  --success-400: #9BD1B3;
+  --success-200: #CDE8D9;
+  --success-100: #E6F4EC;
+
+  --warning-600: #E55704;
+  --warning-500: #FB6107;
+  --warning-400: #FC8139;
+  --warning-300: #FDB083;
+  --warning-200: #FEDFCD;
+  --warning-100: #FFEFE6;
+
+  --destructive-600: #A60000;
+  --destructive-550: #D00000;
+  --destructive-500: #D93333;
+  --destructive-400: #E36666;
+  --destructive-300: #EC9999;
+  --destructive-200: #F6CCCC;
+  --destructive-100: #FAE6E6;
+}
+
+/* ── Dark Rebrand (lime-green brand, dark surfaces) ──────────────────────── */
+/* Applied alongside .dark — overrides dark tokens with rebrand values.       */
+.dark-rebrand {
+  --brand: #B9E856;
+
+  --accent-900: #F8FDEE;
+  --accent-800: #F1FADD;
+  --accent-700: #E3F6BB;
+  --accent-600: #B9E856;
+  --accent-500: #C7ED78;
+  --accent-400: #D5F19A;
+  --accent-300: #A2E01E;
+  --accent-200: #78A817;
+  --accent-100: #51700F;
+
+  /* Tertiary purple, inverted for dark */
+  --tertiary-900: #F5EFFC;
+  --tertiary-800: #EBDFFA;
+  --tertiary-700: #D7BEF5;
+  --tertiary-600: #C39EEF;
+  --tertiary-500: #AF7DEA;
+  --tertiary-400: #9B5DE5;
+  --tertiary-300: #7926DC;
+  --tertiary-200: #5A1BA6;
+  --tertiary-100: #3C126F;
+
+  --primary-900: #E7E8E8;
+  --primary-800: #CED0D1;
+  --primary-700: #B6B9B9;
+  --primary-600: #9DA1A2;
+  --primary-500: #858A8B;
+  --primary-400: #6C7374;
+  --primary-300: #545B5D;
+  --primary-200: #3B4445;
+  --primary-100: #0A1517;
+
+  --primary: #FEFFFE;
+  --surface: #0A1517;
+  --surface-adjacent: #3B4445;
+  --surface-adjacent-2: #222C2E;
+
+  --constant-white: #FEFFFE;
+  --constant-black: #0A1517;
+
+  --success-800: #E6F4EC;
+  --success-700: #CDE8D9;
+  --success-600: #9BD1B3;
+  --success-400: #50AF7B;
+  --success-200: #058C42;
+  --success-100: #047035;
+
+  --warning-600: #FFEFE6;
+  --warning-500: #FEDFCD;
+  --warning-400: #FDB083;
+  --warning-300: #FCB139;
+  --warning-200: #FB6107;
+  --warning-100: #E55704;
+
+  --destructive-600: #FAE6E6;
+  --destructive-550: #F6CCCC;
+  --destructive-500: #EC9999;
+  --destructive-400: #E36666;
+  --destructive-300: #D93333;
+  --destructive-200: #D00000;
+  --destructive-100: #A60000;
 }

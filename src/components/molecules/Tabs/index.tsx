@@ -97,7 +97,7 @@ export function Tabs({
               .filter(Boolean)
               .join(" ")}
           >
-            <Typography variant="text" as="span" className="inherit-color">
+            <Typography variant="text" as="span" color="inherit">
               {item.label}
             </Typography>
           </button>
