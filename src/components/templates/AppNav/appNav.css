@@ -217,6 +217,56 @@
   color: var(--constant-white, #fff);
 }
 
+/* ── Collapsed (icon-only) mode ─────────────────────────────────────────── */
+
+.app-nav--collapsed .app-nav__section-label {
+  display: none;
+}
+
+.app-nav--collapsed .app-nav__label,
+.app-nav--collapsed .app-nav__badge,
+.app-nav--collapsed .app-nav__chevron {
+  display: none;
+}
+
+.app-nav--collapsed .app-nav__item {
+  justify-content: center;
+  padding: var(--s, 8px);
+  position: relative;
+}
+
+.app-nav--collapsed .app-nav__icon {
+  width: 24px;
+  height: 24px;
+  font-size: 18px;
+}
+
+/* ── Tooltip ── shown via data-tooltip attr when collapsed ─────────────── */
+
+.app-nav--collapsed .app-nav__item[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: calc(100% + 10px);
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--primary-900, #1a1a1a);
+  color: var(--constant-white, #fff);
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 120ms ease;
+  z-index: 200;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.app-nav--collapsed .app-nav__item[data-tooltip]:hover::after {
+  opacity: 1;
+}
+
 /* ── Reduced motion ─────────────────────────────────────────────────────── */
 
 @media (prefers-reduced-motion: reduce) {

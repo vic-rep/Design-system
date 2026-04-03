@@ -34,6 +34,8 @@ export interface AppNavProps {
   defaultOpenIds?: string[];
   onNavigate?: (id: string) => void;
   className?: string;
+  /** Icon-only collapsed mode */
+  collapsed?: boolean;
 }
 
 /* ─── Badge pill ─────────────────────────────────────────────────────────── */
@@ -74,14 +76,16 @@ function NavRow({
   isActive,
   isOpen,
   onToggle,
+  collapsed,
 }: {
   item: NavItem;
   isActive: boolean;
   isOpen: boolean;
   onToggle: () => void;
+  collapsed?: boolean;
 }) {
   const hasChildren = !!item.children?.length;
-  const hasArrow = hasChildren || (!item.badge && item.href);
+  const hasArrow = !collapsed && (hasChildren || (!item.badge && item.href));
   const Tag = !hasChildren && item.href ? "a" : "button";
 
   return (
@@ -91,6 +95,7 @@ function NavRow({
       className={`app-nav__item${isActive ? " app-nav__item--active" : ""}`}
       onClick={onToggle}
       aria-expanded={hasChildren ? isOpen : undefined}
+      data-tooltip={collapsed ? item.label : undefined}
     >
       <span className="app-nav__icon">
         <Icon name={item.icon} size="md" />
@@ -115,6 +120,7 @@ export function AppNav({
   defaultOpenIds = [],
   onNavigate,
   className = "",
+  collapsed = false,
 }: AppNavProps) {
   const [openIds, setOpenIds] = useState<Set<string>>(new Set(defaultOpenIds));
   const [localActive, setLocalActive] = useState<string | undefined>(activeId);
@@ -123,11 +129,16 @@ export function AppNav({
 
   function handleToggle(item: NavItem) {
     if (item.children?.length) {
-      setOpenIds((prev) => {
-        const next = new Set(prev);
-        next.has(item.id) ? next.delete(item.id) : next.add(item.id);
-        return next;
-      });
+      if (collapsed) {
+        // In collapsed mode notify parent to handle expansion — no local state change
+        onNavigate?.(item.id);
+      } else {
+        setOpenIds((prev) => {
+          const next = new Set(prev);
+          next.has(item.id) ? next.delete(item.id) : next.add(item.id);
+          return next;
+        });
+      }
     } else {
       setLocalActive(item.id);
       onNavigate?.(item.id);
@@ -140,7 +151,7 @@ export function AppNav({
   }
 
   return (
-    <nav className={`app-nav ${className}`} aria-label={sectionLabel}>
+    <nav className={`app-nav${collapsed ? " app-nav--collapsed" : ""} ${className}`} aria-label={sectionLabel}>
       {sectionLabel && (
         <span className="app-nav__section-label">{sectionLabel}</span>
       )}
@@ -157,9 +168,10 @@ export function AppNav({
                 isActive={isActive}
                 isOpen={isOpen}
                 onToggle={() => handleToggle(item)}
+                collapsed={collapsed}
               />
 
-              {item.children?.length && isOpen && (
+              {item.children?.length && isOpen && !collapsed && (
                 <div className="app-nav__children" role="list">
                   {item.children.map((child) => (
                     <div key={child.id} role="listitem">
