@@ -1,0 +1,276 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   AppNav — Template
+   Collapsible sidebar navigation with icons, badges, and nesting indicator
+───────────────────────────────────────────────────────────────────────────── */
+
+.app-nav {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--xs);                /* 4px between section label and list */
+}
+
+.app-nav__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.app-nav__group {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Section label ──────────────────────────────────────────────────────── */
+
+.app-nav__section-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--primary-400, #999);
+  padding: 0 var(--m, 12px);
+  margin-bottom: var(--s, 8px);
+}
+
+/* ── Top-level nav item ─────────────────────────────────────────────────── */
+
+.app-nav__item {
+  display: flex;
+  align-items: center;
+  gap: var(--s, 8px);
+  width: 100%;
+  padding: var(--s, 8px) var(--m, 12px);
+  border-radius: var(--s, 8px);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  text-align: left;
+  text-decoration: none;
+  color: inherit;
+  box-sizing: border-box;
+  transition: background 120ms ease;
+}
+
+.app-nav__item:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.app-nav__item--active {
+  background: #1a1a1a;
+}
+
+.app-nav__item--active:hover {
+  background: #252525;
+}
+
+/* ── Icon ───────────────────────────────────────────────────────────────── */
+
+.app-nav__icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  color: var(--primary-500, #808080);
+  transition: color 120ms ease;
+}
+
+.app-nav__item--active .app-nav__icon {
+  color: var(--constant-white, #fff);
+}
+
+/* ── Label ──────────────────────────────────────────────────────────────── */
+
+.app-nav__label {
+  flex: 1;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--primary-900, #1a1a1a);
+  min-width: 0;
+  transition: color 120ms ease;
+}
+
+.app-nav__item--active .app-nav__label {
+  color: var(--constant-white, #fff);
+}
+
+/* ── Badge pill ─────────────────────────────────────────────────────────── */
+
+.app-nav__badge {
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--primary-700, #444);
+  background: var(--surface-adjacent, #f0f0f0);
+  border: 1px solid var(--primary-200, #ddd);
+  border-radius: 100px;
+  padding: 3px 8px;
+}
+
+.app-nav__item--active .app-nav__badge {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: var(--constant-white, #fff);
+}
+
+/* ── Chevron ────────────────────────────────────────────────────────────── */
+
+.app-nav__chevron {
+  flex-shrink: 0;
+  font-size: 11px;
+  color: var(--primary-400, #aaa);
+  transition: transform 200ms ease, color 120ms ease;
+  display: flex;
+  align-items: center;
+}
+
+.app-nav__chevron--open {
+  transform: rotate(90deg);
+}
+
+.app-nav__item--active .app-nav__chevron {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* ── Children container (nesting indicator) ─────────────────────────────── */
+
+.app-nav__children {
+  position: relative;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  padding-left: 40px;             /* icon(20) + gap(8) + padding(12) = 40px — aligns children label with parent label */
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* Vertical nesting line — sits at horizontal center of parent icon */
+.app-nav__children::before {
+  content: '';
+  position: absolute;
+  left: 21px;                     /* 12px padding + 9px (≈ icon center) */
+  top: 4px;
+  bottom: 12px;
+  width: 1px;
+  background: var(--primary-200, #e5e5e5);
+}
+
+/* ── Child nav item ─────────────────────────────────────────────────────── */
+
+.app-nav__child-item {
+  display: flex;
+  align-items: center;
+  gap: var(--s, 8px);
+  width: 100%;
+  padding: var(--s, 8px) var(--m, 12px);
+  border-radius: var(--s, 8px);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  text-align: left;
+  text-decoration: none;
+  color: inherit;
+  box-sizing: border-box;
+  transition: background 120ms ease;
+}
+
+.app-nav__child-item:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.app-nav__child-item--active {
+  background: #1a1a1a;
+}
+
+.app-nav__child-item--active:hover {
+  background: #252525;
+}
+
+.app-nav__child-label {
+  flex: 1;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--primary-800, #2a2a2a);
+  min-width: 0;
+}
+
+.app-nav__child-item--active .app-nav__child-label {
+  color: var(--constant-white, #fff);
+  font-weight: 500;
+}
+
+.app-nav__child-item--active .app-nav__badge {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: var(--constant-white, #fff);
+}
+
+/* ── Collapsed (icon-only) mode ─────────────────────────────────────────── */
+
+.app-nav--collapsed .app-nav__section-label {
+  display: none;
+}
+
+.app-nav--collapsed .app-nav__label,
+.app-nav--collapsed .app-nav__badge,
+.app-nav--collapsed .app-nav__chevron {
+  display: none;
+}
+
+.app-nav--collapsed .app-nav__item {
+  justify-content: center;
+  padding: var(--s, 8px);
+  position: relative;
+}
+
+.app-nav--collapsed .app-nav__icon {
+  width: 24px;
+  height: 24px;
+  font-size: 18px;
+}
+
+/* ── Tooltip ── shown via data-tooltip attr when collapsed ─────────────── */
+
+.app-nav--collapsed .app-nav__item[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: calc(100% + 10px);
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--primary-900, #1a1a1a);
+  color: var(--constant-white, #fff);
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 120ms ease;
+  z-index: 200;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.app-nav--collapsed .app-nav__item[data-tooltip]:hover::after {
+  opacity: 1;
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .app-nav__chevron,
+  .app-nav__item,
+  .app-nav__child-item { transition: none; }
+}

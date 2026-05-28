@@ -27,3 +27,12 @@ export type {
   FineOffer,
   CarLeasingOffer,
 } from "./OffersList";
+
+export { OfferComparisonTable } from "./OfferComparisonTable";
+export type {
+  OfferComparisonTableProps,
+  OfferComparisonColumn,
+  OfferComparisonRow,
+  OfferComparisonPrice,
+  OfferComparisonSelection,
+} from "./OfferComparisonTable";
