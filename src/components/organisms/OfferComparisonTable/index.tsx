@@ -18,7 +18,7 @@ import { Drawer } from "@/components/organisms/Drawer";
  * until a selection exists.
  *
  * Layout: header row → divider → grid → CTA.
- * Grid columns: company-name 1fr + M × 146px, 20px gaps.
+ * Grid columns: company-name 1fr + M × 150px (min), 20px gaps.
  * Below the table width the wrapper allows horizontal scroll with a
  * custom scrollbar and dynamic left/right edge-fade overlays.
  *
@@ -74,7 +74,7 @@ export interface OfferComparisonTableProps {
   className?: string;
 }
 
-const PRICE_COLUMN_WIDTH = 146;
+const PRICE_COLUMN_WIDTH = 150;
 const LOGO_COLUMN_MIN = 188;
 const GRID_GAP_X = 20;
 const GRID_GAP_Y = 8;
