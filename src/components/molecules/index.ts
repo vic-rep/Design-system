@@ -34,6 +34,9 @@ export type { PaginationProps } from "./Pagination";
 export { Pill } from "./Pill";
 export type { PillProps, PillVariant } from "./Pill";
 
+export { PriceOption } from "./PriceOption";
+export type { PriceOptionProps } from "./PriceOption";
+
 export { RadioGroup } from "./Radio";
 export type { RadioGroupProps, RadioOption } from "./Radio";
 
