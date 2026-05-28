@@ -53,17 +53,17 @@ const defaultElements: Record<TypographyVariant, React.ElementType> = {
  * All use leading-[1.2] except mobile textSm (1.3) and caption (1.3).
  */
 const variantStyles: Record<TypographyVariant, string> = {
-  h1: "text-[48px] font-semibold leading-[1.2] max-md:text-[32px]",
-  h2: "text-[40px] font-semibold leading-[1.2] max-md:text-[28px]",
-  h3: "text-[36px] font-semibold leading-[1.2] max-md:text-[24px]",
-  h4: "text-[32px] font-semibold leading-[1.2] max-md:text-[20px]",
-  h5: "text-[24px] font-medium leading-[1.2] max-md:text-[18px]",
-  h6: "text-[20px] font-medium leading-[1.2] max-md:text-[16px]",
-  textLg: "text-[18px] font-normal leading-[1.2] max-md:text-[16px]",
-  text: "text-[16px] font-normal leading-[1.2] max-md:text-[14px]",
-  textM: "text-[16px] font-medium leading-[1.2] max-md:text-[14px]",
-  textSm: "text-[14px] font-normal leading-[1.2] max-md:text-[12px] max-md:leading-[1.3]",
-  caption: "text-[12px] font-normal leading-[1.2] max-md:text-[10px] max-md:leading-[1.3]",
+  h1: "text-[48px] font-semibold leading-[1.2] mobile:text-[32px]",
+  h2: "text-[40px] font-semibold leading-[1.2] mobile:text-[28px]",
+  h3: "text-[36px] font-semibold leading-[1.2] mobile:text-[24px]",
+  h4: "text-[32px] font-semibold leading-[1.2] mobile:text-[20px]",
+  h5: "text-[24px] font-medium leading-[1.2] mobile:text-[18px]",
+  h6: "text-[20px] font-medium leading-[1.2] mobile:text-[16px]",
+  textLg: "text-[18px] font-normal leading-[1.2] mobile:text-[16px]",
+  text: "text-[16px] font-normal leading-[1.2] mobile:text-[14px]",
+  textM: "text-[16px] font-medium leading-[1.2] mobile:text-[14px]",
+  textSm: "text-[14px] font-normal leading-[1.2] mobile:text-[12px] mobile:leading-[1.3]",
+  caption: "text-[12px] font-normal leading-[1.2] mobile:text-[10px] mobile:leading-[1.3]",
 };
 
 /** Common color presets (use className for full override) */
