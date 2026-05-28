@@ -18,8 +18,9 @@ import { Drawer } from "@/components/organisms/Drawer";
  * until a selection exists.
  *
  * Layout: header row → divider → grid → CTA.
- * Grid columns: company-name 1fr + M × 160px, 20px gaps.
- * Below the table width the wrapper allows horizontal scroll.
+ * Grid columns: company-name 1fr + M × 146px, 20px gaps.
+ * Below the table width the wrapper allows horizontal scroll with a
+ * custom scrollbar and dynamic left/right edge-fade overlays.
  *
  * Logo column uses a neutral gray placeholder box with the company name
  * — real logos are not part of this organism.
