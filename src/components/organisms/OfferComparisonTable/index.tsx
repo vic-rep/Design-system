@@ -73,7 +73,7 @@ export interface OfferComparisonTableProps {
   className?: string;
 }
 
-const PRICE_COLUMN_WIDTH = 160;
+const PRICE_COLUMN_WIDTH = 146;
 const LOGO_COLUMN_MIN = 188;
 const GRID_GAP_X = 20;
 const GRID_GAP_Y = 8;
